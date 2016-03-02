@@ -13,6 +13,8 @@ library(ggmap)
 
 #### Load & Clean Data ####
 
+
+
 # this is when it first gets entered into CAD
 cad <- read.csv("./data/CAD_table.csv")
 
@@ -29,6 +31,46 @@ ust <- read.csv("./data/unit_summary_times.csv")
 
 
 geo <- read.csv("./raw_data/LibCoordinates.csv")
+
+
+## dates ##
+
+# custom function for dealing with dates
+# MyDataDate should be in quotes
+DateVariableMaker <- function(MyData, MyDataDate){
+  
+  #Takes the date from data and adds important variables
+  
+  today <- Sys.Date()
+  yesterday <- today - 1
+  
+  MyData$Date <- mdy_hm(MyData[,MyDataDate], tz = "EST")
+  MyData$Year.Month <- format(MyData$Date, '%Y-%m')
+  MyData$Month <- format(MyData$Date, '%m')
+  MyData$Year <- format(MyData$Date, '%Y')
+  MyData$DaysAgo <- difftime(MyData$Date, today, units = "days")
+  
+  return(MyData)
+}
+
+## ONLOC should only contain the first arrival ##
+# Order by response time and then remove duplicates means you keep the first responder
+onloc <- onloc[order(onloc$Incnum, onloc$Resp.Time),]
+onloc <- onloc[!duplicated(onloc$Incnum),]
+
+onloc <- DateVariableMaker(onloc, "Recd")
+
+
+#### Basic Analysis ####
+
+by_engine <- onloc %>% filter(Resp.Time < 10) %>% 
+  filter(Unit == c("E3", "E1", "E2", "E3", "E6", "E7"))
+rt <- ggplot(by_engine, aes(x=Resp.Time)) + geom_histogram(binwidth=.5,colour="white")
+rt + facet_grid(Unit ~ .)
+
+by_year <- onloc %>% filter(Resp.Time < 10) 
+rt <- ggplot(by_year, aes(x=Resp.Time)) + geom_histogram(binwidth=.5,colour="white")
+rt + facet_grid(Year ~ .)
 
 
 
