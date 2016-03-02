@@ -11,12 +11,12 @@ library(ggmap)
 
 
 #### Load & Clean Data ####
-rtbl <- read_excel("./GIS-Response Times by Location Dec07-Nov15 (v3.2jmh).xlsx")
-id <- read_excel("./GIS-SFD Incident Dispositions Dec07-Nov15 (v2.3jmh).xlsx")
-
-geo <- read.csv("./LibCoordinates.csv")
-
+rtbl <- read_excel("./raw_data/GIS-Response Times by Location Dec07-Nov15 (v3.2jmh).xlsx")
+id <- read_excel("./raw_data/GIS-SFD Incident Dispositions Dec07-Nov15 (v2.3jmh).xlsx")
 rbu <- read_excel("./raw_data/Annual Responses by Unit Dec07-Nov15 (v3.1jmh).xlsx")
+
+geo <- read.csv("./raw_data/LibCoordinates.csv")
+
 
 ## Take out unwanted from analysis
 rtbl <- rtbl %>% filter(Inctype != c("TRAINING", "HYDRANT"))
