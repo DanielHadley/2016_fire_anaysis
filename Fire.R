@@ -14,7 +14,6 @@ library(ggmap)
 #### Load & Clean Data ####
 
 
-
 # this is when it first gets entered into CAD
 cad <- read.csv("./data/CAD_table.csv")
 
@@ -28,8 +27,9 @@ onloc <- read.csv("./data/ONLOC_times_TH_w_loc.csv")
 # Note: this is marked as medical times in the CAD reporting system, but it contains all calls
 ust <- read.csv("./data/unit_summary_times.csv")
 
-
-
+# This is the database Chris created along with a thousand or so records I added
+# I'm a little nervous about the ggmap geocoding engine - it did not seem to work well
+# It may be worth going in and taking out strange addresses and large repeats of XY locations
 geo <- read.csv("./data/police_fire_geoDB.csv")
 
 
