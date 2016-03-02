@@ -1,5 +1,6 @@
 # Created By Daniel Hadley Fri Feb 26 08:37:24 EST 2016 #
 setwd("/Users/DHadley/Github/2016_fire_anaysis/")
+setwd("/Users/dhadley/Documents/GitHub/2016_fire_anaysis/")
 
 library(dplyr)
 library(readxl)
@@ -11,11 +12,30 @@ library(ggmap)
 
 
 #### Load & Clean Data ####
-rtbl <- read_excel("./raw_data/GIS-Response Times by Location Dec07-Nov15 (v3.2jmh).xlsx")
-id <- read_excel("./raw_data/GIS-SFD Incident Dispositions Dec07-Nov15 (v2.3jmh).xlsx")
-rbu <- read_excel("./raw_data/Annual Responses by Unit Dec07-Nov15 (v3.1jmh).xlsx")
+
+# this is when it first gets entered into CAD
+cad <- read.csv("./data/CAD_table.csv")
+
+# This is the time it takes to get on location
+# TODO: find out if the Unit associated with the first time is definitely the first responder
+onloc <- read.csv("./data/ONLOC_times_TH_w_loc.csv")
+
+# This is a record of basically whenever a Unit went out, so it's a good indicator of total activity
+# Notice that several units will have the same Arrived time, 
+# which is because they are all marked on the scene at the same time when the first arrives
+# Note: this is marked as medical times in the CAD reporting system, but it contains all calls
+ust <- read.csv("./data/unit_summary_times.csv")
+
+
 
 geo <- read.csv("./raw_data/LibCoordinates.csv")
+
+
+
+## Make a proper Address Variable for CAD ##
+cad$Full.Address <- ifelse(cad$StNum != "", paste(cad$StNum, cad$StName1), paste(cad$StName1, "&", cad$StName2))
+
+cad$Full.Address <- ifelse(substr(cad$Full.Address, start = 1, stop = 3) == " & ", gsub(" & ", "", cad$Full.Address), cad$Full.Address)
 
 
 ## Take out unwanted from analysis
