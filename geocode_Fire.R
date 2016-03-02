@@ -43,18 +43,57 @@ cad$Full.Address <- ifelse(substr(cad$Full.Address, start = 1, stop = 3) == "NA 
 
 cad$Full.Address <- ifelse(substr(cad$Full.Address, start = 1, stop = 2) == "0 ", gsub("0 ", "", cad$Full.Address), cad$Full.Address)
 
+
+# PROBLEM : ambiguous addresses. Replace if possible
+# inspect
+byAddress <- cad  %>% group_by(Full.Address) %>% summarise(n=n())
+cad$amb <- ifelse(cad$StNum == 0 | cad$Full.Address == "BROADWAY, Somerville, MA", 1, 0)
+# Small enough problem I may not need to fix
+
 # Not working TODO : fix
 test <- merge(cad, geo, by.x = "Full.Address", by.y = "Full.Address", all.x = T)
 notworking <- test %>% filter(is.na(X))
 nwtable <- notworking  %>% group_by(Full.Address)  %>% summarise(n=n())
 
-# PROBLEM : ambiguous addresses. TODO: maybe fix
-amb <- cad %>% filter(StNum == 0)
 
 
-# Merge into the fully geocoded database
-cad <- merge(cad, geo, by.x = "Full.Address", by.y = "Full.Address", all.x = T)
-cad <- unique(cad)
 
-cadGeo <- filter(cad, X != "NA")
+### Ok let's geocode the ones that are not working
+d <- notworking %>% group_by(Full.Address)  %>% summarise(n=n()) %>% select(Full.Address)
+
+# Geocodes using the Google engine
+locs <- geocode(d$Full.Address)
+#d <- bind_cols(d, locs) # Add the lat and long back to d
+# ^ Didn't work, so
+d$lon <- locs$lon
+d$lat <- locs$lat
+
+addToGeo <- d %>% mutate(Location = gsub(", Somerville, MA", "", Full.Address),
+                         CountOfincnum = NA,
+                         X = lon,
+                         Y = lat,
+                         Full.Address = Full.Address) %>% 
+  select(-lon, -lat)
+
+addToGeo <- addToGeo[c("Location","CountOfincnum","X","Y","Full.Address")]
+
+geoFinal <- rbind(geo, addToGeo)
+
+## Finally clean it up a bit
+test <- d %>% mutate(total = paste(lon, lat)) %>% group_by(total) %>% summarise(n=n()) 
+
+geoFinal <- geoFinal %>% filter(X != "-71.0994968",
+                                 X != "-82.5346435",
+                                 X != "-82.1660239",
+                                 X != "-92.057063",
+                                 X != "-119.6289038",
+                                 X != "-80.8905922")
+
+## Fuuuuuu didn't work too well. What's wrong with the Google geocode engine??
+                                 
+
+write.csv(geoFinal, "./data/police_fire_geoDB.csv")
+
+
+
 
