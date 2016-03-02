@@ -1,5 +1,5 @@
 # Created By Daniel Hadley Fri Feb 26 08:37:24 EST 2016 #
-setwd("/Users/DHadley/Desktop/FireStation")
+setwd("/Users/DHadley/Github/2016_fire_anaysis/")
 
 library(dplyr)
 library(readxl)
@@ -16,6 +16,7 @@ id <- read_excel("./GIS-SFD Incident Dispositions Dec07-Nov15 (v2.3jmh).xlsx")
 
 geo <- read.csv("./LibCoordinates.csv")
 
+rbu <- read_excel("./raw_data/Annual Responses by Unit Dec07-Nov15 (v3.1jmh).xlsx")
 
 ## Take out unwanted from analysis
 rtbl <- rtbl %>% filter(Inctype != c("TRAINING", "HYDRANT"))
