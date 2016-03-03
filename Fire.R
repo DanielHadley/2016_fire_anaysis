@@ -29,10 +29,14 @@ ust <- read.csv("./data/unit_summary_times.csv")
 # This is the database Chris created along with a thousand or so records I added
 # I'm a little nervous about the ggmap geocoding engine - it did not seem to work well
 # It may be worth going in and taking out strange addresses and large repeats of XY locations
-geo <- read.csv("./data/police_fire_geoDB.csv")
+# NOTE : I'm not using this because I'm nervous
+# geo <- read.csv("./data/police_fire_geoDB.csv")
 
-# This is the geo data produced by Keith in ArcGis
-geo2 <- read.csv("./data/fire_geoDB")
+# This is the geo data produced in collaboration with Keith
+# First I cleaned up the addresses and then I gave them to Keith to geocode
+# I avoided giving too many 0 Broadway, etc
+# It's probably the best option
+cad_geo <- read.csv("./data/CAD_table_geocoded.csv")
 
 
 ## Ok, now I want to make one large dataframe with every response ##
@@ -43,13 +47,24 @@ geo2 <- read.csv("./data/fire_geoDB")
 onloc <- onloc[order(onloc$Incnum, onloc$Resp.Time),]
 onloc <- onloc[!duplicated(onloc$Incnum),] 
 
-onloc <- onloc %>% mutate(first.responder = Unit, first.responder.response.time = Resp.Time) %>% select(Incnum, first.responder, first.responder.response.time)
+onloc <- onloc %>% mutate(first.responder = Unit, first.responder.response.time = Resp.Time, is.first.responder = 1) %>% select(Incnum, first.responder, first.responder.response.time)
 
 ## Fire data!!
 fd <- merge(ust, onloc, by.x = "CAD.inc.Number", by.y = "Incnum", all.x = TRUE)
 
-## dates ##
 
+## Ok now let's add in the Geo data
+fd2 <- merge(fd, cad_geo)
+
+write.csv(fd, "./data/Fire.csv", row.names = FALSE)
+
+
+
+
+#### Load the Master database and Create variables ####
+fd <- read.csv("./data/Fire.csv")
+
+## dates ##
 # custom function for dealing with dates
 # MyDataDate should be in quotes
 DateVariableMaker <- function(MyData, MyDataDate){
@@ -63,28 +78,28 @@ DateVariableMaker <- function(MyData, MyDataDate){
   MyData$Year.Month <- format(MyData$Date, '%Y-%m')
   MyData$Month <- format(MyData$Date, '%m')
   MyData$Year <- format(MyData$Date, '%Y')
-  MyData$DaysAgo <- difftime(MyData$Date, today, units = "days")
+  # MyData$DaysAgo <- difftime(MyData$Date, today, units = "days")
   
   return(MyData)
 }
 
-## ONLOC should only contain the first arrival ##
-# Order by response time and then remove duplicates means you keep the first responder
-onloc <- onloc[order(onloc$Incnum, onloc$Resp.Time),]
-onloc <- onloc[!duplicated(onloc$Incnum),]
+fd <- DateVariableMaker(fd, "Date.Time.Received")
 
-onloc <- DateVariableMaker(onloc, "Recd")
 
 
 #### Basic Analysis ####
 
-by_engine <- onloc %>% filter(Resp.Time < 10) %>% 
-  filter(Unit == c("E3", "E1", "E2", "E3", "E6", "E7"))
-rt <- ggplot(by_engine, aes(x=Resp.Time)) + geom_histogram(binwidth=.5,colour="white")
+fd_first <- fd %>% group_by(CAD.inc.Number, first.responder) %>% summarise()
+
+# The following includes all runs including ones where the engine is not a first responder
+engines <- c("E3", "E1", "E2", "E3", "E6", "E7")
+by_engine <- fd %>% filter(first.responder.response.time < 10) %>%
+  filter(Unit %in% engines)
+rt <- ggplot(by_engine, aes(x=first.responder.response.time)) + geom_histogram(binwidth=.5,colour="white")
 rt + facet_grid(Unit ~ .)
 
-by_year <- onloc %>% filter(Resp.Time < 10) 
-rt <- ggplot(by_year, aes(x=Resp.Time)) + geom_histogram(binwidth=.5,colour="white")
+by_year <- fd %>% filter(first.responder.response.time < 10) 
+rt <- ggplot(by_year, aes(x=first.responder.response.time)) + geom_histogram(binwidth=.5,colour="white")
 rt + facet_grid(Year ~ .)
 
 
