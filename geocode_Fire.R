@@ -44,6 +44,11 @@ cad$Full.Address <- ifelse(substr(cad$Full.Address, start = 1, stop = 3) == "NA 
 cad$Full.Address <- ifelse(substr(cad$Full.Address, start = 1, stop = 2) == "0 ", gsub("0 ", "", cad$Full.Address), cad$Full.Address)
 
 
+# I'm going to save a copy for Keith to geocode 
+forKeith <- cad %>% group_by(Full.Address)  %>% summarise(n=n())
+write.csv(forKeith, "./raw_data/forKeith.csv")
+
+
 # PROBLEM : ambiguous addresses. Replace if possible
 # inspect
 byAddress <- cad  %>% group_by(Full.Address) %>% summarise(n=n())
@@ -108,4 +113,18 @@ mass@data$id = rownames(mass@data)
 names(mass)
 geo <- as.data.frame(mass@data)
 
-write.csv(geo, "./data/fire_geoDB")
+write.csv(geo, "./raw_data/fire_geoDB")
+
+# Now we will try to combine
+# Load Data
+geo <- read.csv("./raw_data/fire_geoDB")
+cad <- read.csv("./data/CAD_table.csv")
+
+geo <- geo %>% select(Location, X, Y, Incnum)
+cad <- cad %>% select(IncNum, LocationGP, IncType)
+
+test <- merge(cad, geo, by.x = "LocationGP", "Location", all.x = TRUE, all.y = FALSE)
+blank <- test %>% filter(is.na(X))
+
+## Ok, I see a major problem. 
+# On all records where the address was a Blank & Blank, keith geocoded 0 Blank St

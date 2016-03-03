@@ -31,6 +31,9 @@ ust <- read.csv("./data/unit_summary_times.csv")
 # It may be worth going in and taking out strange addresses and large repeats of XY locations
 geo <- read.csv("./data/police_fire_geoDB.csv")
 
+# This is the geo data produced by Keith in ArcGis
+geo2 <- read.csv("./data/fire_geoDB")
+
 
 ## Ok, now I want to make one large dataframe with every response ##
 # I will use ust as the base and add other variables
