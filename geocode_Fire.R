@@ -97,3 +97,15 @@ write.csv(geoFinal, "./data/police_fire_geoDB.csv")
 
 
 
+######### Alternative: Use Keith's shapefile #########
+# Maping tools
+require("rgdal") # requires sp, will use proj.4 if installed
+require("maptools")
+
+
+mass <- readOGR(dsn = "./raw_data/dGeocodedResults", layer = "ResponseTimes_Geocoded")
+mass@data$id = rownames(mass@data)
+names(mass)
+geo <- as.data.frame(mass@data)
+
+write.csv(geo, "./data/fire_geoDB")

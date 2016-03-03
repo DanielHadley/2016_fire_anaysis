@@ -3,7 +3,6 @@ setwd("/Users/DHadley/Github/2016_fire_anaysis/")
 setwd("/Users/dhadley/Documents/GitHub/2016_fire_anaysis/")
 
 library(dplyr)
-library(readxl)
 library(lubridate)
 library(tidyr)
 library(broom) # augments d with model variables
@@ -11,7 +10,7 @@ library(ggplot2)
 library(ggmap)
 
 
-#### Load & Clean Data ####
+#### Load Data & Create One Comprehensive DB ####
 
 
 # this is when it first gets entered into CAD
@@ -32,6 +31,19 @@ ust <- read.csv("./data/unit_summary_times.csv")
 # It may be worth going in and taking out strange addresses and large repeats of XY locations
 geo <- read.csv("./data/police_fire_geoDB.csv")
 
+
+## Ok, now I want to make one large dataframe with every response ##
+# I will use ust as the base and add other variables
+
+# ONLOC should only contain the first arrival #
+# Order by response time and then remove duplicates means you keep the first responder
+onloc <- onloc[order(onloc$Incnum, onloc$Resp.Time),]
+onloc <- onloc[!duplicated(onloc$Incnum),] 
+
+onloc <- onloc %>% mutate(first.responder = Unit, first.responder.response.time = Resp.Time) %>% select(Incnum, first.responder, first.responder.response.time)
+
+## Fire data!!
+fd <- merge(ust, onloc, by.x = "CAD.inc.Number", by.y = "Incnum", all.x = TRUE)
 
 ## dates ##
 
