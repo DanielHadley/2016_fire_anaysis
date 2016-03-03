@@ -54,7 +54,7 @@ fd <- merge(ust, onloc, by.x = "CAD.inc.Number", by.y = "Incnum", all.x = TRUE)
 
 
 ## Ok now let's add in the Geo data
-cad_geo <- cad_geo %>% select(- X.1, - n, - LocForced, - StName1:IDtag)
+cad_geo <- cad_geo %>% select(- X.1, - n, - LocForced, - StName1: -IDtag)
 fd <- merge(fd, cad_geo, by.x = "CAD.inc.Number", by.y = "IncNum", all.x = TRUE)
 
 

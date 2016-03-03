@@ -10,7 +10,7 @@ require("rgdal") # requires sp, will use proj.4 if installed
 require("maptools")
 
 ## I found so many probems, so I ultimately had Keith geocode again
-mass <- readOGR(dsn = "./raw_data/GeocodingResultsFromKeith", layer = "Geocoding_Results")
+mass <- readOGR(dsn = "./raw_data/FireResponseAreas&UpdatedGeocodingResults", layer = "Geocoding_Results")
 mass@data$id = rownames(mass@data)
 names(mass)
 geo <- as.data.frame(mass@data)
@@ -55,7 +55,7 @@ forKeith <- cad %>% group_by(Full.Address)  %>% summarise()
 forKeith$id <- seq(1:nrow(forKeith))
 geo2 <- merge(geo, forKeith)
 
-geoFinal <- geo2 %>% select(Score, Match_addr, Addr_type, Full.Address, X, Y, n)
+geoFinal <- geo2 %>% select(Score, Match_addr, Addr_type, Full.Address, X, Y, n, STATION)
 
 cadGeoFinal <- merge(cadGeo, geoFinal, by.x = "Full.Address", by.y = "Full.Address")
 
