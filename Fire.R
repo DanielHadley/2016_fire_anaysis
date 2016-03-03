@@ -12,59 +12,62 @@ library(ggmap)
 
 #### Load Data & Create One Comprehensive DB ####
 
-
-# this is when it first gets entered into CAD
-cad <- read.csv("./data/CAD_table.csv")
-
-# This is the time it takes to get on location
-# TODO: find out if the Unit associated with the first time is definitely the first responder
-onloc <- read.csv("./data/ONLOC_times_TH_w_loc.csv")
-
-# This is a record of basically whenever a Unit went out, so it's a good indicator of total activity
-# Notice that several units will have the same Arrived time, 
-# which is because they are all marked on the scene at the same time when the first arrives
-# Note: this is marked as medical times in the CAD reporting system, but it contains all calls
-ust <- read.csv("./data/unit_summary_times.csv")
-
-# This is the database Chris created along with a thousand or so records I added
-# I'm a little nervous about the ggmap geocoding engine - it did not seem to work well
-# It may be worth going in and taking out strange addresses and large repeats of XY locations
-# NOTE : I'm not using this because I'm nervous
-# geo <- read.csv("./data/police_fire_geoDB.csv")
-
-# This is the geo data produced in collaboration with Keith
-# First I cleaned up the addresses and then I gave them to Keith to geocode
-# I avoided giving too many 0 Broadway, etc
-# It's probably the best option
-cad_geo <- read.csv("./data/CAD_table_geocoded.csv")
-
-
-## Ok, now I want to make one large dataframe with every response ##
-# I will use ust as the base and add other variables
-
-# ONLOC should only contain the first arrival #
-# Order by response time and then remove duplicates means you keep the first responder
-onloc <- onloc[order(onloc$Incnum, onloc$Resp.Time),]
-onloc <- onloc[!duplicated(onloc$Incnum),] 
-
-onloc <- onloc %>% mutate(first.responder = Unit, first.responder.response.time = Resp.Time, is.first.responder = 1) %>% select(Incnum, first.responder, first.responder.response.time)
-
-## Fire data!!
-fd <- merge(ust, onloc, by.x = "CAD.inc.Number", by.y = "Incnum", all.x = TRUE)
-
-
-## Ok now let's add in the Geo data
-cad_geo <- cad_geo %>% select(- X.1, - n, - LocForced, - StName1: -IDtag)
-fd <- merge(fd, cad_geo, by.x = "CAD.inc.Number", by.y = "IncNum", all.x = TRUE)
-
-
-write.csv(fd, "./data/Fire.csv", row.names = FALSE)
+# 
+# # this is when it first gets entered into CAD
+# cad <- read.csv("./data/CAD_table.csv")
+# 
+# # This is the time it takes to get on location
+# # TODO: find out if the Unit associated with the first time is definitely the first responder
+# onloc <- read.csv("./data/ONLOC_times_TH_w_loc.csv")
+# 
+# # This is a record of basically whenever a Unit went out, so it's a good indicator of total activity
+# # Notice that several units will have the same Arrived time, 
+# # which is because they are all marked on the scene at the same time when the first arrives
+# # Note: this is marked as medical times in the CAD reporting system, but it contains all calls
+# ust <- read.csv("./data/unit_summary_times.csv")
+# 
+# # This is the database Chris created along with a thousand or so records I added
+# # I'm a little nervous about the ggmap geocoding engine - it did not seem to work well
+# # It may be worth going in and taking out strange addresses and large repeats of XY locations
+# # NOTE : I'm not using this because I'm nervous
+# # geo <- read.csv("./data/police_fire_geoDB.csv")
+# 
+# # This is the geo data produced in collaboration with Keith
+# # First I cleaned up the addresses and then I gave them to Keith to geocode
+# # I avoided giving too many 0 Broadway, etc
+# # It's probably the best option
+# cad_geo <- read.csv("./data/CAD_table_geocoded.csv")
+# 
+# 
+# ## Ok, now I want to make one large dataframe with every response ##
+# # I will use ust as the base and add other variables
+# 
+# # ONLOC should only contain the first arrival #
+# # Order by response time and then remove duplicates means you keep the first responder
+# onloc <- onloc[order(onloc$Incnum, onloc$Resp.Time),]
+# onloc <- onloc[!duplicated(onloc$Incnum),] 
+# 
+# onloc <- onloc %>% mutate(first.responder = Unit, first.responder.response.time = Resp.Time, is.first.responder = 1) %>% select(Incnum, first.responder, first.responder.response.time)
+# 
+# ## Fire data!!
+# fd <- merge(ust, onloc, by.x = "CAD.inc.Number", by.y = "Incnum", all.x = TRUE)
+# 
+# 
+# ## Ok now let's add in the Geo data
+# cad_geo <- cad_geo %>% select(- X.1, - n, - LocForced, - StName1: -IDtag)
+# fd <- merge(fd, cad_geo, by.x = "CAD.inc.Number", by.y = "IncNum", all.x = TRUE)
+# 
+# 
+# write.csv(fd, "./data/Fire.csv", row.names = FALSE)
 
 
 
 
 #### Load the Master database and Create variables ####
 fd <- read.csv("./data/Fire.csv")
+
+# Clean
+fd <- fd %>% filter(CAD.inc.Number != "")
 
 ## dates ##
 # custom function for dealing with dates
@@ -77,6 +80,7 @@ DateVariableMaker <- function(MyData, MyDataDate){
   yesterday <- today - 1
   
   MyData$Date <- mdy_hm(MyData[,MyDataDate], tz = "EST")
+  MyData$Date.Short <- as.Date(MyData$Date)
   MyData$Year.Month <- format(MyData$Date, '%Y-%m')
   MyData$Month <- format(MyData$Date, '%m')
   MyData$Year <- format(MyData$Date, '%Y')
@@ -88,8 +92,50 @@ DateVariableMaker <- function(MyData, MyDataDate){
 fd <- DateVariableMaker(fd, "Date.Time.Received")
 
 
+## Here is the list of important stuff to keep in your analysis
+# by_nature <- fd %>% group_by(Nature.of.Call) %>% summarise(n=n())
+# cat(paste(shQuote((shit$Nature.of.Call)), collapse=", "))
+#
+response_time_incidents <- c('A BOX ALARM', 'A FIRE ALARM', 'AUTO ACC INJURY', 'AUTO ACCIDENT', 'B BOX ALARM', 'B FIRE ALARM', 'BICYCLE ACC', 'BLDG COLLAPSE', 'BOMB REMOVAL', 'C BOX ALARM', 'C FIRE ALARM', 'CAR FIRE', 'CARB MON DETECT', 'CARB MON INCID', 'CONFINED SPACE', 'DUMPSTER FIRE', 'E BOX ALARM', 'E FIRE ALARM', 'ELEVATOR ACCID', 'ELEVATOR MEDIC', 'ELEVATOR RESCUE', 'FIRE', 'FIRE EXTINGUISH', 'GAS LEAK', 'GAS LEAK INSIDE', 'GAS LEAK OUTSID', 'HAZMAT INC A', 'HAZMAT INC L', 'HAZMAT INC R', 'HAZMAT INCIDENT', 'HOSTAGE ACTIVE', 'ICE RESCUE', 'INDUSTRIAL ACC', 'JUMPER', 'L BOX ALARM', 'L FIRE ALARM', 'LIFE LINE E', 'LOCK IN', 'MANHOLE FIRE', 'MEDICAL AID', 'MEDICAL AID E', 'MEDICAL AID L', 'MEDICAL AID R', 'OUTSIDE FIRE', 'PEDESTRIAN ACC', 'R BOX ALARM', 'R FIRE ALARM', 'S BOX ALARM', 'S FIRE ALARM', 'SHOOTING ACTIVE', 'STRIK BOX ALARM', 'STRIK FIRE ALAR', 'STRIKE BOX ALAR', 'STRK FIRE ALARM', 'TECH RESCUE', 'TRAIN INCIDENT', 'WATER RESCUE')
+
+
+engines <- c("E3", "E1", "E2", "E3", "E6", "E7")
+
+
+
 
 #### Basic Analysis ####
+
+# Let's try to recreate the calls per day in each district
+by_station_year <- fd %>%
+  filter(Nature.of.Call != "TRAINING") %>% 
+  # filter(Nature.of.Call %in% response_time_incidents) %>% 
+  group_by(CAD.inc.Number, STATION) %>% 
+  summarise(Year = Year) %>% 
+  group_by(STATION, Year) %>% 
+  summarise(n=n()) %>% 
+  filter(!is.na(STATION)) %>% 
+  spread(Year, n) %>% 
+  mutate(Per.Change = (`2015` - `2009`) / `2009`)
+
+
+# Avg calls, by day, by year, by station
+avg_by_day_year_station <- fd %>%
+  filter(Nature.of.Call != "TRAINING") %>% 
+  # filter(Nature.of.Call %in% response_time_incidents) %>% 
+  group_by(CAD.inc.Number, STATION, Date.Short) %>% 
+  summarise(Year = Year) %>% 
+  group_by(STATION, Year, Date.Short) %>% 
+  summarise(n=n()) %>% 
+  group_by(STATION, Year) %>% 
+  summarise(m=mean(n)) %>% 
+  filter(!is.na(STATION)) %>% 
+  spread(Year, m) %>% 
+  mutate(Per.Change = (`2015` - `2009`) / `2009`)
+
+
+
+
 
 fd_first <- fd %>% group_by(CAD.inc.Number, first.responder) %>% summarise()
 
