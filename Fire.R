@@ -114,13 +114,28 @@ response_time_incidents <- c('A BOX ALARM', 'A FIRE ALARM', 'AUTO ACC INJURY', '
 engines <- c("E3", "E1", "E2", "E3", "E6", "E7")
 
 
+### Problems with Addresses ###
+
+# TODO: hand fix a few of the worst ones
+# Keep adding others
+# IT seems like there are a lot of bad ones. W
+# First an operator to negate in
+`%notin%` <- Negate(`%in%`) 
+
+shit_geo <- fd %>% group_by(Match_addr) %>% summarise(n=n()) %>% arrange(desc(n))
+cat(paste(shQuote((shit_geo$Match_addr[1:50])), collapse=", "))
+
+bad_geocode <- c('268 Powder House Blvd, Somerville, Massachusetts, 02144', 'Somerville, Massachusetts', '408 Mystic Ave, Somerville, Massachusetts, 02145', 'NA', '75 Trull St, Somerville, Massachusetts, 02145', '130 Broadway, Somerville, Massachusetts, 02145')
+
 
 
 #### Basic Analysis ####
 
 # Let's try to recreate the calls per day in each district
+# I'm Skeptical because many calls are from bad geocoded data
 incidents_by_area <- fd %>%
-  filter(Nature.of.Call != "TRAINING") %>% 
+  filter(Nature.of.Call != "TRAINING" &
+           Match_addr %notin% bad_geocode) %>% 
   # filter(Nature.of.Call %in% response_time_incidents) %>% 
   group_by(CAD.inc.Number, STATION) %>% 
   summarise(Year = Year) %>% 
@@ -237,26 +252,28 @@ rt + facet_grid(Year ~ .)
 
 
 #### Maps ####
-
+fd_to_map <- fd %>% filter(Nature.of.Call %in% response_time_incidents &
+                             Match_addr %notin% bad_geocode)
+  
 
 ## Cluster analysis ##
 
 # K means
 # This is how we group incidents on a map.
 # It may be more convenient to use reporting areas, but often those bisect a cluster
-clust <- rtblGeo %>%
+clust <- fd_to_map %>%
   dplyr::select(X, Y) %>%
   kmeans(5)
 
 
 # Add cluster variable back to the data frame 
-c <- augment(clust, rtblGeo) %>% select(.cluster)
-rtblGeo$order <- seq(from = 1, to = nrow(rtblGeo))
-c$order <- rtblGeo$order
+c <- augment(clust, fd_to_map) %>% select(.cluster)
+fd_to_map$order <- seq(from = 1, to = nrow(fd_to_map))
+c$order <- fd_to_map$order
 
-rtblGeoT <- merge(rtblGeo, c, by='order')
+fd_to_mapT <- merge(fd_to_map, c, by='order')
 
-rtblGeo <- rtblGeoT  %>% tbl_df() %>% mutate(cluster = .cluster) #the ."var name" throws off some functions
+fd_to_map <- fd_to_mapT  %>% tbl_df() %>% mutate(cluster = .cluster) #the ."var name" throws off some functions
 
 remove(c)
 
@@ -265,22 +282,22 @@ clusterCenters <- as.data.frame(clust$centers)
 
 ### Use maps to inspect the clusters ###
 
-rtblGeo$X <- as.numeric(as.character(rtblGeo$X))
-rtblGeo$Y <- as.numeric(as.character(rtblGeo$Y))
+fd_to_map$X <- as.numeric(as.character(fd_to_map$X))
+fd_to_map$Y <- as.numeric(as.character(fd_to_map$Y))
 
 
 # Dot map 
 map.center <- geocode("Somerville, MA")
 SHmap <- qmap(c(lon=map.center$lon, lat=map.center$lat), source="google", zoom = 14, color='bw')
-SHmap + geom_point(data=rtblGeo, aes(x=X, y=Y, color=rtblGeo$cluster))
+SHmap + geom_point(data=fd_to_map, aes(x=X, y=Y, color=fd_to_map$cluster))
 
 
 # More traditional heat map
 Somerville = c(lon = -71.1000, lat =  42.3875)
 somerville.map = get_map(location = Somerville, zoom = 14, maptype="roadmap",color = "bw")
-ggmap(somerville.map, extent = "panel", maprange=FALSE) %+% rtblGeo + aes(x = rtblGeo$X, y = rtblGeo$Y) +
+ggmap(somerville.map, extent = "panel", maprange=FALSE) %+% fd_to_map + aes(x = fd_to_map$X, y = fd_to_map$Y) +
   # geom_density2d(data = d, aes(x = lon, y = lat)) + # uncomment for contour lines
-  stat_density2d(data = rtblGeo, aes(x = X, y = Y,  fill = ..level.., alpha = ..level..),
+  stat_density2d(data = fd_to_map, aes(x = X, y = Y,  fill = ..level.., alpha = ..level..),
                  size = 0.01, bins = 16, geom = 'polygon') +
   scale_fill_gradient(low = "yellow", high = "red") +
   scale_alpha(range = c(0.05, 0.75), guide = FALSE) +
@@ -293,108 +310,3 @@ ggmap(somerville.map, extent = "panel", maprange=FALSE) %+% rtblGeo + aes(x = rt
 map.center <- geocode("Somerville, MA")
 SHmap <- qmap(c(lon=map.center$lon, lat=map.center$lat), source="google", zoom = 13, color='bw')
 SHmap + geom_point(data=clusterCenters, aes(x=X, y=Y), size = 15, alpha = 0.5, color = "Red")
-
-
-
-
-#### Cluster analysis of Just E1 & E3 ####
-
-# K means
-# This is how we group incidents on a map.
-# It may be more convenient to use reporting areas, but often those bisect a cluster
-rtblGeo <-  filter(rtblGeo, Unit == "E3" | Unit == "E1")
-
-clust <- rtblGeo %>%
-  dplyr::select(X, Y) %>%
-  kmeans(2)
-
-
-# Add cluster variable back to the data frame 
-c <- augment(clust, rtblGeo) %>% select(.cluster)
-rtblGeo$order <- seq(from = 1, to = nrow(rtblGeo))
-c$order <- rtblGeo$order
-
-rtblGeoT <- merge(rtblGeo, c, by='order')
-
-rtblGeo <- rtblGeoT  %>% tbl_df() %>% mutate(cluster = .cluster) #the ."var name" throws off some functions
-
-remove(c)
-
-clusterCenters <- as.data.frame(clust$centers)
-
-
-### Use maps to inspect the clusters ###
-
-rtblGeo$X <- as.numeric(as.character(rtblGeo$X))
-rtblGeo$Y <- as.numeric(as.character(rtblGeo$Y))
-
-
-# Dot map 
-map.center <- geocode("Union Square, Somerville, MA")
-SHmap <- qmap(c(lon=map.center$lon, lat=map.center$lat), source="google", zoom = 14, color='bw')
-SHmap + geom_point(data=rtblGeo, aes(x=X, y=Y), color=rtblGeo$cluster, alpha = .03, size = 3)
-
-
-map.center <- geocode("Union Square, Somerville, MA")
-SHmap <- qmap(c(lon=map.center$lon, lat=map.center$lat), source="google", zoom = 15, color='bw')
-SHmap + geom_point(data=clusterCenters, aes(x=X, y=Y), size = 15, alpha = 0.5, color = "Red")
-
-
-
-
-#### Cluster analysis of Just E3 ####
-
-# K means
-# This is how we group incidents on a map.
-# It may be more convenient to use reporting areas, but often those bisect a cluster
-rtblGeo <-  filter(rtblGeo, Unit == "E3")
-
-clust <- rtblGeo %>%
-  dplyr::select(X, Y) %>%
-  kmeans(1)
-
-
-# Add cluster variable back to the data frame 
-c <- augment(clust, rtblGeo) %>% select(.cluster)
-rtblGeo$order <- seq(from = 1, to = nrow(rtblGeo))
-c$order <- rtblGeo$order
-
-rtblGeoT <- merge(rtblGeo, c, by='order')
-
-rtblGeo <- rtblGeoT  %>% tbl_df() %>% mutate(cluster = .cluster) #the ."var name" throws off some functions
-
-remove(c)
-
-clusterCenters <- as.data.frame(clust$centers)
-
-
-### Use maps to inspect the clusters ###
-
-rtblGeo$X <- as.numeric(as.character(rtblGeo$X))
-rtblGeo$Y <- as.numeric(as.character(rtblGeo$Y))
-
-
-# Dot map 
-map.center <- geocode("Union Square, Somerville, MA")
-SHmap <- qmap(c(lon=map.center$lon, lat=map.center$lat), source="google", zoom = 15, color='bw')
-SHmap + geom_point(data=rtblGeo, aes(x=X, y=Y), color="Red", alpha = .03, size = 4)
-
-
-map.center <- geocode("Union Square, Somerville, MA")
-SHmap <- qmap(c(lon=map.center$lon, lat=map.center$lat), source="google", zoom = 15, color='bw')
-SHmap + geom_point(data=clusterCenters, aes(x=X, y=Y), size = 15, alpha = 0.5, color = "Red")
-
-
-# More traditional heat map
-Somerville = c(lon = -71.0956, lat =  42.37965)
-somerville.map = get_map(location = Somerville, zoom = 16, maptype="roadmap",color = "bw")
-ggmap(somerville.map, extent = "panel", maprange=FALSE) %+% rtblGeo + aes(x = rtblGeo$X, y = rtblGeo$Y) +
-  # geom_density2d(data = d, aes(x = lon, y = lat)) + # uncomment for contour lines
-  stat_density2d(data = rtblGeo, aes(x = X, y = Y,  fill = ..level.., alpha = ..level..),
-                 size = 0.01, bins = 16, geom = 'polygon') +
-  scale_fill_gradient(low = "green", high = "red") +
-  scale_alpha(range = c(0.00, 0.25), guide = FALSE) +
-  theme(legend.position = "none", axis.title = element_blank(), 
-        axis.ticks = element_blank(),
-        axis.text = element_blank(),
-        text = element_text(size = 12))
