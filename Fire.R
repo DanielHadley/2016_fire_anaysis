@@ -117,7 +117,7 @@ engines <- c("E3", "E1", "E2", "E3", "E6", "E7")
 #### Basic Analysis ####
 
 # Let's try to recreate the calls per day in each district
-by_station_year <- fd %>%
+incidents_by_area <- fd %>%
   filter(Nature.of.Call != "TRAINING") %>% 
   # filter(Nature.of.Call %in% response_time_incidents) %>% 
   group_by(CAD.inc.Number, STATION) %>% 
@@ -129,8 +129,8 @@ by_station_year <- fd %>%
   mutate(Per.Change = (`2015` - `2009`) / `2009`)
 
 
-# Avg calls, by day, by year, by station
-avg_by_day_year_station <- fd %>%
+# Avg calls, by day, by year, by area based on GIS analysis
+avg_per_day_by_area <- fd %>%
   filter(Nature.of.Call != "TRAINING") %>% 
   # filter(Nature.of.Call %in% response_time_incidents) %>% 
   group_by(CAD.inc.Number, STATION, Date.Short) %>% 
@@ -144,8 +144,9 @@ avg_by_day_year_station <- fd %>%
   mutate(Per.Change = (`2015` - `2009`) / `2009`)
 
 
-# Avg calls, by day, by year, by unit
-avg_by_day_year_unit <- fd %>%
+# Avg runs by day, by year, by unit
+# This is higher than above because units go on many calls where they are not first responders
+avg_per_day_by_unit <- fd %>%
   filter(Nature.of.Call != "TRAINING") %>% 
   # filter(Nature.of.Call %in% response_time_incidents) %>% 
   group_by(CAD.inc.Number, Unit, Date.Short) %>% 
@@ -160,18 +161,6 @@ avg_by_day_year_unit <- fd %>%
 
 
 # Median response time, by day, by year, by unit (for first responders)
-rt_by_day_year_unit <- fd %>%
-  filter(is.first.responder == 1) %>% 
-  # filter(Nature.of.Call %in% response_time_incidents) %>% 
-  group_by(CAD.inc.Number, Unit, Date.Short) %>% 
-  summarise(Year = Year, rt = median(first.responder.response.time)) %>% 
-  group_by(Unit, Year, Date.Short) %>% 
-  summarise(rt = median(rt)) %>% 
-  group_by(Unit, Year) %>% 
-  summarise(rt = median(rt)) %>% 
-  filter(Unit != "") %>% 
-  spread(Year, m) %>% 
-  mutate(Per.Change = (`2015` - `2009`) / `2009`)
 
 
 
