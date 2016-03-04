@@ -10,6 +10,8 @@ library(ggplot2)
 library(ggmap)
 
 
+
+
 #### Load Data & Create One Comprehensive DB ####
 
 
@@ -126,7 +128,8 @@ incidents_by_area <- fd %>%
   summarise(n=n()) %>% 
   filter(!is.na(STATION)) %>% 
   spread(Year, n) %>% 
-  mutate(Per.Change = (`2015` - `2009`) / `2009`)
+  mutate(Per.Change = (`2015` - `2009`) / `2009`) %>% 
+  View()
 
 
 # Avg calls, by day, by year, by area based on GIS analysis
@@ -141,7 +144,8 @@ avg_per_day_by_area <- fd %>%
   summarise(m=mean(n)) %>% 
   filter(!is.na(STATION)) %>% 
   spread(Year, m) %>% 
-  mutate(Per.Change = (`2015` - `2009`) / `2009`)
+  mutate(Per.Change = (`2015` - `2009`) / `2009`) %>% 
+  View()
 
 
 # Avg runs by day, by year, by unit
@@ -157,128 +161,85 @@ avg_per_day_by_unit <- fd %>%
   summarise(m=mean(n)) %>% 
   filter(Unit != "") %>% 
   spread(Year, m) %>% 
-  mutate(Per.Change = (`2015` - `2009`) / `2009`)
+  mutate(Per.Change = (`2015` - `2009`) / `2009`) %>% 
+  View()
 
 
-# Median response time, by day, by year, by unit (for first responders)
+# Median response time, by day, by year, by unit (for first responders & important calls)
+med_rt_by_unit <- fd %>%
+  filter(Nature.of.Call %in% response_time_incidents & is.first.responder == 1) %>% 
+  group_by(Unit, Year) %>% 
+  summarise(m = median(first.responder.response.time)) %>% 
+  filter(Unit != "") %>% 
+  spread(Year, m) %>% 
+  mutate(Per.Change = (`2015` - `2009`) / `2009`) %>% 
+  View()
 
 
+# Median response time, by day, by year, by unit (for first responders & important calls)
+med_rt_by_unit_no_outliers <- fd %>%
+  filter(Nature.of.Call %in% response_time_incidents &
+           is.first.responder == 1 &
+           first.responder.response.time < 10) %>% 
+  group_by(Unit, Year) %>% 
+  summarise(m = median(first.responder.response.time)) %>% 
+  filter(Unit != "") %>% 
+  spread(Year, m) %>% 
+  mutate(Per.Change = (`2015` - `2009`) / `2009`) %>% 
+  View()
+
+
+# Median response time, by day, by year, by unit (for first responders & important calls)
+med_rt_by_unit_engines <- fd %>%
+  filter(Nature.of.Call %in% response_time_incidents &
+           is.first.responder == 1 &
+           Unit %in% engines) %>% 
+  group_by(Unit, Year) %>% 
+  summarise(m = median(first.responder.response.time)) %>% 
+  filter(Unit != "") %>% 
+  spread(Year, m) %>% 
+  mutate(Per.Change = (`2015` - `2009`) / `2009`) %>% 
+  View()
+
+
+# ninetieth quantile response time, by day, by year, by unit (for first responders & important calls)
+ninetieth_rt_by_unit <- fd %>%
+  filter(Nature.of.Call %in% response_time_incidents & is.first.responder == 1) %>% 
+  group_by(Unit, Year) %>% 
+  summarise(nine = quantile(first.responder.response.time, .9)) %>% 
+  filter(Unit != "") %>% 
+  spread(Year, nine) %>% 
+  mutate(Per.Change = (`2015` - `2009`) / `2009`) %>% 
+  View()
 
 
 fd_first <- fd %>% group_by(CAD.inc.Number, first.responder) %>% summarise()
 
-# The following includes all runs including ones where the engine is not a first responder
-engines <- c("E3", "E1", "E2", "E3", "E6", "E7")
+
+## Histograms ##
+
+# The following includes runs where the unit is first responder
 by_engine <- fd %>% filter(first.responder.response.time < 10) %>%
-  filter(Unit %in% engines)
+  filter(Unit %in% engines &
+           Nature.of.Call %in% response_time_incidents &
+           is.first.responder == 1)
 rt <- ggplot(by_engine, aes(x=first.responder.response.time)) + geom_histogram(binwidth=.5,colour="white")
 rt + facet_grid(Unit ~ .)
 
-by_year <- fd %>% filter(first.responder.response.time < 10) 
+
+by_year <- fd %>% filter(first.responder.response.time < 10 &
+                           Nature.of.Call %in% response_time_incidents &
+                           is.first.responder == 1) 
 rt <- ggplot(by_year, aes(x=first.responder.response.time)) + geom_histogram(binwidth=.5,colour="white")
 rt + facet_grid(Year ~ .)
 
 
 
-## Make a proper Address Variable for CAD ##
-cad$Full.Address <- ifelse(cad$StNum != "", paste(cad$StNum, cad$StName1), paste(cad$StName1, "&", cad$StName2))
 
-cad$Full.Address <- ifelse(substr(cad$Full.Address, start = 1, stop = 3) == " & ", gsub(" & ", "", cad$Full.Address), cad$Full.Address)
+#### Maps ####
 
 
-## Take out unwanted from analysis
-rtbl <- rtbl %>% filter(Inctype != c("TRAINING", "HYDRANT"))
-
-
-## Dates ##
-rtbl$Date <- as.Date(rtbl$Recd)
-
-
-### Get geo coordinates
-rtbl$Full.Address <- paste(rtbl$`Street Number`, " ", rtbl$Street, ", Somerville, MA", sep="")
-
-# Clean to help with the merge
-rtbl$Full.Address <- gsub("AV,", "AVE,", rtbl$Full.Address)
-rtbl$Full.Address <- gsub(" A ", " ", rtbl$Full.Address)
-rtbl$Full.Address <- gsub(" B ", " ", rtbl$Full.Address)
-
-rtbl$Full.Address <- ifelse(substr(rtbl$Full.Address, start = 1, stop = 3) == "NA ", gsub("NA ", "", rtbl$Full.Address), rtbl$Full.Address)
-
-rtbl$Full.Address <- ifelse(substr(rtbl$Full.Address, start = 1, stop = 2) == "0 ", gsub("0 ", "", rtbl$Full.Address), rtbl$Full.Address)
-
-# Trim White space
-rtbl$Full.Address <- trimws(rtbl$Full.Address)
-geo$Full.Address <- trimws(geo$Full.Address)
-
-
-# # Not working TODO fix later
-# test <- merge(rtbl, geo, by.x = "Full.Address", by.y = "Full.Address", all.x = T)
-# notworking <- test %>% filter(is.na(X))
-# nwtable <- notworking  %>% group_by(Full.Address)  %>% summarise(n=n())
-
-
-# Merge into the fully geocoded database
-rtbl <- merge(rtbl, geo, by.x = "Full.Address", by.y = "Full.Address", all.x = T)
-rtbl <- unique(rtbl)
-
-rtblGeo <- filter(rtbl, X != "NA")
-
-
-
-
-#### Basic Analysis ####
-
-no_outliers <- rtblGeo %>% filter(`Resp Time` < 10) %>% 
-  filter(Unit == c("E3", "E1", "E2", "E3", "E6", "E7"))
-
-rt <- ggplot(no_outliers, aes(x=`Resp Time`)) + geom_histogram(binwidth=.5,colour="white")
-rt + facet_grid(Unit ~ .)
-
-
-### This does NOT seem to jive with Travis' numbers /??? ###
-
-#### ???? Must be a function of the data I am using ####
-by_day_and_engine <- no_outliers %>% group_by(Unit, Date) %>% summarise(n=n()) %>% group_by(Unit) %>% summarise(mean = mean(n))
-
-
-# Weird on the zero response times
-weird <- no_outliers %>% filter(`Resp Time` < .2)
-
-## Let's see how long it takes E1 to respond to things in the East ##
-# the X is about Somerville Ave and Washington St, Somerville, MA
-
-E1 <- no_outliers %>% filter(Unit == "E1")
-E3 <- no_outliers %>% filter(Unit == "E3")
-
-E1_East <- rtblGeo %>% filter(Unit == "E1") %>% 
-  mutate(X = as.numeric(levels(X))[X]) %>% 
-  filter(X >= -71.0964)
-
-E1_West <- rtblGeo %>% filter(Unit == "E1") %>% 
-  mutate(X = as.numeric(levels(X))[X]) %>% 
-  filter(X < -71.0964)
-
-hist(E1_West$`Resp Time`[E1_West$`Resp Time` < 10])
-hist(E1_East$`Resp Time`[E1_East$`Resp Time` < 10])
-
-
-E3 <- rtblGeo %>% filter(Unit == "E3")
-
-E3_East <- rtblGeo %>% filter(Unit == "E3") %>% 
-  mutate(X = as.numeric(levels(X))[X]) %>% 
-  filter(X >= -71.0964)
-
-E3_West <- rtblGeo %>% filter(Unit == "E3") %>% 
-  mutate(X = as.numeric(levels(X))[X]) %>% 
-  filter(X < -71.0964)
-
-hist(E3_West$`Resp Time`[E3_West$`Resp Time` < 10])
-hist(E3_East$`Resp Time`[E3_East$`Resp Time` < 10])
-
-
-
-
-#### Cluster analysis ####
+## Cluster analysis ##
 
 # K means
 # This is how we group incidents on a map.
