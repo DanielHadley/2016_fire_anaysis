@@ -12,53 +12,63 @@ library(ggmap)
 
 #### Load Data & Create One Comprehensive DB ####
 
-# 
-# # this is when it first gets entered into CAD
-# cad <- read.csv("./data/CAD_table.csv")
-# 
-# # This is the time it takes to get on location
-# # TODO: find out if the Unit associated with the first time is definitely the first responder
-# onloc <- read.csv("./data/ONLOC_times_TH_w_loc.csv")
-# 
-# # This is a record of basically whenever a Unit went out, so it's a good indicator of total activity
-# # Notice that several units will have the same Arrived time, 
-# # which is because they are all marked on the scene at the same time when the first arrives
-# # Note: this is marked as medical times in the CAD reporting system, but it contains all calls
-# ust <- read.csv("./data/unit_summary_times.csv")
-# 
-# # This is the database Chris created along with a thousand or so records I added
-# # I'm a little nervous about the ggmap geocoding engine - it did not seem to work well
-# # It may be worth going in and taking out strange addresses and large repeats of XY locations
-# # NOTE : I'm not using this because I'm nervous
-# # geo <- read.csv("./data/police_fire_geoDB.csv")
-# 
-# # This is the geo data produced in collaboration with Keith
-# # First I cleaned up the addresses and then I gave them to Keith to geocode
-# # I avoided giving too many 0 Broadway, etc
-# # It's probably the best option
-# cad_geo <- read.csv("./data/CAD_table_geocoded.csv")
-# 
-# 
-# ## Ok, now I want to make one large dataframe with every response ##
-# # I will use ust as the base and add other variables
-# 
-# # ONLOC should only contain the first arrival #
-# # Order by response time and then remove duplicates means you keep the first responder
-# onloc <- onloc[order(onloc$Incnum, onloc$Resp.Time),]
-# onloc <- onloc[!duplicated(onloc$Incnum),] 
-# 
-# onloc <- onloc %>% mutate(first.responder = Unit, first.responder.response.time = Resp.Time, is.first.responder = 1) %>% select(Incnum, first.responder, first.responder.response.time)
-# 
-# ## Fire data!!
-# fd <- merge(ust, onloc, by.x = "CAD.inc.Number", by.y = "Incnum", all.x = TRUE)
-# 
-# 
-# ## Ok now let's add in the Geo data
-# cad_geo <- cad_geo %>% select(- X.1, - n, - LocForced, - StName1: -IDtag)
-# fd <- merge(fd, cad_geo, by.x = "CAD.inc.Number", by.y = "IncNum", all.x = TRUE)
-# 
-# 
-# write.csv(fd, "./data/Fire.csv", row.names = FALSE)
+
+# this is when it first gets entered into CAD
+cad <- read.csv("./data/CAD_table.csv")
+
+# This is the time it takes to get on location
+# TODO: find out if the Unit associated with the first time is definitely the first responder
+onloc <- read.csv("./data/ONLOC_times_TH_w_loc.csv")
+
+# This is a record of basically whenever a Unit went out, so it's a good indicator of total activity
+# Notice that several units will have the same Arrived time, 
+# which is because they are all marked on the scene at the same time when the first arrives
+# Note: this is marked as medical times in the CAD reporting system, but it contains all calls
+ust <- read.csv("./data/unit_summary_times.csv")
+
+# This is the database Chris created along with a thousand or so records I added
+# I'm a little nervous about the ggmap geocoding engine - it did not seem to work well
+# It may be worth going in and taking out strange addresses and large repeats of XY locations
+# NOTE : I'm not using this because I'm nervous
+# geo <- read.csv("./data/police_fire_geoDB.csv")
+
+# This is the geo data produced in collaboration with Keith
+# First I cleaned up the addresses and then I gave them to Keith to geocode
+# I avoided giving too many 0 Broadway, etc
+# It's probably the best option
+cad_geo <- read.csv("./data/CAD_table_geocoded.csv")
+
+
+## Ok, now I want to make one large dataframe with every response ##
+# I will use ust as the base and add other variables
+
+# ONLOC should only contain the first arrival #
+# Order by response time and then remove duplicates means you keep the first responder
+onloc <- onloc[order(onloc$Incnum, onloc$Resp.Time),]
+onloc <- onloc[!duplicated(onloc$Incnum),] 
+
+onloc <- onloc %>% mutate(first.responder = Unit, first.responder.response.time = Resp.Time) %>% select(Incnum, first.responder, first.responder.response.time)
+
+## Fire data!!
+fd <- merge(ust, onloc, by.x = "CAD.inc.Number", by.y = "Incnum", all.x = TRUE)
+
+
+## Ok now let's add in the Geo data
+cad_geo <- cad_geo %>% select(- X.1, - n, - LocForced, - StName1: -IDtag)
+fd <- merge(fd, cad_geo, by.x = "CAD.inc.Number", by.y = "IncNum", all.x = TRUE)
+
+
+## Finally make a column for the first responder
+first_responders <- onloc %>% mutate(first = paste(trimws(Incnum), trimws(first.responder))) %>% select(first)
+
+first_responders <- as.vector(first_responders$first)
+
+fd <- fd %>% mutate(first = paste(trimws(CAD.inc.Number), trimws(Unit))) 
+fd$is.first.responder <- ifelse(fd$first %in% first_responders, 1, 0)
+fd <- select(fd, -first)
+
+
+write.csv(fd, "./data/Fire.csv", row.names = FALSE)
 
 
 
@@ -133,6 +143,35 @@ avg_by_day_year_station <- fd %>%
   spread(Year, m) %>% 
   mutate(Per.Change = (`2015` - `2009`) / `2009`)
 
+
+# Avg calls, by day, by year, by unit
+avg_by_day_year_unit <- fd %>%
+  filter(Nature.of.Call != "TRAINING") %>% 
+  # filter(Nature.of.Call %in% response_time_incidents) %>% 
+  group_by(CAD.inc.Number, Unit, Date.Short) %>% 
+  summarise(Year = Year) %>% 
+  group_by(Unit, Year, Date.Short) %>% 
+  summarise(n=n()) %>% 
+  group_by(Unit, Year) %>% 
+  summarise(m=mean(n)) %>% 
+  filter(Unit != "") %>% 
+  spread(Year, m) %>% 
+  mutate(Per.Change = (`2015` - `2009`) / `2009`)
+
+
+# Median response time, by day, by year, by unit (for first responders)
+rt_by_day_year_unit <- fd %>%
+  filter(is.first.responder == 1) %>% 
+  # filter(Nature.of.Call %in% response_time_incidents) %>% 
+  group_by(CAD.inc.Number, Unit, Date.Short) %>% 
+  summarise(Year = Year, rt = median(first.responder.response.time)) %>% 
+  group_by(Unit, Year, Date.Short) %>% 
+  summarise(rt = median(rt)) %>% 
+  group_by(Unit, Year) %>% 
+  summarise(rt = median(rt)) %>% 
+  filter(Unit != "") %>% 
+  spread(Year, m) %>% 
+  mutate(Per.Change = (`2015` - `2009`) / `2009`)
 
 
 
