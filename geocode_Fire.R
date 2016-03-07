@@ -4,6 +4,36 @@ setwd("/Users/DHadley/Github/2016_fire_anaysis")
 setwd("/Users/dhadley/Documents/GitHub/2016_fire_anaysis/")
 
 library(dplyr)
+
+# I had so many problems with geocoding that I purchased an api key and modified the ggmap package to use it
+
+library(devtools)
+install_github("DanielHadley/ggmapAPIkey")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+########## OLD WAY OF DOING IT ##########
+
+
+library(dplyr)
 library(ggmap)
 # Maping tools
 require("rgdal") # requires sp, will use proj.4 if installed
