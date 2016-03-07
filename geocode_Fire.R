@@ -68,6 +68,7 @@ write.csv(cadGeoFinal, "./data/CAD_table_geocoded.csv")
 #### The Police geocoding database solution ####
 # This is the geo database that Chris and I built geocoding all Police Calls
 geo <- read.csv("./raw_data/LibCoordinates.csv")
+cad <- read.csv("./data/CAD_table.csv")
 
 
 # Strip cad to the essentials

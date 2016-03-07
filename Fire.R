@@ -123,9 +123,20 @@ engines <- c("E3", "E1", "E2", "E3", "E6", "E7")
 `%notin%` <- Negate(`%in%`) 
 
 shit_geo <- fd %>% group_by(Match_addr) %>% summarise(n=n()) %>% arrange(desc(n))
-cat(paste(shQuote((shit_geo$Match_addr[1:50])), collapse=", "))
+cat(paste(shQuote((shit_geo$Match_addr[1:20])), collapse=", "))
 
-bad_geocode <- c('268 Powder House Blvd, Somerville, Massachusetts, 02144', 'Somerville, Massachusetts', '408 Mystic Ave, Somerville, Massachusetts, 02145', 'NA', '75 Trull St, Somerville, Massachusetts, 02145', '130 Broadway, Somerville, Massachusetts, 02145')
+shit_geo2 <- fd %>% filter(Score < 95) %>% 
+  group_by(Match_addr) %>% summarise(n=n()) %>% arrange(desc(n))
+cat(paste(shQuote((shit_geo2$Match_addr[1:20])), collapse=", "))
+
+
+bad_geocode <- c('268 Powder House Blvd, Somerville, Massachusetts, 02144', 'Somerville, Massachusetts', '408 Mystic Ave, Somerville, Massachusetts, 02145', 'NA', '75 Trull St, Somerville, Massachusetts, 02145', '130 Broadway, Somerville, Massachusetts, 02145', 'East Somerville, Massachusetts', 'shit geo 2 after this', '14 Kenneson Rd, Somerville, Massachusetts, 02145', '62 Marshall St, Somerville, Massachusetts, 02145', '1 Fitchburg St, Somerville, Massachusetts, 02143', '52 Florence Ter, Somerville, Massachusetts, 02145', '16 Chester Pl, Somerville, Massachusetts, 02144', 'Broadway & McGrath Hwy, Somerville, Massachusetts, 02145', '10 Dana St, Somerville, Massachusetts, 02145', '2 Franklin Ave, Somerville, Massachusetts, 02145', '93 North St, Somerville, Massachusetts, 02144', '93 South St, Somerville, Massachusetts, 02143', '52 White St Pl, Somerville, Massachusetts, 02140', 'Fellsway, Somerville, Massachusetts, 02145', '34 North St, Somerville, Massachusetts, 02144', '50 Memorial Rd, Somerville, Massachusetts, 02145', '56 Gilman Ter, Somerville, Massachusetts, 02145', '110 Thurston St, Somerville, Massachusetts, 02145', '33 Bonair St, Somerville, Massachusetts, 02145', '31 Prescott St, Somerville, Massachusetts, 02143', '511 Medford St, Somerville, Massachusetts, 02145')
+
+
+fd_safer_geo <- fd %>% filter(Match_addr %notin% bad_geocode)
+
+rm(shit_geo, shit_geo2)
+
 
 
 
@@ -133,9 +144,8 @@ bad_geocode <- c('268 Powder House Blvd, Somerville, Massachusetts, 02144', 'Som
 
 # Let's try to recreate the calls per day in each district
 # I'm Skeptical because many calls are from bad geocoded data
-incidents_by_area <- fd %>%
-  filter(Nature.of.Call != "TRAINING" &
-           Match_addr %notin% bad_geocode) %>% 
+incidents_by_area <- fd_safer_geo %>%
+  filter(Nature.of.Call != "TRAINING") %>% 
   # filter(Nature.of.Call %in% response_time_incidents) %>% 
   group_by(CAD.inc.Number, STATION) %>% 
   summarise(Year = Year) %>% 
@@ -148,7 +158,9 @@ incidents_by_area <- fd %>%
 
 
 # Avg calls, by day, by year, by area based on GIS analysis
-avg_per_day_by_area <- fd %>%
+# I'm Skeptical because many calls are from bad geocoded data
+# A tweak in the geocoding could have major consequences for everything
+avg_per_day_by_area <- fd_safer_geo %>%
   filter(Nature.of.Call != "TRAINING") %>% 
   # filter(Nature.of.Call %in% response_time_incidents) %>% 
   group_by(CAD.inc.Number, STATION, Date.Short) %>% 
@@ -252,8 +264,8 @@ rt + facet_grid(Year ~ .)
 
 
 #### Maps ####
-fd_to_map <- fd %>% filter(Nature.of.Call %in% response_time_incidents &
-                             Match_addr %notin% bad_geocode)
+# This includes all incidents, e.g., runs
+fd_to_map <- fd_safer_geo %>% filter(Nature.of.Call %in% response_time_incidents)
   
 
 ## Cluster analysis ##
