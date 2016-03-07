@@ -121,6 +121,7 @@ nwtable <- notworking  %>% group_by(Full.Address)  %>% summarise(n=n())
 
 ### Ok let's geocode the ones that are not working
 d <- notworking %>% group_by(Full.Address)  %>% summarise(n=n()) %>% select(Full.Address)
+d$Full.Address <- gsub(", MA", ", Massachusetts", d$Full.Address)
 
 # Geocodes using the Google engine
 locs <- geocode(d$Full.Address)
