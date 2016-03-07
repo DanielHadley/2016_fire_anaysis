@@ -7,15 +7,66 @@ library(dplyr)
 
 # I had so many problems with geocoding that I purchased an api key and modified the ggmap package to use it
 
-library(devtools)
-install_github("DanielHadley/ggmapAPIkey")
+# library(devtools)
+# install_github("DanielHadley/ggmapAPIkey")
+library(ggmap) # This is my modified version now
+
+# Test
+geocode("the white house", api_key = myAPIkey)
 
 
+# Load the data
+cad <- read.csv("./data/CAD_table.csv")
 
 
+# Strip cad to the essentials
+cad <- cad %>% select(IncNum, IncType, LocType:NearTag)
+
+## Make a proper Address Variable for CAD ##
+cad$Address <- ifelse(cad$StNum != "", paste(cad$StNum, cad$StName1), paste(cad$StName1, "&", cad$StName2))
+
+cad$Address <- ifelse(substr(cad$Address, start = 1, stop = 3) == " & ", gsub(" & ", "", cad$Address), cad$Address)
+
+# Take out blanks because the vast majority are out of town or training
+cad <- cad %>% filter(Address != "")
+
+cad$Full.Address <- paste(cad$Address, ", Somerville, Massachusetts", sep="")
+
+# Trim White space
+cad$Full.Address <- trimws(cad$Full.Address)
 
 
+## Clean to help with the merge
+cad$Full.Address <- gsub("AV,", "AVE,", cad$Full.Address)
+cad$Full.Address <- gsub("AV &", "AVE &", cad$Full.Address)
+cad$Full.Address <- gsub(" A ", " ", cad$Full.Address)
+cad$Full.Address <- gsub(" B ", " ", cad$Full.Address)
+cad$Full.Address <- gsub(" & ,", ",", cad$Full.Address)
+cad$Full.Address <- gsub(" OPPOSITE ", " ", cad$Full.Address)
+cad$Full.Address <- gsub(" & ", " and ", cad$Full.Address)
 
+cad$Full.Address <- ifelse(substr(cad$Full.Address, start = 1, stop = 3) == "NA ", gsub("NA ", "", cad$Full.Address), cad$Full.Address)
+
+cad$Full.Address <- ifelse(substr(cad$Full.Address, start = 1, stop = 2) == "0 ", gsub("0 ", "", cad$Full.Address), cad$Full.Address)
+
+
+# The data to geocode
+d <- cad %>% group_by(Full.Address)  %>% summarise(n=n())
+
+d <- d[1:4, ]
+# Geocodes using the Google engine
+locs <- geocode(d$Full.Address, source = "google", output = "more", api_key = myAPIkey)
+#d <- bind_cols(d, locs) # Add the lat and long back to d
+# ^ Didn't work, so
+d$lon <- locs$lon
+d$lat <- locs$lat
+
+
+# merge 
+cadGeo <- merge(cad, d, by.x = "Full.Address", by.y = "Full.Address")
+
+# write
+write.csv(cadGeoFinal, "./data/CAD_table_geocoded.csv")
 
 
 

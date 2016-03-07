@@ -243,6 +243,8 @@ ninetieth_rt_by_unit <- fd %>%
 fd_first <- fd %>% group_by(CAD.inc.Number, first.responder) %>% summarise()
 
 
+
+
 ## Histograms ##
 
 # The following includes runs where the unit is first responder
