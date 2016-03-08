@@ -8,6 +8,7 @@ library(tidyr)
 library(broom) # augments d with model variables
 library(ggplot2)
 library(ggmap)
+library(RColorBrewer)
 
 
 
@@ -132,7 +133,9 @@ bad_geocode <- c('HYDRANT TESTING, Somerville, Massachusetts', 'HYDRANT SHOVELIN
 
 
 fd$bad.geocode <- ifelse(is.na(fd$Full.Address), 1,
-                         ifelse(fd$Full.Address %in% bad_geocode, 1, 0))
+                         ifelse(fd$Full.Address %in% bad_geocode, 1,
+                                ifelse(fd$lat < 42.37, 1,
+                                       ifelse(fd$lon < 71.135, 0))))
 
 # test <- fd %>% filter(bad.geocode == 1 & !is.na(Full.Address))
 
@@ -153,7 +156,8 @@ avg_per_day_by_unit <- fd %>%
   summarise(n=n()) %>% 
   group_by(Unit, Year) %>% 
   summarise(m=mean(n)) %>% 
-  filter(Unit != "") %>% 
+  filter(Unit != "") %>%
+  data.frame() %>% 
   spread(Year, m) %>% 
   mutate(Per.Change = (`2015` - `2009`) / `2009`) %>% 
   View()
@@ -201,7 +205,8 @@ ninetieth_rt_by_unit <- fd %>%
   filter(Nature.of.Call %in% response_time_incidents & is.first.responder == 1) %>% 
   group_by(Unit, Year) %>% 
   summarise(nine = quantile(first.responder.response.time, .9)) %>% 
-  filter(Unit != "") %>% 
+  filter(Unit != "") %>%
+  data.frame() %>% 
   spread(Year, nine) %>% 
   mutate(Per.Change = (`2015` - `2009`) / `2009`) %>% 
   View()
@@ -426,15 +431,16 @@ map.in <- get_map(location = c(min(fd_to_map$X),
                   source = "google")
 theme_set(theme_bw(base_size = 8))
 
+## working !!
 Somerville = c(lon = -71.1000, lat =  42.3875)
-map.in = get_map(location = Somerville, zoom = 14, maptype="roadmap",color = "bw")
+map.in = get_map(location = Somerville, zoom = 13, maptype="roadmap",color = "bw")
 
 pred.stat.map <- ggmap(map.in) %+% fd_to_map + 
   aes(x = X,
       y = Y,
       z = first.responder.response.time) +
   stat_summary2d(fun = median, 
-                 binwidth = c(.005, .005),
+                 binwidth = c(.001, .001),
                  alpha = 0.5) + 
   scale_fill_gradientn(name = "Median",
                        colours = YlOrBr,
@@ -443,3 +449,64 @@ pred.stat.map <- ggmap(map.in) %+% fd_to_map +
        y = "Latitude") +
   coord_map()
 print(pred.stat.map)
+
+
+
+## working !!
+Somerville = c(lon = -71.1000, lat =  42.3875)
+map.in = get_map(location = Somerville, zoom = 14, maptype="roadmap",color = "bw")
+
+pred.stat.map <- ggmap(map.in) %+% fd_to_map + 
+  aes(x = X,
+      y = Y,
+      z = first.responder.response.time) +
+  stat_summary2d(fun = median, 
+                 binwidth = c(.001, .001),
+                 alpha = 0.5) + 
+  scale_fill_gradientn(name = "Median",
+                       colours = YlOrBr,
+                       space = "Lab")
+  coord_map()
+print(pred.stat.map)
+
+
+
+YlOrBr <- c("#FFFFD4", "#FED98E", "#FE9929", "#D95F0E", "#993404")
+Somerville = c(lon = -71.1000, lat =  42.3875)
+map.in = get_map(location = Somerville, zoom = 13, maptype="roadmap",color = "bw")
+
+pred.stat.map <- ggmap(map.in) %+% fd_to_map + 
+  aes(x = X,
+      y = Y,
+      z = first.responder.response.time) +
+  stat_summary2d(fun = median, 
+                 binwidth = c(.001, .001),
+                 alpha = 0.5) + 
+  scale_fill_gradientn(name = "Median",
+                       colours = YlOrBr,
+                       space = "Lab")
+print(pred.stat.map)
+
+ggsave("./plots/map.png", dpi=250, width=6, height=5)
+
+
+
+
+
+YlOrBr <- c("#FFFFD4", "#FED98E", "#FE9929", "#D95F0E", "#993404")
+Somerville = c(lon = -71.1000, lat =  42.3875)
+map.in = get_map(location = Somerville, zoom = 13, maptype="roadmap",color = "bw")
+
+pred.stat.map <- ggmap(map.in) %+% fd_to_map + 
+  aes(x = X,
+      y = Y,
+      z = first.responder.response.time) +
+  stat_summary2d(fun = median, 
+                 binwidth = c(.001, .001),
+                 alpha = 0.5) + 
+  scale_fill_gradientn(name = "Median",
+                       colours = YlOrBr,
+                       space = "Lab")
+print(pred.stat.map)
+
+ggsave("./plots/map.png", dpi=250, width=6, height=5)
