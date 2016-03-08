@@ -265,6 +265,8 @@ ggmap(somerville.map, extent = "panel", maprange=FALSE) %+% fd_to_map + aes(x = 
 # This is how we group incidents on a map.
 # It may be more convenient to use reporting areas, but often those bisect a cluster
 # I'll do 15 b/c that will likely have enough geo detail
+set.seed(123)
+
 clust <- fd_to_map %>%
   select(X, Y) %>%
   kmeans(15)
@@ -318,12 +320,12 @@ incidents_by_area <- fd_to_map %>%
 
 
 # Now we will map this:
-fd_to_map <- merge(fd_to_map, incidents_by_area, by.x = "cluster", by.y = "cluster")
+fd_to_map_incidents <- merge(fd_to_map, incidents_by_area, by.x = "cluster", by.y = "cluster")
 
 # Dot map 
 map.center <- geocode("Somerville, MA")
 SHmap <- qmap(c(lon=map.center$lon, lat=map.center$lat), source="google", zoom = 13, color='bw')
-SHmap + geom_point(data=fd_to_map, aes(x=X, y=Y, color=fd_to_map$Per.Change))
+SHmap + geom_point(data=fd_to_map_incidents, aes(x=X, y=Y, color=fd_to_map_incidents$Per.Change))
 
 
 
@@ -338,5 +340,32 @@ avg_per_day_by_area <- fd_to_map %>%
   filter(!is.na(cluster)) %>% 
   data.frame() %>% 
   spread(Year, m) %>% 
-  mutate(Per.Change = (`2015` - `2009`) / `2009`) %>% 
-  View()
+  mutate(Per.Change = (`2015` - `2009`) / `2009`) 
+
+# No map here b/c it is less critical
+
+
+## The holy grail - response time changes ##
+rt_by_area <- fd_to_map %>%
+  filter(is.first.responder == 1) %>% 
+  group_by(cluster, Year) %>%
+  summarise(nine = quantile(first.responder.response.time, .9)) %>%
+  data.frame() %>% 
+  spread(Year, nine) %>% 
+  mutate(Per.Change = (`2015` - `2009`) / `2009`)
+
+# Now we will map this:
+fd_to_map_rt <- merge(fd_to_map, rt_by_area, by.x = "cluster", by.y = "cluster")
+
+fd_to_map_rt <- fd_to_map_rt %>% filter(is.first.responder == 1)
+
+# Percent change 
+map.center <- geocode("Somerville, MA")
+SHmap <- qmap(c(lon=map.center$lon, lat=map.center$lat), source="google", zoom = 13, color='bw')
+SHmap + geom_point(data=fd_to_map_rt, aes(x=X, y=Y, color=fd_to_map_rt$Per.Change))
+
+# Dot map 2015 rt
+map.center <- geocode("Somerville, MA")
+SHmap <- qmap(c(lon=map.center$lon, lat=map.center$lat), source="google", zoom = 13, color='bw')
+SHmap + geom_point(data=fd_to_map_rt, aes(x=X, y=Y, color=fd_to_map_rt$`2012`))
+
