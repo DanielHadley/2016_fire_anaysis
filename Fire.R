@@ -122,57 +122,24 @@ engines <- c("E3", "E1", "E2", "E3", "E6", "E7")
 # First an operator to negate in
 `%notin%` <- Negate(`%in%`) 
 
-shit_geo <- fd %>% group_by(Match_addr) %>% summarise(n=n()) %>% arrange(desc(n))
-cat(paste(shQuote((shit_geo$Match_addr[1:20])), collapse=", "))
+# check_geo <- fd %>% group_by(Full.Address) %>% summarise(n=n()) %>% arrange(desc(n))
+# cat(paste(shQuote((check_geo$Full.Address[1:80])), collapse=", "))
 
-shit_geo2 <- fd %>% filter(Score < 95) %>% 
-  group_by(Match_addr) %>% summarise(n=n()) %>% arrange(desc(n))
-cat(paste(shQuote((shit_geo2$Match_addr[1:20])), collapse=", "))
+# TODO try to spot change Route 93 ones
 
-
-bad_geocode <- c('268 Powder House Blvd, Somerville, Massachusetts, 02144', 'Somerville, Massachusetts', '408 Mystic Ave, Somerville, Massachusetts, 02145', 'NA', '75 Trull St, Somerville, Massachusetts, 02145', '130 Broadway, Somerville, Massachusetts, 02145', 'East Somerville, Massachusetts', 'shit geo 2 after this', '14 Kenneson Rd, Somerville, Massachusetts, 02145', '62 Marshall St, Somerville, Massachusetts, 02145', '1 Fitchburg St, Somerville, Massachusetts, 02143', '52 Florence Ter, Somerville, Massachusetts, 02145', '16 Chester Pl, Somerville, Massachusetts, 02144', 'Broadway & McGrath Hwy, Somerville, Massachusetts, 02145', '10 Dana St, Somerville, Massachusetts, 02145', '2 Franklin Ave, Somerville, Massachusetts, 02145', '93 North St, Somerville, Massachusetts, 02144', '93 South St, Somerville, Massachusetts, 02143', '52 White St Pl, Somerville, Massachusetts, 02140', 'Fellsway, Somerville, Massachusetts, 02145', '34 North St, Somerville, Massachusetts, 02144', '50 Memorial Rd, Somerville, Massachusetts, 02145', '56 Gilman Ter, Somerville, Massachusetts, 02145', '110 Thurston St, Somerville, Massachusetts, 02145', '33 Bonair St, Somerville, Massachusetts, 02145', '31 Prescott St, Somerville, Massachusetts, 02143', '511 Medford St, Somerville, Massachusetts, 02145')
+# I just spot checked for the worst offenders
+bad_geocode <- c('HYDRANT TESTING, Somerville, Massachusetts', 'HYDRANT SHOVELING, Somerville, Massachusetts', '1 MUTUAL AID - CAMBRIDGE, Somerville, Massachusetts', 'ROUTE 93 NORTH, Somerville, Massachusetts', 'ROUTE 93 SOUTH, Somerville, Massachusetts', '1 MUTUAL AID - EVERETT, Somerville, Massachusetts', 'HYDRANT TESTING, Somerville, Massachusetts', 'HYDRANT SHOVELING, Somerville, Massachusetts', '1 MUTUAL AID - CAMBRIDGE, Somerville, Massachusetts', '1 , Somerville, Massachusetts', '1 BIKE PATH, Somerville, Massachusetts')
 
 
-fd_safer_geo <- fd %>% filter(Match_addr %notin% bad_geocode)
+fd$bad.geocode <- ifelse(is.na(fd$Full.Address), 1,
+                         ifelse(fd$Full.Address %in% bad_geocode, 1, 0))
 
-rm(shit_geo, shit_geo2)
+# test <- fd %>% filter(bad.geocode == 1 & !is.na(Full.Address))
 
 
 
 
 #### Basic Analysis ####
-
-# Let's try to recreate the calls per day in each district
-# I'm Skeptical because many calls are from bad geocoded data
-incidents_by_area <- fd_safer_geo %>%
-  filter(Nature.of.Call != "TRAINING") %>% 
-  # filter(Nature.of.Call %in% response_time_incidents) %>% 
-  group_by(CAD.inc.Number, STATION) %>% 
-  summarise(Year = Year) %>% 
-  group_by(STATION, Year) %>% 
-  summarise(n=n()) %>% 
-  filter(!is.na(STATION)) %>% 
-  spread(Year, n) %>% 
-  mutate(Per.Change = (`2015` - `2009`) / `2009`) %>% 
-  View()
-
-
-# Avg calls, by day, by year, by area based on GIS analysis
-# I'm Skeptical because many calls are from bad geocoded data
-# A tweak in the geocoding could have major consequences for everything
-avg_per_day_by_area <- fd_safer_geo %>%
-  filter(Nature.of.Call != "TRAINING") %>% 
-  # filter(Nature.of.Call %in% response_time_incidents) %>% 
-  group_by(CAD.inc.Number, STATION, Date.Short) %>% 
-  summarise(Year = Year) %>% 
-  group_by(STATION, Year, Date.Short) %>% 
-  summarise(n=n()) %>% 
-  group_by(STATION, Year) %>% 
-  summarise(m=mean(n)) %>% 
-  filter(!is.na(STATION)) %>% 
-  spread(Year, m) %>% 
-  mutate(Per.Change = (`2015` - `2009`) / `2009`) %>% 
-  View()
 
 
 # Avg runs by day, by year, by unit
@@ -267,7 +234,10 @@ rt + facet_grid(Year ~ .)
 
 #### Maps ####
 # This includes all incidents, e.g., runs
-fd_to_map <- fd_safer_geo %>% filter(Nature.of.Call %in% response_time_incidents)
+fd_to_map <- fd %>% 
+  filter(Nature.of.Call %in% response_time_incidents & bad.geocode == 0) %>%
+  mutate(Y = lat, X= lon) %>% 
+  filter(!is.na(X))
   
 
 ## Cluster analysis ##
@@ -275,9 +245,10 @@ fd_to_map <- fd_safer_geo %>% filter(Nature.of.Call %in% response_time_incidents
 # K means
 # This is how we group incidents on a map.
 # It may be more convenient to use reporting areas, but often those bisect a cluster
+# I'll do 15 b/c that will likely have enough geo detail
 clust <- fd_to_map %>%
-  dplyr::select(X, Y) %>%
-  kmeans(5)
+  select(X, Y) %>%
+  kmeans(15)
 
 
 # Add cluster variable back to the data frame 
@@ -324,3 +295,40 @@ ggmap(somerville.map, extent = "panel", maprange=FALSE) %+% fd_to_map + aes(x = 
 map.center <- geocode("Somerville, MA")
 SHmap <- qmap(c(lon=map.center$lon, lat=map.center$lat), source="google", zoom = 13, color='bw')
 SHmap + geom_point(data=clusterCenters, aes(x=X, y=Y), size = 15, alpha = 0.5, color = "Red")
+
+
+
+
+#### Analysis of clusters ####
+
+# Let's try to recreate the calls per day in each district
+# I'm Skeptical because many calls are from bad geocoded data
+incidents_by_area <- fd_safer_geo %>%
+  filter(Nature.of.Call != "TRAINING") %>% 
+  # filter(Nature.of.Call %in% response_time_incidents) %>% 
+  group_by(CAD.inc.Number, STATION) %>% 
+  summarise(Year = Year) %>% 
+  group_by(STATION, Year) %>% 
+  summarise(n=n()) %>% 
+  filter(!is.na(STATION)) %>% 
+  spread(Year, n) %>% 
+  mutate(Per.Change = (`2015` - `2009`) / `2009`) %>% 
+  View()
+
+
+# Avg calls, by day, by year, by area based on GIS analysis
+# I'm Skeptical because many calls are from bad geocoded data
+# A tweak in the geocoding could have major consequences for everything
+avg_per_day_by_area <- fd_safer_geo %>%
+  filter(Nature.of.Call != "TRAINING") %>% 
+  # filter(Nature.of.Call %in% response_time_incidents) %>% 
+  group_by(CAD.inc.Number, STATION, Date.Short) %>% 
+  summarise(Year = Year) %>% 
+  group_by(STATION, Year, Date.Short) %>% 
+  summarise(n=n()) %>% 
+  group_by(STATION, Year) %>% 
+  summarise(m=mean(n)) %>% 
+  filter(!is.na(STATION)) %>% 
+  spread(Year, m) %>% 
+  mutate(Per.Change = (`2015` - `2009`) / `2009`) %>% 
+  View()
