@@ -236,11 +236,30 @@ rt + facet_grid(Year ~ .)
 # This includes all incidents, e.g., runs
 fd_to_map <- fd %>% 
   filter(Nature.of.Call %in% response_time_incidents & bad.geocode == 0) %>%
-  mutate(Y = lat, X= lon) %>% 
+  mutate(Y = lat, X = lon) %>% 
   filter(!is.na(X))
+
+
+
+# Traditional heat map
+Somerville = c(lon = -71.1000, lat =  42.3875)
+somerville.map = get_map(location = Somerville, zoom = 14, maptype="roadmap",color = "bw")
+ggmap(somerville.map, extent = "panel", maprange=FALSE) %+% fd_to_map + aes(x = fd_to_map$X, y = fd_to_map$Y) +
+  # geom_density2d(data = d, aes(x = lon, y = lat)) + # uncomment for contour lines
+  stat_density2d(data = fd_to_map, aes(x = X, y = Y,  fill = ..level.., alpha = ..level..),
+                 size = 0.01, bins = 16, geom = 'polygon') +
+  scale_fill_gradient(low = "yellow", high = "red") +
+  scale_alpha(range = c(0.05, 0.75), guide = FALSE) +
+  theme(legend.position = "none", axis.title = element_blank(), 
+        axis.ticks = element_blank(),
+        axis.text = element_blank(),
+        text = element_text(size = 12))
   
 
-## Cluster analysis ##
+
+
+
+#### Cluster analysis ####
 
 # K means
 # This is how we group incidents on a map.
@@ -260,7 +279,7 @@ fd_to_mapT <- merge(fd_to_map, c, by='order')
 
 fd_to_map <- fd_to_mapT  %>% tbl_df() %>% mutate(cluster = .cluster) #the ."var name" throws off some functions
 
-remove(c)
+remove(c, fd_to_mapT)
 
 clusterCenters <- as.data.frame(clust$centers)
 
@@ -277,21 +296,7 @@ SHmap <- qmap(c(lon=map.center$lon, lat=map.center$lat), source="google", zoom =
 SHmap + geom_point(data=fd_to_map, aes(x=X, y=Y, color=fd_to_map$cluster))
 
 
-# More traditional heat map
-Somerville = c(lon = -71.1000, lat =  42.3875)
-somerville.map = get_map(location = Somerville, zoom = 14, maptype="roadmap",color = "bw")
-ggmap(somerville.map, extent = "panel", maprange=FALSE) %+% fd_to_map + aes(x = fd_to_map$X, y = fd_to_map$Y) +
-  # geom_density2d(data = d, aes(x = lon, y = lat)) + # uncomment for contour lines
-  stat_density2d(data = fd_to_map, aes(x = X, y = Y,  fill = ..level.., alpha = ..level..),
-                 size = 0.01, bins = 16, geom = 'polygon') +
-  scale_fill_gradient(low = "yellow", high = "red") +
-  scale_alpha(range = c(0.05, 0.75), guide = FALSE) +
-  theme(legend.position = "none", axis.title = element_blank(), 
-        axis.ticks = element_blank(),
-        axis.text = element_blank(),
-        text = element_text(size = 12))
-
-
+# Cluster map
 map.center <- geocode("Somerville, MA")
 SHmap <- qmap(c(lon=map.center$lon, lat=map.center$lat), source="google", zoom = 13, color='bw')
 SHmap + geom_point(data=clusterCenters, aes(x=X, y=Y), size = 15, alpha = 0.5, color = "Red")
@@ -299,36 +304,39 @@ SHmap + geom_point(data=clusterCenters, aes(x=X, y=Y), size = 15, alpha = 0.5, c
 
 
 
-#### Analysis of clusters ####
+### Analysis of clusters ###
 
-# Let's try to recreate the calls per day in each district
-# I'm Skeptical because many calls are from bad geocoded data
-incidents_by_area <- fd_safer_geo %>%
-  filter(Nature.of.Call != "TRAINING") %>% 
-  # filter(Nature.of.Call %in% response_time_incidents) %>% 
-  group_by(CAD.inc.Number, STATION) %>% 
+# Let's try to recreate the calls per day in each cluster
+incidents_by_area <- fd_to_map %>%
+  group_by(CAD.inc.Number, cluster) %>% 
   summarise(Year = Year) %>% 
-  group_by(STATION, Year) %>% 
-  summarise(n=n()) %>% 
-  filter(!is.na(STATION)) %>% 
+  group_by(cluster, Year) %>% 
+  summarise(n=n()) %>%
+  data.frame() %>%
   spread(Year, n) %>% 
-  mutate(Per.Change = (`2015` - `2009`) / `2009`) %>% 
-  View()
+  mutate(Per.Change = (`2015` - `2009`) / `2009`) 
+
+
+# Now we will map this:
+fd_to_map <- merge(fd_to_map, incidents_by_area, by.x = "cluster", by.y = "cluster")
+
+# Dot map 
+map.center <- geocode("Somerville, MA")
+SHmap <- qmap(c(lon=map.center$lon, lat=map.center$lat), source="google", zoom = 13, color='bw')
+SHmap + geom_point(data=fd_to_map, aes(x=X, y=Y, color=fd_to_map$Per.Change))
+
 
 
 # Avg calls, by day, by year, by area based on GIS analysis
-# I'm Skeptical because many calls are from bad geocoded data
-# A tweak in the geocoding could have major consequences for everything
-avg_per_day_by_area <- fd_safer_geo %>%
-  filter(Nature.of.Call != "TRAINING") %>% 
-  # filter(Nature.of.Call %in% response_time_incidents) %>% 
-  group_by(CAD.inc.Number, STATION, Date.Short) %>% 
+avg_per_day_by_area <- fd_to_map %>%
+  group_by(CAD.inc.Number, cluster, Date.Short) %>% 
   summarise(Year = Year) %>% 
-  group_by(STATION, Year, Date.Short) %>% 
+  group_by(cluster, Year, Date.Short) %>% 
   summarise(n=n()) %>% 
-  group_by(STATION, Year) %>% 
+  group_by(cluster, Year) %>% 
   summarise(m=mean(n)) %>% 
-  filter(!is.na(STATION)) %>% 
+  filter(!is.na(cluster)) %>% 
+  data.frame() %>% 
   spread(Year, m) %>% 
   mutate(Per.Change = (`2015` - `2009`) / `2009`) %>% 
   View()
