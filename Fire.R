@@ -289,3 +289,54 @@ pred.stat.map <- ggmap(map.in) %+% fd_to_map +
 print(pred.stat.map)
 
 ggsave("./plots/median_response_times_map.png", dpi=250, width=6, height=5)
+
+
+
+
+# The holy grail: map of response times in 90th
+rt_first_responders <- fd %>% 
+  filter(Nature.of.Call %in% response_time_incidents &
+           bad.geocode == 0 &
+           is.first.responder == 1 &
+           !is.na(X))
+
+Somerville = c(lon = -71.1000, lat =  42.3875)
+map.in = get_map(location = Somerville, zoom = 13, maptype="roadmap",color = "bw")
+
+pred.stat.map <- ggmap(map.in) %+% fd_to_map + 
+  aes(x = X,
+      y = Y,
+      z = first.responder.response.time) +
+  stat_summary2d(fun.y = "quantile", fun.args=list(probs=0.9), 
+                 binwidth = c(.002, .002),
+                 alpha = 0.5) + 
+  scale_fill_gradientn(colours=(brewer.pal(9,"YlGnBu"))) +
+  labs(fill="") +
+  theme_nothing(legend=TRUE) + ggtitle("90th Percentile Response Times")
+print(pred.stat.map)
+
+ggsave("./plots/ninetieth_per_response_times.png", dpi=250, width=6, height=5)
+
+
+
+
+### Notice that all of these are very sensitive to outliers
+# A for loop that will create a dot map for every neighborhood you specify
+neighborhoodList <- c("Assembly Square", "Ball Square", "Davis Square", "East Somerville", "Gilman Square", "Magoun Square", "Porter Square", "Prospect Hill", "Spring Hill", "Teele Square", "Ten Hills", "Union Square", "Winter Hill")
+
+for (n in 1:(length(neighborhoodList))) {
+  map <- get_map(location = paste(neighborhoodList[n], "Somerville, MA", sep=", "), zoom=16, maptype="roadmap", color = "bw")
+  ggmap(map) %+% fd_to_map + 
+    aes(x = X,
+        y = Y,
+        z = first.responder.response.time) +
+    stat_summary2d(fun.y = "quantile", fun.args=list(probs=0.9), 
+                   binwidth = c(.0005, .0005),
+                   alpha = 0.5) + 
+    scale_fill_gradientn(colours=(brewer.pal(9,"YlGnBu"))) +
+    labs(fill="") +
+    theme_nothing(legend=TRUE) + 
+    ggtitle(paste("90th Percentile: ",neighborhoodList[n]))
+  
+  ggsave(paste("./plots/map_",neighborhoodList[n], ".png", sep=""), dpi=250, width=6, height=5)
+}
