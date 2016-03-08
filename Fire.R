@@ -34,11 +34,11 @@ ust <- read.csv("./data/unit_summary_times.csv")
 # NOTE : I'm not using this because I'm nervous
 # geo <- read.csv("./data/police_fire_geoDB.csv")
 
-# This is the geo data produced in collaboration with Keith
-# First I cleaned up the addresses and then I gave them to Keith to geocode
-# I avoided giving too many 0 Broadway, etc
+# This is the geo data produced by the google maps api
+# First I cleaned up the addresses and then I wrote a special version of ggmaps
+# which took my API key and batch geocoded them
 # It's probably the best option
-cad_geo <- read.csv("./data/CAD_table_geocoded.csv")
+cad_geo <- read.csv("./data/CAD_table_geocoded_google.csv")
 
 
 ## Ok, now I want to make one large dataframe with every response ##
@@ -56,7 +56,7 @@ fd <- merge(ust, onloc, by.x = "CAD.inc.Number", by.y = "Incnum", all.x = TRUE)
 
 
 ## Ok now let's add in the Geo data
-cad_geo <- cad_geo %>% select(- X.1, - n, - LocForced, - StName1: -IDtag)
+cad_geo <- cad_geo %>% select(- X, - n, - StName1: -IDtag)
 fd <- merge(fd, cad_geo, by.x = "CAD.inc.Number", by.y = "IncNum", all.x = TRUE)
 
 
