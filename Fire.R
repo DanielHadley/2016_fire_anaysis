@@ -139,6 +139,9 @@ fd$bad.geocode <- ifelse(is.na(fd$Full.Address), 1,
 
 # test <- fd %>% filter(bad.geocode == 1 & !is.na(Full.Address))
 
+# and just because I get confused by lat and lon
+fd <- fd %>% mutate(Y = lat, X = lon)
+
 
 
 
@@ -263,62 +266,13 @@ ggmap(somerville.map, extent = "panel", maprange=FALSE) %+% fd_to_map + aes(x = 
 
 
 
+# The holy grail: map of response times
+rt_first_responders <- fd %>% 
+  filter(Nature.of.Call %in% response_time_incidents &
+           bad.geocode == 0 &
+           is.first.responder == 1 &
+           !is.na(X))
 
-#### Better maps ####
-theme_set(theme_bw(base_size = 8))
-
-YlOrBr <- c("#FFFFD4", "#FED98E", "#FE9929", "#D95F0E", "#993404")
-
-Somerville = c(lon = -71.1000, lat =  42.3875)
-somerville.map = get_map(location = Somerville, zoom = 14, maptype="roadmap",color = "bw")
-
-pred.stat.map <- ggmap(somerville.map) %+% fd_to_map + pred.stat
-  aes(x = X,
-      y = Y,
-      z = first.responder.response.time) +
-  stat_summary2d(fun = median, 
-                 binwidth = c(.05, .05),
-                 alpha = 0.5) + 
-  scale_fill_gradientn(name = "Median",
-                       colours = YlOrBr,
-                       space = "Lab") + 
-  labs(x = "Longitude",
-       y = "Latitude") +
-  coord_map()
-print(pred.stat.map)
-
-
-pred.stat <- ggplot(data = fd_to_map,
-                    aes(x = X,
-                        y = Y,
-                        z = first.responder.response.time)) + 
-                      stat_summary2d(fun = mean)
-print(pred.stat)
-
-
-# refine breaks and palette ----
-require('RColorBrewer')
-YlOrBr <- c("#FFFFD4", "#FED98E", "#FE9929", "#D95F0E", "#993404")
-pred.stat.bin.width <- ggplot(data = fd_to_map,
-                              aes(x = X,
-                                  y = Y,
-                                  z = first.responder.response.time)) + 
-  stat_summary2d(fun = median, binwidth = c(.005, .005)) + 
-  scale_fill_gradientn(name = "Median",
-                       colours = YlOrBr,
-                       space = "Lab") +
-  coord_map()
-print(pred.stat.bin.width)
-
-
-map.in <- get_map(location = c(min(fd_to_map$X),
-                               min(fd_to_map$Y),
-                               max(fd_to_map$X),
-                               max(fd_to_map$Y)),
-                  source = "google")
-theme_set(theme_bw(base_size = 8))
-
-## working !!
 Somerville = c(lon = -71.1000, lat =  42.3875)
 map.in = get_map(location = Somerville, zoom = 13, maptype="roadmap",color = "bw")
 
@@ -327,73 +281,11 @@ pred.stat.map <- ggmap(map.in) %+% fd_to_map +
       y = Y,
       z = first.responder.response.time) +
   stat_summary2d(fun = median, 
-                 binwidth = c(.001, .001),
+                 binwidth = c(.002, .002),
                  alpha = 0.5) + 
-  scale_fill_gradientn(name = "Median",
-                       colours = YlOrBr,
-                       space = "Lab") + 
-  labs(x = "Longitude",
-       y = "Latitude") +
-  coord_map()
+  scale_fill_gradientn(colours=(brewer.pal(9,"YlGnBu"))) +
+  labs(fill="") +
+  theme_nothing(legend=TRUE) + ggtitle("Median Response Times")
 print(pred.stat.map)
 
-
-
-## working !!
-Somerville = c(lon = -71.1000, lat =  42.3875)
-map.in = get_map(location = Somerville, zoom = 14, maptype="roadmap",color = "bw")
-
-pred.stat.map <- ggmap(map.in) %+% fd_to_map + 
-  aes(x = X,
-      y = Y,
-      z = first.responder.response.time) +
-  stat_summary2d(fun = median, 
-                 binwidth = c(.001, .001),
-                 alpha = 0.5) + 
-  scale_fill_gradientn(name = "Median",
-                       colours = YlOrBr,
-                       space = "Lab")
-  coord_map()
-print(pred.stat.map)
-
-
-
-YlOrBr <- c("#FFFFD4", "#FED98E", "#FE9929", "#D95F0E", "#993404")
-Somerville = c(lon = -71.1000, lat =  42.3875)
-map.in = get_map(location = Somerville, zoom = 13, maptype="roadmap",color = "bw")
-
-pred.stat.map <- ggmap(map.in) %+% fd_to_map + 
-  aes(x = X,
-      y = Y,
-      z = first.responder.response.time) +
-  stat_summary2d(fun = median, 
-                 binwidth = c(.001, .001),
-                 alpha = 0.5) + 
-  scale_fill_gradientn(name = "Median",
-                       colours = YlOrBr,
-                       space = "Lab")
-print(pred.stat.map)
-
-ggsave("./plots/map.png", dpi=250, width=6, height=5)
-
-
-
-
-
-YlOrBr <- c("#FFFFD4", "#FED98E", "#FE9929", "#D95F0E", "#993404")
-Somerville = c(lon = -71.1000, lat =  42.3875)
-map.in = get_map(location = Somerville, zoom = 13, maptype="roadmap",color = "bw")
-
-pred.stat.map <- ggmap(map.in) %+% fd_to_map + 
-  aes(x = X,
-      y = Y,
-      z = first.responder.response.time) +
-  stat_summary2d(fun = median, 
-                 binwidth = c(.001, .001),
-                 alpha = 0.5) + 
-  scale_fill_gradientn(name = "Median",
-                       colours = YlOrBr,
-                       space = "Lab")
-print(pred.stat.map)
-
-ggsave("./plots/map.png", dpi=250, width=6, height=5)
+ggsave("./plots/median_response_times_map.png", dpi=250, width=6, height=5)
