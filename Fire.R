@@ -369,3 +369,77 @@ map.center <- geocode("Somerville, MA")
 SHmap <- qmap(c(lon=map.center$lon, lat=map.center$lat), source="google", zoom = 13, color='bw')
 SHmap + geom_point(data=fd_to_map_rt, aes(x=X, y=Y, color=fd_to_map_rt$`2012`))
 
+
+
+
+#### Better maps ####
+theme_set(theme_bw(base_size = 8))
+
+YlOrBr <- c("#FFFFD4", "#FED98E", "#FE9929", "#D95F0E", "#993404")
+
+Somerville = c(lon = -71.1000, lat =  42.3875)
+somerville.map = get_map(location = Somerville, zoom = 14, maptype="roadmap",color = "bw")
+
+pred.stat.map <- ggmap(somerville.map) %+% fd_to_map + pred.stat
+  aes(x = X,
+      y = Y,
+      z = first.responder.response.time) +
+  stat_summary2d(fun = median, 
+                 binwidth = c(.05, .05),
+                 alpha = 0.5) + 
+  scale_fill_gradientn(name = "Median",
+                       colours = YlOrBr,
+                       space = "Lab") + 
+  labs(x = "Longitude",
+       y = "Latitude") +
+  coord_map()
+print(pred.stat.map)
+
+
+pred.stat <- ggplot(data = fd_to_map,
+                    aes(x = X,
+                        y = Y,
+                        z = first.responder.response.time)) + 
+                      stat_summary2d(fun = mean)
+print(pred.stat)
+
+
+# refine breaks and palette ----
+require('RColorBrewer')
+YlOrBr <- c("#FFFFD4", "#FED98E", "#FE9929", "#D95F0E", "#993404")
+pred.stat.bin.width <- ggplot(data = fd_to_map,
+                              aes(x = X,
+                                  y = Y,
+                                  z = first.responder.response.time)) + 
+  stat_summary2d(fun = median, binwidth = c(.005, .005)) + 
+  scale_fill_gradientn(name = "Median",
+                       colours = YlOrBr,
+                       space = "Lab") +
+  coord_map()
+print(pred.stat.bin.width)
+
+
+map.in <- get_map(location = c(min(fd_to_map$X),
+                               min(fd_to_map$Y),
+                               max(fd_to_map$X),
+                               max(fd_to_map$Y)),
+                  source = "google")
+theme_set(theme_bw(base_size = 8))
+
+Somerville = c(lon = -71.1000, lat =  42.3875)
+map.in = get_map(location = Somerville, zoom = 14, maptype="roadmap",color = "bw")
+
+pred.stat.map <- ggmap(map.in) %+% fd_to_map + 
+  aes(x = X,
+      y = Y,
+      z = first.responder.response.time) +
+  stat_summary2d(fun = median, 
+                 binwidth = c(.005, .005),
+                 alpha = 0.5) + 
+  scale_fill_gradientn(name = "Median",
+                       colours = YlOrBr,
+                       space = "Lab") + 
+  labs(x = "Longitude",
+       y = "Latitude") +
+  coord_map()
+print(pred.stat.map)
