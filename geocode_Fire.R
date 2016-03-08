@@ -12,7 +12,7 @@ library(dplyr)
 library(ggmap) # This is my modified version now
 
 # Test
-geocode("the white house", api_key = myAPIkey)
+geocode("the white house")
 
 
 # Load the data
@@ -54,20 +54,21 @@ cad$Full.Address <- ifelse(substr(cad$Full.Address, start = 1, stop = 2) == "0 "
 # The data to geocode
 d <- cad %>% group_by(Full.Address)  %>% summarise(n=n())
 
-d <- d[1:4, ]
+
 # Geocodes using the Google engine
-locs <- geocode(d$Full.Address, source = "google", output = "more", api_key = myAPIkey)
+locs <- geocode(d$Full.Address, source = "google")
 #d <- bind_cols(d, locs) # Add the lat and long back to d
 # ^ Didn't work, so
 d$lon <- locs$lon
 d$lat <- locs$lat
 
+write.csv(d, "./raw_data/finalgeo.csv")
 
 # merge 
 cadGeo <- merge(cad, d, by.x = "Full.Address", by.y = "Full.Address")
 
 # write
-write.csv(cadGeoFinal, "./data/CAD_table_geocoded.csv")
+write.csv(cadGeo, "./data/CAD_table_geocoded_google.csv")
 
 
 
