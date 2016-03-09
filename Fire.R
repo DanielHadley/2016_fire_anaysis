@@ -162,8 +162,11 @@ avg_per_day_by_unit <- fd %>%
   filter(Unit != "") %>%
   data.frame() %>% 
   spread(Year, m) %>% 
-  mutate(Per.Change = (`2015` - `2009`) / `2009`) %>% 
-  View()
+  mutate(Per.Change = (`2015` - `2009`) / `2009`) %>%
+  arrange(desc(`2015`)) %>% 
+  write.csv("./plots/avg_per_day_by_unit.csv")
+  View() %>% 
+
 
 
 # Median response time, by day, by year, by unit (for first responders & important calls)
@@ -211,7 +214,8 @@ ninetieth_rt_by_unit <- fd %>%
   filter(Unit != "") %>%
   data.frame() %>% 
   spread(Year, nine) %>% 
-  mutate(Per.Change = (`2015` - `2009`) / `2009`) %>% 
+  mutate(Per.Change = (`2015` - `2009`) / `2009`) %>%
+  write.csv("./plots/ninetieth_rt_by_unit.csv")
   View()
 
 
@@ -241,17 +245,18 @@ rt + facet_grid(Year ~ .)
 
 
 #### Maps ####
+
+
+
+# All Runs For Critical Incidents
 # This includes all incidents, e.g., runs
 fd_to_map <- fd %>% 
   filter(Nature.of.Call %in% response_time_incidents & bad.geocode == 0) %>%
   mutate(Y = lat, X = lon) %>% 
   filter(!is.na(X))
 
-
-
-# Traditional heat map
 Somerville = c(lon = -71.1000, lat =  42.3875)
-somerville.map = get_map(location = Somerville, zoom = 14, maptype="roadmap",color = "bw")
+somerville.map = get_map(location = Somerville, zoom = 13, maptype="roadmap",color = "bw")
 ggmap(somerville.map, extent = "panel", maprange=FALSE) %+% fd_to_map + aes(x = fd_to_map$X, y = fd_to_map$Y) +
   # geom_density2d(data = d, aes(x = lon, y = lat)) + # uncomment for contour lines
   stat_density2d(data = fd_to_map, aes(x = X, y = Y,  fill = ..level.., alpha = ..level..),
@@ -261,8 +266,130 @@ ggmap(somerville.map, extent = "panel", maprange=FALSE) %+% fd_to_map + aes(x = 
   theme(legend.position = "none", axis.title = element_blank(), 
         axis.ticks = element_blank(),
         axis.text = element_blank(),
-        text = element_text(size = 12))
+        text = element_text(size = 12)) +
+  ggtitle("All Runs For Critical Incidents") 
+
+ggsave("./plots/All_Runs_For_Critical_Incidents.png", dpi=250, width=6, height=5)
   
+
+
+
+# All calls For Critical Incidents
+# This includes all incidents, e.g., runs
+fd_to_map <- fd %>% 
+  filter(Nature.of.Call %in% response_time_incidents & bad.geocode == 0) %>%
+  group_by(CAD.inc.Number) %>% 
+  summarise(X = min(X), Y = min(Y)) %>% 
+  filter(!is.na(X))
+
+Somerville = c(lon = -71.1000, lat =  42.3875)
+somerville.map = get_map(location = Somerville, zoom = 13, maptype="roadmap",color = "bw")
+ggmap(somerville.map, extent = "panel", maprange=FALSE) %+% fd_to_map + aes(x = fd_to_map$X, y = fd_to_map$Y) +
+  # geom_density2d(data = d, aes(x = lon, y = lat)) + # uncomment for contour lines
+  stat_density2d(data = fd_to_map, aes(x = X, y = Y,  fill = ..level.., alpha = ..level..),
+                 size = 0.01, bins = 16, geom = 'polygon') +
+  scale_fill_gradient(low = "yellow", high = "red") +
+  scale_alpha(range = c(0.05, 0.75), guide = FALSE) +
+  theme(legend.position = "none", axis.title = element_blank(), 
+        axis.ticks = element_blank(),
+        axis.text = element_blank(),
+        text = element_text(size = 12)) +
+  ggtitle("All Calls For Critical Incidents") 
+
+ggsave("./plots/All_Calls_For_Critical_Incidents.png", dpi=250, width=6, height=5)
+
+
+
+
+# All calls For Critical Incidents
+# This includes all incidents, e.g., runs
+fd_to_map <- fd %>% 
+  filter(Nature.of.Call %in% response_time_incidents &
+           bad.geocode == 0 &
+           Year != 2009) %>%
+  group_by(CAD.inc.Number) %>% 
+  summarise(X = min(X), Y = min(Y), Year = Year) %>% 
+  filter(!is.na(X))
+
+Somerville = c(lon = -71.1000, lat =  42.3875)
+somerville.map = get_map(location = Somerville, zoom = 13, maptype="roadmap",color = "bw")
+ggmap(somerville.map, extent = "panel", maprange=FALSE) %+% fd_to_map + aes(x = fd_to_map$X, y = fd_to_map$Y) +
+  # geom_density2d(data = d, aes(x = lon, y = lat)) + # uncomment for contour lines
+  stat_density2d(data = fd_to_map, aes(x = X, y = Y,  fill = ..level.., alpha = ..level..),
+                 size = 0.01, bins = 16, geom = 'polygon') +
+  scale_fill_gradient(low = "yellow", high = "red") +
+  scale_alpha(range = c(0.05, 0.75), guide = FALSE) +
+  theme(legend.position = "none", axis.title = element_blank(), 
+        axis.ticks = element_blank(),
+        axis.text = element_blank(),
+        text = element_text(size = 12)) +
+  ggtitle("All Calls For Critical Incidents") +
+  facet_wrap(~ Year)
+
+ggsave("./plots/All_Calls_For_Critical_Incidents_year.png", dpi=250, width=6, height=5)
+
+
+
+
+# All RTs over 5 for first responders facet
+# This includes all incidents, e.g., runs
+fd_to_map <- fd %>% 
+  filter(Nature.of.Call %in% response_time_incidents &
+           bad.geocode == 0 &
+           Year != 2009 &
+           is.first.responder == 1 &
+           first.responder.response.time > 5) %>%
+  group_by(CAD.inc.Number) %>% 
+  summarise(X = min(X), Y = min(Y), Year = Year) %>% 
+  filter(!is.na(X))
+
+Somerville = c(lon = -71.1000, lat =  42.3875)
+somerville.map = get_map(location = Somerville, zoom = 13, maptype="roadmap",color = "bw")
+ggmap(somerville.map, extent = "panel", maprange=FALSE) %+% fd_to_map + aes(x = fd_to_map$X, y = fd_to_map$Y) +
+  # geom_density2d(data = d, aes(x = lon, y = lat)) + # uncomment for contour lines
+  stat_density2d(data = fd_to_map, aes(x = X, y = Y,  fill = ..level.., alpha = ..level..),
+                 size = 0.01, bins = 16, geom = 'polygon') +
+  scale_fill_gradient(low = "yellow", high = "red") +
+  scale_alpha(range = c(0.05, 0.75), guide = FALSE) +
+  theme(legend.position = "none", axis.title = element_blank(), 
+        axis.ticks = element_blank(),
+        axis.text = element_blank(),
+        text = element_text(size = 12)) +
+  ggtitle("Calls with Response Times Over 5 Minutes") +
+  facet_wrap(~ Year)
+
+ggsave("./plots/Over_Five_For_Critical_Incidents_year.png", dpi=250, width=6, height=5)
+
+
+
+
+# All RTs over 5 for first responders 
+# This includes all incidents, e.g., runs
+fd_to_map <- fd %>% 
+  filter(Nature.of.Call %in% response_time_incidents &
+           bad.geocode == 0 &
+           is.first.responder == 1 &
+           first.responder.response.time > 5) %>%
+  group_by(CAD.inc.Number) %>% 
+  summarise(X = min(X), Y = min(Y), Year = Year) %>% 
+  filter(!is.na(X))
+
+Somerville = c(lon = -71.1000, lat =  42.3875)
+somerville.map = get_map(location = Somerville, zoom = 13, maptype="roadmap",color = "bw")
+ggmap(somerville.map, extent = "panel", maprange=FALSE) %+% fd_to_map + aes(x = fd_to_map$X, y = fd_to_map$Y) +
+  # geom_density2d(data = d, aes(x = lon, y = lat)) + # uncomment for contour lines
+  stat_density2d(data = fd_to_map, aes(x = X, y = Y,  fill = ..level.., alpha = ..level..),
+                 size = 0.01, bins = 16, geom = 'polygon') +
+  scale_fill_gradient(low = "yellow", high = "red") +
+  scale_alpha(range = c(0.05, 0.75), guide = FALSE) +
+  theme(legend.position = "none", axis.title = element_blank(), 
+        axis.ticks = element_blank(),
+        axis.text = element_blank(),
+        text = element_text(size = 12)) +
+  ggtitle("Calls with Response Times Over 5 Minutes")
+
+ggsave("./plots/Over_Five_For_Critical_Incidents.png", dpi=250, width=6, height=5)
+
 
 
 
@@ -276,7 +403,7 @@ rt_first_responders <- fd %>%
 Somerville = c(lon = -71.1000, lat =  42.3875)
 map.in = get_map(location = Somerville, zoom = 13, maptype="roadmap",color = "bw")
 
-pred.stat.map <- ggmap(map.in) %+% fd_to_map + 
+pred.stat.map <- ggmap(map.in) %+% rt_first_responders + 
   aes(x = X,
       y = Y,
       z = first.responder.response.time) +
@@ -303,7 +430,7 @@ rt_first_responders <- fd %>%
 Somerville = c(lon = -71.1000, lat =  42.3875)
 map.in = get_map(location = Somerville, zoom = 13, maptype="roadmap",color = "bw")
 
-pred.stat.map <- ggmap(map.in) %+% fd_to_map + 
+pred.stat.map <- ggmap(map.in) %+% rt_first_responders + 
   aes(x = X,
       y = Y,
       z = first.responder.response.time) +
@@ -316,6 +443,36 @@ pred.stat.map <- ggmap(map.in) %+% fd_to_map +
 print(pred.stat.map)
 
 ggsave("./plots/ninetieth_per_response_times.png", dpi=250, width=6, height=5)
+
+
+
+
+# The holy grail: map of response times in 90th
+#! Important: I set the limits to the scale : ones above that are grey
+rt_first_responders <- fd %>% 
+  filter(Nature.of.Call %in% response_time_incidents &
+           bad.geocode == 0 &
+           is.first.responder == 1 &
+           Year != 2009 &
+           !is.na(X))
+
+Somerville = c(lon = -71.1000, lat =  42.3875)
+map.in = get_map(location = Somerville, zoom = 13, maptype="roadmap",color = "bw")
+
+pred.stat.map <- ggmap(map.in) %+% rt_first_responders + 
+  aes(x = X,
+      y = Y,
+      z = first.responder.response.time) +
+  stat_summary2d(fun.y = "quantile", fun.args=list(probs=0.9), 
+                 binwidth = c(.002, .002),
+                 alpha = 0.5) + 
+  scale_fill_gradientn(colours=(brewer.pal(9,"YlGnBu")), limits = c(1,7)) +
+  labs(fill="") +
+  theme_nothing(legend=TRUE) + ggtitle(expression(atop("90th Percentile Response Times", atop(italic("Scale capped at 7"), "")))) +
+  facet_wrap(~ Year)
+  
+
+ggsave("./plots/ninetieth_per_response_times_Year.png", dpi=250, width=6, height=5)
 
 
 
