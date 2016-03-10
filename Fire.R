@@ -162,7 +162,7 @@ avg_per_day_by_unit <- fd %>%
   filter(Unit != "") %>%
   data.frame() %>% 
   spread(Year, m) %>% 
-  mutate(Per.Change = (`2015` - `2009`) / `2009`) %>%
+  mutate(Per.Change.2009.to.2015 = (`2015` - `2009`) / `2009`) %>%
   arrange(desc(`2015`)) %>% 
   write.csv("./plots/avg_per_day_by_unit.csv")
   View() %>% 
@@ -176,7 +176,7 @@ med_rt_by_unit <- fd %>%
   summarise(m = median(first.responder.response.time)) %>% 
   filter(Unit != "") %>% 
   spread(Year, m) %>% 
-  mutate(Per.Change = (`2015` - `2009`) / `2009`) %>% 
+  mutate(Per.Change.2009.to.2015 = (`2015` - `2009`) / `2009`) %>% 
   View()
 
 
@@ -189,7 +189,7 @@ med_rt_by_unit_no_outliers <- fd %>%
   summarise(m = median(first.responder.response.time)) %>% 
   filter(Unit != "") %>% 
   spread(Year, m) %>% 
-  mutate(Per.Change = (`2015` - `2009`) / `2009`) %>% 
+  mutate(Per.Change.2009.to.2015 = (`2015` - `2009`) / `2009`) %>% 
   View()
 
 
@@ -202,7 +202,7 @@ med_rt_by_unit_engines <- fd %>%
   summarise(m = median(first.responder.response.time)) %>% 
   filter(Unit != "") %>% 
   spread(Year, m) %>% 
-  mutate(Per.Change = (`2015` - `2009`) / `2009`) %>% 
+  mutate(Per.Change.2009.to.2015 = (`2015` - `2009`) / `2009`) %>% 
   View()
 
 
@@ -214,12 +214,10 @@ ninetieth_rt_by_unit <- fd %>%
   filter(Unit != "") %>%
   data.frame() %>% 
   spread(Year, nine) %>% 
-  mutate(Per.Change = (`2015` - `2009`) / `2009`) %>%
-  write.csv("./plots/ninetieth_rt_by_unit.csv")
+  mutate(Per.Change.2009.to.2015 = (`2015` - `2009`) / `2009`) %>%
+  write.csv("./plots/ninetieth_quantile_response_times_by_unit.csv")
   View()
 
-
-fd_first <- fd %>% group_by(CAD.inc.Number, first.responder) %>% summarise()
 
 
 
@@ -227,19 +225,30 @@ fd_first <- fd %>% group_by(CAD.inc.Number, first.responder) %>% summarise()
 ## Histograms ##
 
 # The following includes runs where the unit is first responder
-by_engine <- fd %>% filter(first.responder.response.time < 10) %>%
+by_engine <- fd %>% filter(first.responder.response.time < 7.5) %>%
   filter(Unit %in% engines &
            Nature.of.Call %in% response_time_incidents &
            is.first.responder == 1)
-rt <- ggplot(by_engine, aes(x=first.responder.response.time)) + geom_histogram(binwidth=.5,colour="white")
-rt + facet_grid(Unit ~ .)
+
+rt <- ggplot(by_engine, aes(x=first.responder.response.time)) + 
+  geom_histogram(binwidth=.5,colour="white") +
+  labs(title = "Response Times By Unit", x = "Minutes") +
+  facet_grid(Unit ~ .)
+
+ggsave("./plots/response_times_by_engine.png", dpi=250, width=6, height=5)
 
 
-by_year <- fd %>% filter(first.responder.response.time < 10 &
+
+by_year <- fd %>% filter(first.responder.response.time < 7.5 &
                            Nature.of.Call %in% response_time_incidents &
                            is.first.responder == 1) 
-rt <- ggplot(by_year, aes(x=first.responder.response.time)) + geom_histogram(binwidth=.5,colour="white")
-rt + facet_grid(Year ~ .)
+rt <- ggplot(by_year, aes(x=first.responder.response.time)) + 
+  geom_histogram(binwidth=.5,colour="white") +
+  labs(title = "Response Times By Year", x = "Minutes") +
+  facet_grid(Year ~ .)
+
+ggsave("./plots/response_times_by_year.png", dpi=250, width=6, height=5)
+
 
 
 
@@ -267,7 +276,7 @@ ggmap(somerville.map, extent = "panel", maprange=FALSE) %+% fd_to_map + aes(x = 
         axis.ticks = element_blank(),
         axis.text = element_blank(),
         text = element_text(size = 12)) +
-  ggtitle("All Runs For Critical Incidents") 
+  ggtitle("Runs For Critical Incidents: 2009-2015")
 
 ggsave("./plots/All_Runs_For_Critical_Incidents.png", dpi=250, width=6, height=5)
   
@@ -294,7 +303,7 @@ ggmap(somerville.map, extent = "panel", maprange=FALSE) %+% fd_to_map + aes(x = 
         axis.ticks = element_blank(),
         axis.text = element_blank(),
         text = element_text(size = 12)) +
-  ggtitle("All Calls For Critical Incidents") 
+  ggtitle("Calls For Critical Incidents: 2009-2015")
 
 ggsave("./plots/All_Calls_For_Critical_Incidents.png", dpi=250, width=6, height=5)
 
@@ -323,7 +332,7 @@ ggmap(somerville.map, extent = "panel", maprange=FALSE) %+% fd_to_map + aes(x = 
         axis.ticks = element_blank(),
         axis.text = element_blank(),
         text = element_text(size = 12)) +
-  ggtitle("All Calls For Critical Incidents") +
+  ggtitle("Calls For Critical Incidents") +
   facet_wrap(~ Year)
 
 ggsave("./plots/All_Calls_For_Critical_Incidents_year.png", dpi=250, width=6, height=5)
@@ -386,7 +395,7 @@ ggmap(somerville.map, extent = "panel", maprange=FALSE) %+% fd_to_map + aes(x = 
         axis.ticks = element_blank(),
         axis.text = element_blank(),
         text = element_text(size = 12)) +
-  ggtitle("Calls with Response Times Over 5 Minutes")
+  ggtitle("Calls with Response Times Over 5 Minutes: 2009-2015")
 
 ggsave("./plots/Over_Five_For_Critical_Incidents.png", dpi=250, width=6, height=5)
 
@@ -403,17 +412,17 @@ rt_first_responders <- fd %>%
 Somerville = c(lon = -71.1000, lat =  42.3875)
 map.in = get_map(location = Somerville, zoom = 13, maptype="roadmap",color = "bw")
 
-pred.stat.map <- ggmap(map.in) %+% rt_first_responders + 
+fire.map <- ggmap(map.in) %+% rt_first_responders + 
   aes(x = X,
       y = Y,
       z = first.responder.response.time) +
   stat_summary2d(fun = median, 
                  binwidth = c(.002, .002),
                  alpha = 0.5) + 
-  scale_fill_gradientn(colours=(brewer.pal(9,"YlGnBu"))) +
+  scale_fill_gradientn(name = "minutes", colours=(brewer.pal(9,"YlGnBu"))) +
   labs(fill="") +
-  theme_nothing(legend=TRUE) + ggtitle("Median Response Times")
-print(pred.stat.map)
+  theme_nothing(legend=TRUE) + ggtitle("Median Response Times: 2009-2015")
+print(fire.map)
 
 ggsave("./plots/median_response_times_map.png", dpi=250, width=6, height=5)
 
@@ -430,17 +439,17 @@ rt_first_responders <- fd %>%
 Somerville = c(lon = -71.1000, lat =  42.3875)
 map.in = get_map(location = Somerville, zoom = 13, maptype="roadmap",color = "bw")
 
-pred.stat.map <- ggmap(map.in) %+% rt_first_responders + 
+fire.map <- ggmap(map.in) %+% rt_first_responders + 
   aes(x = X,
       y = Y,
       z = first.responder.response.time) +
   stat_summary2d(fun.y = "quantile", fun.args=list(probs=0.9), 
                  binwidth = c(.002, .002),
                  alpha = 0.5) + 
-  scale_fill_gradientn(colours=(brewer.pal(9,"YlGnBu"))) +
+  scale_fill_gradientn(name = "minutes", colours=(brewer.pal(9,"YlGnBu"))) +
   labs(fill="") +
-  theme_nothing(legend=TRUE) + ggtitle("90th Percentile Response Times")
-print(pred.stat.map)
+  theme_nothing(legend=TRUE) + ggtitle("90th Percentile Response Times: 2009-2015")
+print(fire.map)
 
 ggsave("./plots/ninetieth_per_response_times.png", dpi=250, width=6, height=5)
 
@@ -459,14 +468,14 @@ rt_first_responders <- fd %>%
 Somerville = c(lon = -71.1000, lat =  42.3875)
 map.in = get_map(location = Somerville, zoom = 13, maptype="roadmap",color = "bw")
 
-pred.stat.map <- ggmap(map.in) %+% rt_first_responders + 
+fire.map <- ggmap(map.in) %+% rt_first_responders + 
   aes(x = X,
       y = Y,
       z = first.responder.response.time) +
   stat_summary2d(fun.y = "quantile", fun.args=list(probs=0.9), 
                  binwidth = c(.002, .002),
                  alpha = 0.5) + 
-  scale_fill_gradientn(colours=(brewer.pal(9,"YlGnBu")), limits = c(1,7)) +
+  scale_fill_gradientn(name = "minutes", colours=(brewer.pal(9,"YlGnBu")), limits = c(1,7)) +
   labs(fill="") +
   theme_nothing(legend=TRUE) + ggtitle(expression(atop("90th Percentile Response Times", atop(italic("Scale capped at 7"), "")))) +
   facet_wrap(~ Year)
@@ -477,23 +486,34 @@ ggsave("./plots/ninetieth_per_response_times_Year.png", dpi=250, width=6, height
 
 
 
-### Notice that all of these are very sensitive to outliers
+
+
+## Dot maps ##
+
 # A for loop that will create a dot map for every neighborhood you specify
 neighborhoodList <- c("Assembly Square", "Ball Square", "Davis Square", "East Somerville", "Gilman Square", "Magoun Square", "Porter Square", "Prospect Hill", "Spring Hill", "Teele Square", "Ten Hills", "Union Square", "Winter Hill")
 
+fd_dot_map <- fd %>% 
+  filter(Nature.of.Call %in% response_time_incidents &
+           bad.geocode == 0 &
+           is.first.responder == 1 &
+           !is.na(X) &
+           Year == 2015) %>%
+  mutate(XY = paste(X, Y)) %>% 
+  group_by(XY) %>% 
+  summarise(n = n(), X = min(X), Y = min(Y), rt = median(first.responder.response.time))
+
 for (n in 1:(length(neighborhoodList))) {
   map <- get_map(location = paste(neighborhoodList[n], "Somerville, MA", sep=", "), zoom=16, maptype="roadmap", color = "bw")
-  ggmap(map) %+% fd_to_map + 
-    aes(x = X,
-        y = Y,
-        z = first.responder.response.time) +
-    stat_summary2d(fun.y = "quantile", fun.args=list(probs=0.9), 
-                   binwidth = c(.0005, .0005),
-                   alpha = 0.5) + 
-    scale_fill_gradientn(colours=(brewer.pal(9,"YlGnBu"))) +
-    labs(fill="") +
-    theme_nothing(legend=TRUE) + 
-    ggtitle(paste("90th Percentile: ",neighborhoodList[n]))
+  ggmap(map) + 
+    geom_point(data = fd_dot_map,
+               aes(x = X, y = Y, colour = rt, size = n)) +
+    scale_colour_gradientn(name = "minutes", colours=(brewer.pal(9,"YlGnBu")), limits = c(1,7)) +
+    scale_size(name = "calls", range=c(1,20)) +
+    labs(fill="") + 
+    theme_nothing(legend=TRUE) +
+    ggtitle(paste("2015 Calls: ",neighborhoodList[n]))
   
   ggsave(paste("./plots/map_",neighborhoodList[n], ".png", sep=""), dpi=250, width=6, height=5)
 }
+
