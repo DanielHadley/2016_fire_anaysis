@@ -15,63 +15,64 @@ library(RColorBrewer)
 
 #### Load Data & Create One Comprehensive DB ####
 
-
-# this is when it first gets entered into CAD
-cad <- read.csv("./data/CAD_table.csv")
-
-# This is the time it takes to get on location
-# TODO: find out if the Unit associated with the first time is definitely the first responder
-onloc <- read.csv("./data/ONLOC_times_TH_w_loc.csv")
-
-# This is a record of basically whenever a Unit went out, so it's a good indicator of total activity
-# Notice that several units will have the same Arrived time, 
-# which is because they are all marked on the scene at the same time when the first arrives
-# Note: this is marked as medical times in the CAD reporting system, but it contains all calls
-ust <- read.csv("./data/unit_summary_times.csv")
-
-# This is the database Chris created along with a thousand or so records I added
-# I'm a little nervous about the ggmap geocoding engine - it did not seem to work well
-# It may be worth going in and taking out strange addresses and large repeats of XY locations
-# NOTE : I'm not using this because I'm nervous
-# geo <- read.csv("./data/police_fire_geoDB.csv")
-
-# This is the geo data produced by the google maps api
-# First I cleaned up the addresses and then I wrote a special version of ggmaps
-# which took my API key and batch geocoded them
-# It's probably the best option
-cad_geo <- read.csv("./data/CAD_table_geocoded_google.csv")
-
-
-## Ok, now I want to make one large dataframe with every response ##
-# I will use ust as the base and add other variables
-
-# ONLOC should only contain the first arrival #
-# Order by response time and then remove duplicates means you keep the first responder
-onloc <- onloc[order(onloc$Incnum, onloc$Resp.Time),]
-onloc <- onloc[!duplicated(onloc$Incnum),] 
-
-onloc <- onloc %>% mutate(first.responder = Unit, first.responder.response.time = Resp.Time) %>% select(Incnum, first.responder, first.responder.response.time)
-
-## Fire data!!
-fd <- merge(ust, onloc, by.x = "CAD.inc.Number", by.y = "Incnum", all.x = TRUE)
-
-
-## Ok now let's add in the Geo data
-cad_geo <- cad_geo %>% select(- X, - n, - StName1: -IDtag)
-fd <- merge(fd, cad_geo, by.x = "CAD.inc.Number", by.y = "IncNum", all.x = TRUE)
-
-
-## Finally make a column for the first responder
-first_responders <- onloc %>% mutate(first = paste(trimws(Incnum), trimws(first.responder))) %>% select(first)
-
-first_responders <- as.vector(first_responders$first)
-
-fd <- fd %>% mutate(first = paste(trimws(CAD.inc.Number), trimws(Unit))) 
-fd$is.first.responder <- ifelse(fd$first %in% first_responders, 1, 0)
-fd <- select(fd, -first)
-
-
-write.csv(fd, "./data/Fire.csv", row.names = FALSE)
+# # I did this and saved the result - no need for this code now
+# 
+# # this is when it first gets entered into CAD
+# cad <- read.csv("./data/CAD_table.csv")
+# 
+# # This is the time it takes to get on location
+# # TODO: find out if the Unit associated with the first time is definitely the first responder
+# onloc <- read.csv("./data/ONLOC_times_TH_w_loc.csv")
+# 
+# # This is a record of basically whenever a Unit went out, so it's a good indicator of total activity
+# # Notice that several units will have the same Arrived time, 
+# # which is because they are all marked on the scene at the same time when the first arrives
+# # Note: this is marked as medical times in the CAD reporting system, but it contains all calls
+# ust <- read.csv("./data/unit_summary_times.csv")
+# 
+# # This is the database Chris created along with a thousand or so records I added
+# # I'm a little nervous about the ggmap geocoding engine - it did not seem to work well
+# # It may be worth going in and taking out strange addresses and large repeats of XY locations
+# # NOTE : I'm not using this because I'm nervous
+# # geo <- read.csv("./data/police_fire_geoDB.csv")
+# 
+# # This is the geo data produced by the google maps api
+# # First I cleaned up the addresses and then I wrote a special version of ggmaps
+# # which took my API key and batch geocoded them
+# # It's probably the best option
+# cad_geo <- read.csv("./data/CAD_table_geocoded_google.csv")
+# 
+# 
+# ## Ok, now I want to make one large dataframe with every response ##
+# # I will use ust as the base and add other variables
+# 
+# # ONLOC should only contain the first arrival #
+# # Order by response time and then remove duplicates means you keep the first responder
+# onloc <- onloc[order(onloc$Incnum, onloc$Resp.Time),]
+# onloc <- onloc[!duplicated(onloc$Incnum),] 
+# 
+# onloc <- onloc %>% mutate(first.responder = Unit, first.responder.response.time = Resp.Time) %>% select(Incnum, first.responder, first.responder.response.time)
+# 
+# ## Fire data!!
+# fd <- merge(ust, onloc, by.x = "CAD.inc.Number", by.y = "Incnum", all.x = TRUE)
+# 
+# 
+# ## Ok now let's add in the Geo data
+# cad_geo <- cad_geo %>% select(- X, - n, - StName1: -IDtag)
+# fd <- merge(fd, cad_geo, by.x = "CAD.inc.Number", by.y = "IncNum", all.x = TRUE)
+# 
+# 
+# ## Finally make a column for the first responder
+# first_responders <- onloc %>% mutate(first = paste(trimws(Incnum), trimws(first.responder))) %>% select(first)
+# 
+# first_responders <- as.vector(first_responders$first)
+# 
+# fd <- fd %>% mutate(first = paste(trimws(CAD.inc.Number), trimws(Unit))) 
+# fd$is.first.responder <- ifelse(fd$first %in% first_responders, 1, 0)
+# fd <- select(fd, -first)
+# 
+# 
+# write.csv(fd, "./data/Fire.csv", row.names = FALSE)
 
 
 
@@ -517,3 +518,31 @@ for (n in 1:(length(neighborhoodList))) {
   ggsave(paste("./plots/map_",neighborhoodList[n], ".png", sep=""), dpi=250, width=6, height=5)
 }
 
+
+
+## Over 5 minutes
+# A for loop that will create a dot map for every neighborhood you specify
+neighborhoodList <- c("Assembly Square", "Ball Square", "Davis Square", "East Somerville", "Gilman Square", "Magoun Square", "Porter Square", "Prospect Hill", "Spring Hill", "Teele Square", "Ten Hills", "Union Square", "Winter Hill")
+
+fd_dot_map_over_5 <- fd %>% 
+  filter(Nature.of.Call %in% response_time_incidents &
+           bad.geocode == 0 &
+           is.first.responder == 1 &
+           !is.na(X) &
+           first.responder.response.time > 5) %>%
+  mutate(XY = paste(X, Y)) 
+
+for (n in 1:(length(neighborhoodList))) {
+  map <- get_map(location = paste(neighborhoodList[n], "Somerville, MA", sep=", "), zoom=16, maptype="roadmap", color = "bw")
+  ggmap(map) + 
+    geom_point(data = fd_dot_map_over_5,
+               aes(x = X, y = Y, size = 10, alpha = .7, bins = 26, color="red")) +
+    labs(x="",y="") +
+    theme(legend.position = "none", axis.title = element_blank(), 
+          axis.ticks = element_blank(),
+          axis.text = element_blank(),
+          text = element_text(size = 12)) +
+    ggtitle(paste("Calls Over 5 Minutes: ",neighborhoodList[n]))
+  
+  ggsave(paste("./plots/map_",neighborhoodList[n], "_over_5.png", sep=""), dpi=250, width=6, height=5)
+}
