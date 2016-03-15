@@ -492,7 +492,7 @@ ggsave("./plots/ninetieth_per_response_times_Year.png", dpi=250, width=6, height
 ## Dot maps ##
 
 # A for loop that will create a dot map for every neighborhood you specify
-neighborhoodList <- c("Assembly Square", "Ball Square", "Davis Square", "East Somerville", "Gilman Square", "Magoun Square", "Porter Square", "Prospect Hill", "Spring Hill", "Teele Square", "Ten Hills", "Union Square", "Winter Hill")
+neighborhoodList <- c("Assembly Square", "Ball Square", "Davis Square", "East Somerville", "Gilman Square", "Magoun Square", "Porter Square", "Prospect Hill", "Spring Hill", "Teele Square", "Ten Hills", "Union Square", "Winter Hill", "Inner Belt", "Ward Two")
 
 fd_dot_map <- fd %>% 
   filter(Nature.of.Call %in% response_time_incidents &
@@ -522,7 +522,7 @@ for (n in 1:(length(neighborhoodList))) {
 
 ## Over 5 minutes
 # A for loop that will create a dot map for every neighborhood you specify
-neighborhoodList <- c("Assembly Square", "Ball Square", "Davis Square", "East Somerville", "Gilman Square", "Magoun Square", "Porter Square", "Prospect Hill", "Spring Hill", "Teele Square", "Ten Hills", "Union Square", "Winter Hill")
+neighborhoodList <- c("Assembly Square", "Ball Square", "Davis Square", "East Somerville", "Gilman Square", "Magoun Square", "Porter Square", "Prospect Hill", "Spring Hill", "Teele Square", "Ten Hills", "Union Square", "Winter Hill", "Inner Belt", "Ward Two")
 
 fd_dot_map_over_5 <- fd %>% 
   filter(Nature.of.Call %in% response_time_incidents &
@@ -545,4 +545,35 @@ for (n in 1:(length(neighborhoodList))) {
     ggtitle(paste("Calls Over 5 Minutes: ",neighborhoodList[n]))
   
   ggsave(paste("./plots/map_",neighborhoodList[n], "_over_5.png", sep=""), dpi=250, width=6, height=5)
+}
+
+
+
+## Over 5 minutes by Year
+# A for loop that will create a dot map for every neighborhood you specify
+neighborhoodList <- c("Assembly Square", "Ball Square", "Davis Square", "East Somerville", "Gilman Square", "Magoun Square", "Porter Square", "Prospect Hill", "Spring Hill", "Teele Square", "Ten Hills", "Union Square", "Winter Hill", "Inner Belt", "Ward Two")
+
+fd_dot_map_over_5 <- fd %>% 
+  filter(Nature.of.Call %in% response_time_incidents &
+           bad.geocode == 0 &
+           is.first.responder == 1 &
+           !is.na(X) &
+           first.responder.response.time > 5 &
+           Year != 2009) %>%
+  mutate(XY = paste(X, Y)) 
+
+for (n in 1:(length(neighborhoodList))) {
+  map <- get_map(location = paste(neighborhoodList[n], "Somerville, MA", sep=", "), zoom=16, maptype="roadmap", color = "bw")
+  ggmap(map) + 
+    geom_point(data = fd_dot_map_over_5,
+               aes(x = X, y = Y, size = 10, alpha = .7, bins = 26, color="red")) +
+    labs(x="",y="") +
+    theme(legend.position = "none", axis.title = element_blank(), 
+          axis.ticks = element_blank(),
+          axis.text = element_blank(),
+          text = element_text(size = 12)) +
+    ggtitle(paste("Calls Over 5 Minutes: ",neighborhoodList[n])) +
+    facet_wrap(~ Year)
+  
+  ggsave(paste("./plots/map_",neighborhoodList[n], "_over_5_by_Year.png", sep=""), dpi=250, width=6, height=5)
 }
