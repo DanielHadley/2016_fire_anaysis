@@ -577,3 +577,20 @@ for (n in 1:(length(neighborhoodList))) {
   
   ggsave(paste("./plots/map_",neighborhoodList[n], "_over_5_by_Year.png", sep=""), dpi=250, width=6, height=5)
 }
+
+
+
+
+#### Geo Analysis ####
+set.seed(124)
+
+SECalls <- fd %>% 
+  filter(Y < 42.384522 & X > -71.111948) %>% 
+  sample_n(500) %>% 
+  mutate(yx = paste(Y, X, sep = ", ")) %>% 
+  # mutate(yx = as.character(yx)) %>% 
+  select(yx)
+
+from <- "515 Somerville Ave, Somerville, MA"
+FiveFifteen <- mapdist(from = from, to = SECalls$yx, mode = "driving")
+  
