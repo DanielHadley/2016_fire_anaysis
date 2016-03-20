@@ -253,7 +253,6 @@ ggsave("./plots/response_times_by_year.png", dpi=250, width=6, height=5)
 
 
 
-
 #### Maps ####
 
 
@@ -582,15 +581,117 @@ for (n in 1:(length(neighborhoodList))) {
 
 
 #### Geo Analysis ####
+## This should hopefully get us a simple model of resonse times from various locations
+
+## First 515 Somerville
+# We will filter it down to E1 and E3 calls, which are mostly south east
+# We don't just do ones where they are first responder
 set.seed(124)
 
-SECalls <- fd %>% 
-  filter(Y < 42.384522 & X > -71.111948) %>% 
-  sample_n(500) %>% 
-  mutate(yx = paste(Y, X, sep = ", ")) %>% 
-  # mutate(yx = as.character(yx)) %>% 
-  select(yx)
+DF <- fd %>% 
+  filter(Unit == "E1" | Unit == "E3" &
+           is.na(X) == FALSE) %>% 
+  sample_n(1000) %>% 
+  mutate(to = paste(Y, X, sep = ", ")) %>% 
+  select(to, Full.Address) %>% 
+  group_by(Full.Address) %>% 
+  summarise(to = min(to), n = n()) %>% 
+  mutate(from = "515 Somerville Ave, Somerville, MA",
+         minutes = "",
+         seconds = "",
+         miles = "")
 
-from <- "515 Somerville Ave, Somerville, MA"
-FiveFifteen <- mapdist(from = from, to = SECalls$yx, mode = "driving")
+DF$row.number <- 1:nrow(DF)      #create an index number for each row
+
+# For loop modified from
+# http://stackoverflow.com/questions/25797580/ggmap-mapdist-function-repeating-calculation-for-certain-o-d-pairs
+for (i in DF$row.number){
+  orig <- as.character(DF[i,c('from')]) # get origin from DF in the position line 'i', column 'from'
+  dest <- as.character(DF[i,c('to')])   # get origin from DF in the position line 'i', column 'to'
+  a <- mapdist(from = orig, to = dest, mode = "driving",output = "simple") # create temp. df 'a' with the output from mapdist
+  a$row.number <- i # include in temp. df 'a' the index number of the row from DF
+  DF$minutes[match(a$row.number, DF$row.number)] <- a$minutes # use the index number as a matching key to input/update the value of the variable 'minutes'
+  DF$seconds[match(a$row.number, DF$row.number)] <- a$seconds # ibdem DF$km[match(a$row.number, DF$row.number)] <- a$km #ibdem
+  DF$miles[match(a$row.number, DF$row.number)] <- a$miles # ibdem
+}
   
+
+write.csv(DF, "./data/From_515.csv")
+
+
+
+
+## Lowell St Station
+# We will filter it down to E1 and E3 calls, which are mostly south east
+# We don't just do ones where they are first responder
+set.seed(124)
+
+DF <- fd %>% 
+  filter(Unit == "E1" | Unit == "E3" &
+           is.na(X) == FALSE) %>% 
+  sample_n(1000) %>% 
+  mutate(to = paste(Y, X, sep = ", ")) %>% 
+  select(to, Full.Address) %>% 
+  group_by(Full.Address) %>% 
+  summarise(to = min(to), n = n()) %>% 
+  mutate(from = "651 Somerville Ave, Somerville, MA 02143",
+         minutes = "",
+         seconds = "",
+         miles = "")
+
+DF$row.number <- 1:nrow(DF)      #create an index number for each row
+
+# For loop modified from
+# http://stackoverflow.com/questions/25797580/ggmap-mapdist-function-repeating-calculation-for-certain-o-d-pairs
+for (i in DF$row.number){
+  orig <- as.character(DF[i,c('from')]) # get origin from DF in the position line 'i', column 'from'
+  dest <- as.character(DF[i,c('to')])   # get origin from DF in the position line 'i', column 'to'
+  a <- mapdist(from = orig, to = dest, mode = "driving",output = "simple") # create temp. df 'a' with the output from mapdist
+  a$row.number <- i # include in temp. df 'a' the index number of the row from DF
+  DF$minutes[match(a$row.number, DF$row.number)] <- a$minutes # use the index number as a matching key to input/update the value of the variable 'minutes'
+  DF$seconds[match(a$row.number, DF$row.number)] <- a$seconds # ibdem DF$km[match(a$row.number, DF$row.number)] <- a$km #ibdem
+  DF$miles[match(a$row.number, DF$row.number)] <- a$miles # ibdem
+}
+
+
+write.csv(DF, "./data/From_Lowell_Station.csv")
+
+
+
+
+
+## Joy and Washington
+# We will filter it down to E1 and E3 calls, which are mostly south east
+# We don't just do ones where they are first responder
+set.seed(124)
+
+DF <- fd %>% 
+  filter(Unit == "E1" | Unit == "E3" &
+           is.na(X) == FALSE) %>% 
+  sample_n(1000) %>% 
+  mutate(to = paste(Y, X, sep = ", ")) %>% 
+  select(to, Full.Address) %>% 
+  group_by(Full.Address) %>% 
+  summarise(to = min(to), n = n()) %>% 
+  mutate(from = "146 Washington St, Somerville, MA 02143",
+         minutes = "",
+         seconds = "",
+         miles = "")
+
+DF$row.number <- 1:nrow(DF)      #create an index number for each row
+
+# For loop modified from
+# http://stackoverflow.com/questions/25797580/ggmap-mapdist-function-repeating-calculation-for-certain-o-d-pairs
+for (i in DF$row.number){
+  orig <- as.character(DF[i,c('from')]) # get origin from DF in the position line 'i', column 'from'
+  dest <- as.character(DF[i,c('to')])   # get origin from DF in the position line 'i', column 'to'
+  a <- mapdist(from = orig, to = dest, mode = "driving",output = "simple") # create temp. df 'a' with the output from mapdist
+  a$row.number <- i # include in temp. df 'a' the index number of the row from DF
+  DF$minutes[match(a$row.number, DF$row.number)] <- a$minutes # use the index number as a matching key to input/update the value of the variable 'minutes'
+  DF$seconds[match(a$row.number, DF$row.number)] <- a$seconds # ibdem DF$km[match(a$row.number, DF$row.number)] <- a$km #ibdem
+  DF$miles[match(a$row.number, DF$row.number)] <- a$miles # ibdem
+}
+
+
+write.csv(DF, "./data/From_Joy_and_Washington.csv")
+

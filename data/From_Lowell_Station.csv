@@ -1,0 +1,658 @@
+"","Full.Address","to","n","from","minutes","seconds","miles","row.number"
+"1","1 BEACON ST, Somerville, Massachusetts","42.3745088, -71.1014631",1,"651 Somerville Ave, Somerville, MA 02143","5.83333333333333","350","1.0924212",1
+"2","1 BIKE PATH, Somerville, Massachusetts","42.4278162, -71.0602435",1,"651 Somerville Ave, Somerville, MA 02143","22.0666666666667","1324","5.6901598",2
+"3","1 EVERETT HIGH SCHOOL, Somerville, Massachusetts","42.3875968, -71.0994968",1,"651 Somerville Ave, Somerville, MA 02143","4.85","291","0.9097296",3
+"4","1 FITCHBURG ST, Somerville, Massachusetts","42.375714, -71.084375",3,"651 Somerville Ave, Somerville, MA 02143","8.38333333333333","503","1.5522572",4
+"5","1 MCGRATH HWY, Somerville, Massachusetts","42.373924, -71.081502",1,"651 Somerville Ave, Somerville, MA 02143","10.7833333333333","647","2.2395256",5
+"6","1 MUTUAL AID - BOSTON, Somerville, Massachusetts","42.3875968, -71.0994968",1,"651 Somerville Ave, Somerville, MA 02143","4.85","291","0.9097296",6
+"7","1 MUTUAL AID - CAMBRIDGE, Somerville, Massachusetts","42.3875968, -71.0994968",12,"651 Somerville Ave, Somerville, MA 02143","4.85","291","0.9097296",7
+"8","1 STICKNEY AVE, Somerville, Massachusetts","42.3888026, -71.0954734",1,"651 Somerville Ave, Somerville, MA 02143","6.7","402","1.3664586",8
+"9","1 VILLAGE TER, Somerville, Massachusetts","42.380706, -71.104941",1,"651 Somerville Ave, Somerville, MA 02143","2.93333333333333","176","0.6214",9
+"10","10 AVON ST, Somerville, Massachusetts","42.3850638, -71.1004692",1,"651 Somerville Ave, Somerville, MA 02143","4.05","243","0.742573",10
+"11","10 BEACON ST, Somerville, Massachusetts","42.3745827, -71.102346",1,"651 Somerville Ave, Somerville, MA 02143","4.95","297","1.0321454",11
+"12","10 BOW ST, Somerville, Massachusetts","42.3804857, -71.0968643",2,"651 Somerville Ave, Somerville, MA 02143","4.15","249","0.8289476",12
+"13","10 CALDWELL AVE, Somerville, Massachusetts","42.3779882, -71.1048939",1,"651 Somerville Ave, Somerville, MA 02143","4.01666666666667","241","0.8059558",13
+"14","10 DIMICK ST, Somerville, Massachusetts","42.37591, -71.1020496",1,"651 Somerville Ave, Somerville, MA 02143","4.61666666666667","277","0.947635",14
+"15","10 GARFIELD AVE, Somerville, Massachusetts","42.389659, -71.086398",1,"651 Somerville Ave, Somerville, MA 02143","9.28333333333333","557","1.9089408",15
+"16","10 KENT CT, Somerville, Massachusetts","42.3828035, -71.1109927",1,"651 Somerville Ave, Somerville, MA 02143","3.58333333333333","215","0.820248",16
+"17","10 LEE ST, Somerville, Massachusetts","42.3902696, -71.0996185",1,"651 Somerville Ave, Somerville, MA 02143","5.73333333333333","344","1.1502114",17
+"18","10 MOSSLAND ST, Somerville, Massachusetts","42.3876343, -71.11636",1,"651 Somerville Ave, Somerville, MA 02143","2.21666666666667","133","0.3778112",18
+"19","10 POPLAR ST, Somerville, Massachusetts","42.377593, -71.087983",1,"651 Somerville Ave, Somerville, MA 02143","8.61666666666667","517","1.6926936",19
+"20","10 RIVER RD, Somerville, Massachusetts","42.3971298, -71.0929603",1,"651 Somerville Ave, Somerville, MA 02143","9.46666666666667","568","1.8965128",20
+"21","10 STANFORD TER, Somerville, Massachusetts","42.3850487, -71.1139041",1,"651 Somerville Ave, Somerville, MA 02143","2.5","150","0.5288114",21
+"22","10 TAUNTON ST, Somerville, Massachusetts","42.3768102, -71.1004554",1,"651 Somerville Ave, Somerville, MA 02143","5.33333333333333","320","1.0650796",22
+"23","10 WEBSTER AVE, Somerville, Massachusetts","42.3670154, -71.0924784",1,"651 Somerville Ave, Somerville, MA 02143","9.2","552","1.8182164",23
+"24","100 CONCORD AVE, Somerville, Massachusetts","42.3755684, -71.1018077",1,"651 Somerville Ave, Somerville, MA 02143","5.06666666666667","304","1.047059",24
+"25","101 ELM ST, Somerville, Massachusetts","42.3897813, -71.11693",1,"651 Somerville Ave, Somerville, MA 02143","2.1","126","0.4703998",25
+"26","101 HIGHLAND AVE, Somerville, Massachusetts","42.3873338, -71.0992013",1,"651 Somerville Ave, Somerville, MA 02143","4.31666666666667","259","0.86996",26
+"27","101 LINWOOD ST, Somerville, Massachusetts","42.3794827, -71.0890461",1,"651 Somerville Ave, Somerville, MA 02143","7.21666666666667","433","1.298726",27
+"28","101 SCHOOL ST, Somerville, Massachusetts","42.385824, -71.099082",1,"651 Somerville Ave, Somerville, MA 02143","5.05","303","0.9774622",28
+"29","103 BEACON ST, Somerville, Massachusetts","42.3775084, -71.1054023",1,"651 Somerville Ave, Somerville, MA 02143","3.85","231","0.7773714",29
+"30","104 LINE ST, Somerville, Massachusetts","42.375258, -71.103829",1,"651 Somerville Ave, Somerville, MA 02143","6.65","399","1.3061828",30
+"31","108 GOVERNOR WINTHROP RD, Somerville, Massachusetts","42.3974674, -71.0891798",1,"651 Somerville Ave, Somerville, MA 02143","9.1","546","2.0742332",31
+"32","108 HOLTON ST, Somerville, Massachusetts","42.3606496, -71.138534",1,"651 Somerville Ave, Somerville, MA 02143","15.55","933","2.9988764",32
+"33","109 HIGHLAND AVE, Somerville, Massachusetts","42.3872004, -71.0997656",1,"651 Somerville Ave, Somerville, MA 02143","4.21666666666667","253","0.8475896",33
+"34","109 PERKINS ST, Somerville, Massachusetts","42.385113, -71.0811033",1,"651 Somerville Ave, Somerville, MA 02143","10.0333333333333","602","1.9250972",34
+"35","11 BOW ST, Somerville, Massachusetts","42.3808548, -71.0967096",2,"651 Somerville Ave, Somerville, MA 02143","4.31666666666667","259","0.8519394",35
+"36","11 GRANDVIEW AVE, Somerville, Massachusetts","42.3850581, -71.0952637",1,"651 Somerville Ave, Somerville, MA 02143","5.53333333333333","332","1.14959",36
+"37","11 PUTNAM ST, Somerville, Massachusetts","42.3835245, -71.0985523",2,"651 Somerville Ave, Somerville, MA 02143","3.66666666666667","220","0.9625486",37
+"38","11 SANBORN AVE, Somerville, Massachusetts","42.381662, -71.096045",1,"651 Somerville Ave, Somerville, MA 02143","5.15","309","0.9420424",38
+"39","110 BARTLETT ST, Somerville, Massachusetts","42.395356, -71.101197",1,"651 Somerville Ave, Somerville, MA 02143","5.38333333333333","323","1.2558494",39
+"40","110 BEACON ST, Somerville, Massachusetts","42.377521, -71.10587",1,"651 Somerville Ave, Somerville, MA 02143","3.78333333333333","227","0.7605936",40
+"41","110 LINE ST, Somerville, Massachusetts","42.375092, -71.103636",1,"651 Somerville Ave, Somerville, MA 02143","6.6","396","1.2912692",41
+"42","110 WALNUT ST, Somerville, Massachusetts","42.3872473, -71.0934062",1,"651 Somerville Ave, Somerville, MA 02143","6.53333333333333","392","1.30494",42
+"43","113 WASHINGTON ST, Somerville, Massachusetts","42.3813466, -71.0868865",1,"651 Somerville Ave, Somerville, MA 02143","7.46666666666667","448","1.4118208",43
+"44","114 TEMPLE ST, Somerville, Massachusetts","42.3956935, -71.0900588",1,"651 Somerville Ave, Somerville, MA 02143","8.16666666666667","490","1.7790682",44
+"45","115 SYCAMORE ST, Somerville, Massachusetts","42.3916682, -71.0988003",1,"651 Somerville Ave, Somerville, MA 02143","5.18333333333333","311","1.0321454",45
+"46","117 SUMMER ST, Somerville, Massachusetts","42.385656, -71.1027996",1,"651 Somerville Ave, Somerville, MA 02143","3.33333333333333","200","0.6176716",46
+"47","119 MIDDLESEX AVE, Somerville, Massachusetts","42.3944439, -71.0824898",2,"651 Somerville Ave, Somerville, MA 02143","11.9166666666667","715","2.6173368",47
+"48","119 TEMPLE ST, Somerville, Massachusetts","42.395234, -71.089722",1,"651 Somerville Ave, Somerville, MA 02143","8.21666666666667","493","1.7883892",48
+"49","12 BELMONT ST, Somerville, Massachusetts","42.3848943, -71.1106333",1,"651 Somerville Ave, Somerville, MA 02143","2.7","162","0.5076838",49
+"50","12 BUCKINGHAM ST, Somerville, Massachusetts","42.376569, -71.10346",1,"651 Somerville Ave, Somerville, MA 02143","4.68333333333333","281","0.9358284",50
+"51","12 CARLTON ST, Somerville, Massachusetts","42.380757, -71.0995952",1,"651 Somerville Ave, Somerville, MA 02143","3.4","204","0.6854042",51
+"52","12 FOSKETT ST, Somerville, Massachusetts","42.396896, -71.11554",1,"651 Somerville Ave, Somerville, MA 02143","4.83333333333333","290","1.1514542",52
+"53","12 HANCOCK ST, Somerville, Massachusetts","42.3903718, -71.1168357",1,"651 Somerville Ave, Somerville, MA 02143","3.23333333333333","194","0.8053344",53
+"54","12 KILBY ST, Somerville, Massachusetts","42.3805033, -71.0991799",2,"651 Somerville Ave, Somerville, MA 02143","3.45","207","0.711503",54
+"55","12 LAKE ST, Somerville, Massachusetts","42.3799777, -71.098881",1,"651 Somerville Ave, Somerville, MA 02143","4.11666666666667","247","0.782964",55
+"56","12 MARSHALL ST, Somerville, Massachusetts","42.3919259, -71.0931556",1,"651 Somerville Ave, Somerville, MA 02143","7.78333333333333","467","1.5516358",56
+"57","12 PARK ST, Somerville, Massachusetts","42.3820281, -71.1068521",1,"651 Somerville Ave, Somerville, MA 02143","1.65","99","0.363519",57
+"58","12 PARKER PL, Somerville, Massachusetts","42.3869881, -71.1137149",1,"651 Somerville Ave, Somerville, MA 02143","1.31666666666667","79","0.2510456",58
+"59","12 PARKER ST, Somerville, Massachusetts","42.3788542, -71.0999986",1,"651 Somerville Ave, Somerville, MA 02143","4.53333333333333","272","0.9681412",59
+"60","12 PRESCOTT ST, Somerville, Massachusetts","42.384214, -71.099708",1,"651 Somerville Ave, Somerville, MA 02143","3.51666666666667","211","0.758108",60
+"61","12 TYLER ST, Somerville, Massachusetts","42.3816543, -71.1063031",3,"651 Somerville Ave, Somerville, MA 02143","1.71666666666667","103","0.3796754",61
+"62","120 BEACON ST, Somerville, Massachusetts","42.3780339, -71.1063818",1,"651 Somerville Ave, Somerville, MA 02143","3.61666666666667","217","0.7170956",62
+"63","120 MIDDLESEX AVE, Somerville, Massachusetts","42.3945465, -71.0838659",1,"651 Somerville Ave, Somerville, MA 02143","10.5666666666667","634","2.4396164",63
+"64","123 TEMPLE ST, Somerville, Massachusetts","42.395277, -71.089464",1,"651 Somerville Ave, Somerville, MA 02143","8.26666666666667","496","1.8014386",64
+"65","125 JAQUES ST, Somerville, Massachusetts","42.3958311, -71.0947009",4,"651 Somerville Ave, Somerville, MA 02143","7.25","435","1.4907386",65
+"66","127 ELM ST, Somerville, Massachusetts","42.3906475, -71.1177536",1,"651 Somerville Ave, Somerville, MA 02143","2.4","144","0.543725",66
+"67","12A KILBY ST, Somerville, Massachusetts","42.3805033, -71.0991799",1,"651 Somerville Ave, Somerville, MA 02143","3.45","207","0.711503",67
+"68","13 COTTAGE AVE, Somerville, Massachusetts","42.394017, -71.121892",1,"651 Somerville Ave, Somerville, MA 02143","6.01666666666667","361","1.0277956",68
+"69","13 HOUGHTON ST, Somerville, Massachusetts","42.3746764, -71.0981115",1,"651 Somerville Ave, Somerville, MA 02143","6.98333333333333","419","1.3900718",69
+"70","13 KNOWLTON ST, Somerville, Massachusetts","42.3815106, -71.0871764",1,"651 Somerville Ave, Somerville, MA 02143","7.63333333333333","458","1.413685",70
+"71","13 VINAL AVE, Somerville, Massachusetts","42.382709, -71.097752",1,"651 Somerville Ave, Somerville, MA 02143","5.55","333","1.2794626",71
+"72","13 WARREN AVE, Somerville, Massachusetts","42.3807796, -71.0961279",21,"651 Somerville Ave, Somerville, MA 02143","4.26666666666667","256","0.8593962",72
+"73","130 FOLEY ST, Somerville, Massachusetts","42.3930239, -71.0805304",1,"651 Somerville Ave, Somerville, MA 02143","11.6","696","2.6919048",73
+"74","130 SYCAMORE ST, Somerville, Massachusetts","42.392801, -71.09865",2,"651 Somerville Ave, Somerville, MA 02143","5.71666666666667","343","1.1303266",74
+"75","133 HEATH ST, Somerville, Massachusetts","42.396711, -71.09783",1,"651 Somerville Ave, Somerville, MA 02143","6.68333333333333","401","1.4093352",75
+"76","1366 BROADWAY, Somerville, Massachusetts","42.4061372, -71.1333859",1,"651 Somerville Ave, Somerville, MA 02143","10.6166666666667","637","2.2768096",76
+"77","14 BLEACHERY CT, Somerville, Massachusetts","42.3829154, -71.1092183",1,"651 Somerville Ave, Somerville, MA 02143","1.08333333333333","65","0.2100332",77
+"78","14 BOSTON ST, Somerville, Massachusetts","42.380424, -71.09122",2,"651 Somerville Ave, Somerville, MA 02143","7","420","1.39815",78
+"79","14 C STONE AVE, Somerville, Massachusetts","42.380364, -71.095667",1,"651 Somerville Ave, Somerville, MA 02143","7.13333333333333","428","1.2496354",79
+"80","14 CARLTON ST, Somerville, Massachusetts","42.3807334, -71.10002",1,"651 Somerville Ave, Somerville, MA 02143","3.4","204","0.6754618",80
+"81","14 LELAND ST, Somerville, Massachusetts","42.3797328, -71.1027119",1,"651 Somerville Ave, Somerville, MA 02143","3.9","234","0.8084414",81
+"82","14 MCGRATH HWY, Somerville, Massachusetts","42.374349, -71.0850043",18,"651 Somerville Ave, Somerville, MA 02143","9.18333333333333","551","1.7107142",82
+"83","146 OXFORD ST, Somerville, Massachusetts","42.3858031, -71.1160316",1,"651 Somerville Ave, Somerville, MA 02143","1.73333333333333","104","0.3722186",83
+"84","149 HIGHLAND AVE, Somerville, Massachusetts","42.3885871, -71.1030019",1,"651 Somerville Ave, Somerville, MA 02143","3.33333333333333","200","0.6624124",84
+"85","15 BRADLEY ST, Somerville, Massachusetts","42.388433, -71.094089",1,"651 Somerville Ave, Somerville, MA 02143","7.03333333333333","422","1.4565616",85
+"86","15 CANAL LN, Somerville, Massachusetts","42.3969516, -71.0939914",1,"651 Somerville Ave, Somerville, MA 02143","9.85","591","1.9257186",86
+"87","15 CHURCH ST, Somerville, Massachusetts","42.3810115, -71.1005887",1,"651 Somerville Ave, Somerville, MA 02143","3.03333333333333","182","0.6294782",87
+"88","15 CLEVELAND ST, Somerville, Massachusetts","42.3850197, -71.1067289",1,"651 Somerville Ave, Somerville, MA 02143","2.2","132","0.400803",88
+"89","15 LANDERS ST, Somerville, Massachusetts","42.3835967, -71.1018764",1,"651 Somerville Ave, Somerville, MA 02143","3.78333333333333","227","0.9321",89
+"90","15 MCGRATH HWY, Somerville, Massachusetts","42.3742055, -71.0817266",3,"651 Somerville Ave, Somerville, MA 02143","10.8666666666667","652","2.258789",90
+"91","15 MEMORIAL RD, Somerville, Massachusetts","42.3962272, -71.0923136",3,"651 Somerville Ave, Somerville, MA 02143","8.46666666666667","508","1.8014386",91
+"92","15 OAK ST, Somerville, Massachusetts","42.376201, -71.097437",1,"651 Somerville Ave, Somerville, MA 02143","5.95","357","1.1707176",92
+"93","15 PITMAN ST, Somerville, Massachusetts","42.3843934, -71.1083784",1,"651 Somerville Ave, Somerville, MA 02143","2.41666666666667","145","0.3740828",93
+"94","15 RIVER RD, Somerville, Massachusetts","42.3971891, -71.0929814",1,"651 Somerville Ave, Somerville, MA 02143","9.5","570","1.9002412",94
+"95","15 UNION SQ, Somerville, Massachusetts","42.3794495, -71.0960169",2,"651 Somerville Ave, Somerville, MA 02143","4.48333333333333","269","0.8712028",95
+"96","15 WARD ST, Somerville, Massachusetts","42.3748143, -71.0892432",1,"651 Somerville Ave, Somerville, MA 02143","7.73333333333333","464","1.4776892",96
+"97","15 WEBSTER AVE, Somerville, Massachusetts","42.378788, -71.096472",6,"651 Somerville Ave, Somerville, MA 02143","4.63333333333333","278","0.9091082",97
+"98","150 CROSS ST, Somerville, Massachusetts","42.3822573, -71.0902216",1,"651 Somerville Ave, Somerville, MA 02143","7.35","441","1.3975286",98
+"99","150 GLEN ST, Somerville, Massachusetts","42.3825979, -71.0867152",3,"651 Somerville Ave, Somerville, MA 02143","8.08333333333333","485","1.466504",99
+"100","151 LINWOOD ST, Somerville, Massachusetts","42.3794582, -71.0884809",2,"651 Somerville Ave, Somerville, MA 02143","7.61666666666667","457","1.3179894",100
+"101","153 PERKINS ST, Somerville, Massachusetts","42.3856702, -71.083073",1,"651 Somerville Ave, Somerville, MA 02143","9.75","585","1.9816446",101
+"102","155 CENTRAL ST, Somerville, Massachusetts","42.392932, -71.099948",2,"651 Somerville Ave, Somerville, MA 02143","4.71666666666667","283","1.000454",102
+"103","156 SCHOOL ST, Somerville, Massachusetts","42.388016, -71.098223",1,"651 Somerville Ave, Somerville, MA 02143","6.58333333333333","395","1.3447096",103
+"104","157 MCGRATH HWY, Somerville, Massachusetts","42.3765813, -71.0871859",1,"651 Somerville Ave, Somerville, MA 02143","11.5","690","2.5906166",104
+"105","157 WASHINGTON ST, Somerville, Massachusetts","42.3803131, -71.0900725",1,"651 Somerville Ave, Somerville, MA 02143","6.83333333333333","410","1.3353886",105
+"106","159 WASHINGTON ST, Somerville, Massachusetts","42.3801872, -71.090025",1,"651 Somerville Ave, Somerville, MA 02143","7.53333333333333","452","1.3192322",106
+"107","16 BEACON ST, Somerville, Massachusetts","42.374749, -71.1025605",2,"651 Somerville Ave, Somerville, MA 02143","4.95","297","1.0172318",107
+"108","16 CLARK ST, Somerville, Massachusetts","42.3777452, -71.0971002",1,"651 Somerville Ave, Somerville, MA 02143","5.58333333333333","335","1.050166",108
+"109","16 LOWELL ST, Somerville, Massachusetts","42.3852384, -71.1116133",1,"651 Somerville Ave, Somerville, MA 02143","0.266666666666667","16","0.0671112",109
+"110","16 PUTNAM ST, Somerville, Massachusetts","42.383892, -71.098785",1,"651 Somerville Ave, Somerville, MA 02143","3.71666666666667","223","0.9799478",110
+"111","16 WARREN AVE, Somerville, Massachusetts","42.3809725, -71.0961098",1,"651 Somerville Ave, Somerville, MA 02143","4.36666666666667","262","0.8712028",111
+"112","160 WASHINGTON ST, Somerville, Massachusetts","42.3801796, -71.0887334",1,"651 Somerville Ave, Somerville, MA 02143","7.5","450","1.2918906",112
+"113","161 COLLEGE AVE, Somerville, Massachusetts","42.4025021, -71.1166822",1,"651 Somerville Ave, Somerville, MA 02143","6.91666666666667","415","1.7256278",113
+"114","161 WALNUT ST, Somerville, Massachusetts","42.3898199, -71.091489",1,"651 Somerville Ave, Somerville, MA 02143","7.48333333333333","449","1.506895",114
+"115","165 MIDDLESEX AVE, Somerville, Massachusetts","42.3960559, -71.0836002",1,"651 Somerville Ave, Somerville, MA 02143","12.7166666666667","763","3.280992",115
+"116","167 BROADWAY, Somerville, Massachusetts","42.3889391, -71.0859345",1,"651 Somerville Ave, Somerville, MA 02143","9.5","570","1.9250972",116
+"117","17 BOW ST, Somerville, Massachusetts","42.381006, -71.096839",2,"651 Somerville Ave, Somerville, MA 02143","4.4","264","0.882388",117
+"118","17 BOWDOIN ST, Somerville, Massachusetts","42.3787511, -71.101035",1,"651 Somerville Ave, Somerville, MA 02143","4.15","249","0.9234004",118
+"119","17 CENTRAL ST, Somerville, Massachusetts","42.3841507, -71.1063438",1,"651 Somerville Ave, Somerville, MA 02143","1.43333333333333","86","0.3113214",119
+"120","17 JAQUES ST, Somerville, Massachusetts","42.3928538, -71.0896719",1,"651 Somerville Ave, Somerville, MA 02143","8.76666666666667","526","1.7486196",120
+"121","17 LORING ST, Somerville, Massachusetts","42.383239, -71.1035104",1,"651 Somerville Ave, Somerville, MA 02143","2.21666666666667","133","0.4430582",121
+"122","175 BEACON ST, Somerville, Massachusetts","42.379791, -71.1076885",3,"651 Somerville Ave, Somerville, MA 02143","2.8","168","0.5679596",122
+"123","175 FELLSWAY, Somerville, Massachusetts","42.3954627, -71.0844201",4,"651 Somerville Ave, Somerville, MA 02143","10.4333333333333","626","2.4066822",123
+"124","18 ACADIA PK, Somerville, Massachusetts","42.3883263, -71.1172163",1,"651 Somerville Ave, Somerville, MA 02143","2.1","126","0.441194",124
+"125","18 BONAIR ST, Somerville, Massachusetts","42.387796, -71.08785",1,"651 Somerville Ave, Somerville, MA 02143","8.36666666666667","502","1.7598048",125
+"126","18 CARLTON ST, Somerville, Massachusetts","42.3806041, -71.0999192",1,"651 Somerville Ave, Somerville, MA 02143","3.38333333333333","203","0.68354",126
+"127","18 CHERRY ST, Somerville, Massachusetts","42.390169, -71.116171",1,"651 Somerville Ave, Somerville, MA 02143","3.13333333333333","188","0.74568",127
+"128","18 DAY ST, Somerville, Massachusetts","42.3945633, -71.1248366",1,"651 Somerville Ave, Somerville, MA 02143","6.06666666666667","364","1.096771",128
+"129","18 HOUGHTON ST, Somerville, Massachusetts","42.3745448, -71.0984306",1,"651 Somerville Ave, Somerville, MA 02143","6.91666666666667","415","1.2757342",129
+"130","18 PROSPECT HILL AVE, Somerville, Massachusetts","42.381298, -71.0918377",3,"651 Somerville Ave, Somerville, MA 02143","5.78333333333333","347","1.1390262",130
+"131","180 SOMERVILLE AVE, Somerville, Massachusetts","42.3764299, -71.0904322",8,"651 Somerville Ave, Somerville, MA 02143","7.01666666666667","421","1.27387",131
+"132","181 SOMERVILLE AVE, Somerville, Massachusetts","42.377621, -71.0895893",1,"651 Somerville Ave, Somerville, MA 02143","6.45","387","1.2266436",132
+"133","181 WASHINGTON ST, Somerville, Massachusetts","42.380092, -71.091109",1,"651 Somerville Ave, Somerville, MA 02143","7.13333333333333","428","1.4217632",133
+"134","182 WASHINGTON ST, Somerville, Massachusetts","42.3796678, -71.0903363",2,"651 Somerville Ave, Somerville, MA 02143","6.88333333333333","413","1.3416026",134
+"135","185 SOMERVILLE AVE, Somerville, Massachusetts","42.3779631, -71.0897419",4,"651 Somerville Ave, Somerville, MA 02143","6.66666666666667","400","1.2720058",135
+"136","186 HIGHLAND AVE, Somerville, Massachusetts","42.3885714, -71.1065636",1,"651 Somerville Ave, Somerville, MA 02143","2.61666666666667","157","0.6002724",136
+"137","19 CLARK ST, Somerville, Massachusetts","42.3780081, -71.0971456",1,"651 Somerville Ave, Somerville, MA 02143","5.68333333333333","341","1.0632154",137
+"138","19 DIMICK ST, Somerville, Massachusetts","42.3762943, -71.102058",1,"651 Somerville Ave, Somerville, MA 02143","4.55","273","0.9327214",138
+"139","19 PORTER ST, Somerville, Massachusetts","42.387037, -71.112728",1,"651 Somerville Ave, Somerville, MA 02143","1.28333333333333","77","0.2597452",139
+"140","19 UPLAND PK, Somerville, Massachusetts","42.3964599, -71.0997675",1,"651 Somerville Ave, Somerville, MA 02143","6.96666666666667","418","1.447862",140
+"141","19 VERNON ST, Somerville, Massachusetts","42.3915248, -71.1023436",1,"651 Somerville Ave, Somerville, MA 02143","3.96666666666667","238","0.9339642",141
+"142","190 HIGHLAND AVE, Somerville, Massachusetts","42.3893967, -71.1062039",2,"651 Somerville Ave, Somerville, MA 02143","2.55","153","0.562367",142
+"143","190 WASHINGTON ST, Somerville, Massachusetts","42.379587, -71.090766",1,"651 Somerville Ave, Somerville, MA 02143","6.86666666666667","412","1.3403598",143
+"144","191 HIGHLAND AVE, Somerville, Massachusetts","42.3896883, -71.1059923",1,"651 Somerville Ave, Somerville, MA 02143","2.55","153","0.5611242",144
+"145","191 INNER BELT RD, Somerville, Massachusetts","42.378102, -71.083774",1,"651 Somerville Ave, Somerville, MA 02143","10.3833333333333","623","2.2668672",145
+"146","192 CENTRAL ST, Somerville, Massachusetts","42.3946525, -71.0991639",1,"651 Somerville Ave, Somerville, MA 02143","5.16666666666667","310","1.124734",146
+"147","194 CENTRAL ST, Somerville, Massachusetts","42.394789, -71.099312",1,"651 Somerville Ave, Somerville, MA 02143","5.18333333333333","311","1.1297052",147
+"148","2 GARDEN CT, Somerville, Massachusetts","42.3838056, -71.1090481",1,"651 Somerville Ave, Somerville, MA 02143","0.5","30","0.1329796",148
+"149","2 HOLLAND ST, Somerville, Massachusetts","42.3970438, -71.122988",1,"651 Somerville Ave, Somerville, MA 02143","5.68333333333333","341","1.2875408",149
+"150","2 PRESCOTT ST, Somerville, Massachusetts","42.3839004, -71.0997746",1,"651 Somerville Ave, Somerville, MA 02143","3.31666666666667","199","0.71461",150
+"151","2 UNION SQ, Somerville, Massachusetts","42.37908, -71.09516",1,"651 Somerville Ave, Somerville, MA 02143","5.05","303","0.972491",151
+"152","20 INNER BELT RD, Somerville, Massachusetts","42.3808411, -71.0807394",1,"651 Somerville Ave, Somerville, MA 02143","8.96666666666667","538","1.7827966",152
+"153","20 MANSFIELD ST, Somerville, Massachusetts","42.3784313, -71.0904518",1,"651 Somerville Ave, Somerville, MA 02143","6.48333333333333","389","1.2589564",153
+"154","20 MEDFORD ST, Somerville, Massachusetts","42.3740188, -71.0883948",1,"651 Somerville Ave, Somerville, MA 02143","7.91666666666667","475","1.5149732",154
+"155","200 INNER BELT RD, Somerville, Massachusetts","42.3780001, -71.0845847",1,"651 Somerville Ave, Somerville, MA 02143","10.3833333333333","623","2.2668672",155
+"156","201 ELM ST, Somerville, Massachusetts","42.3937682, -71.1204952",1,"651 Somerville Ave, Somerville, MA 02143","3.5","210","0.8053344",156
+"157","203 SOMERVILLE AVE, Somerville, Massachusetts","42.3781522, -71.090884",2,"651 Somerville Ave, Somerville, MA 02143","6.88333333333333","413","1.2409358",157
+"158","204 WASHINGTON ST, Somerville, Massachusetts","42.379373, -71.091602",2,"651 Somerville Ave, Somerville, MA 02143","5.88333333333333","353","1.1222484",158
+"159","206 WASHINGTON ST, Somerville, Massachusetts","42.379351, -71.091701",1,"651 Somerville Ave, Somerville, MA 02143","5.85","351","1.1166558",159
+"160","21 CALDWELL AVE, Somerville, Massachusetts","42.3779243, -71.1050491",1,"651 Somerville Ave, Somerville, MA 02143","4.01666666666667","241","0.8071986",160
+"161","21 JAQUES ST, Somerville, Massachusetts","42.3930849, -71.0899934",1,"651 Somerville Ave, Somerville, MA 02143","8.75","525","1.7448912",161
+"162","21 PERRY ST, Somerville, Massachusetts","42.378539, -71.1016917",1,"651 Somerville Ave, Somerville, MA 02143","4.18333333333333","251","0.9028942",162
+"163","21 PITMAN ST, Somerville, Massachusetts","42.384277, -71.108576",1,"651 Somerville Ave, Somerville, MA 02143","2.45","147","0.3802968",163
+"164","21 PRESCOTT ST, Somerville, Massachusetts","42.384445, -71.098879",1,"651 Somerville Ave, Somerville, MA 02143","3.63333333333333","218","0.7916636",164
+"165","21 PUTNAM ST, Somerville, Massachusetts","42.3838212, -71.0982698",1,"651 Somerville Ave, Somerville, MA 02143","3.75","225","0.9874046",165
+"166","21 QUINCY ST, Somerville, Massachusetts","42.3826942, -71.1006162",1,"651 Somerville Ave, Somerville, MA 02143","2.96666666666667","178","0.6294782",166
+"167","212 SCHOOL ST, Somerville, Massachusetts","42.390735, -71.096462",1,"651 Somerville Ave, Somerville, MA 02143","6.51666666666667","391","1.363973",167
+"168","212 SOMERVILLE AVE, Somerville, Massachusetts","42.377798, -71.091187",1,"651 Somerville Ave, Somerville, MA 02143","5.91666666666667","355","1.152697",168
+"169","215 WASHINGTON ST, Somerville, Massachusetts","42.379691, -71.092339",1,"651 Somerville Ave, Somerville, MA 02143","6.06666666666667","364","1.1098204",169
+"170","216 MCGRATH HWY, Somerville, Massachusetts","42.3767344, -71.0887457",1,"651 Somerville Ave, Somerville, MA 02143","7.23333333333333","434","1.3074256",170
+"171","217 SOMERVILLE AVE, Somerville, Massachusetts","42.3782619, -71.0913027",1,"651 Somerville Ave, Somerville, MA 02143","5.85","351","1.1334336",171
+"172","219 PEARL ST, Somerville, Massachusetts","42.3875095, -71.0936054",1,"651 Somerville Ave, Somerville, MA 02143","7.06666666666667","424","1.4683682",172
+"173","22 BONNER AVE, Somerville, Massachusetts","42.3805775, -71.0938572",1,"651 Somerville Ave, Somerville, MA 02143","5.58333333333333","335","1.0607298",173
+"174","22 BOW ST, Somerville, Massachusetts","42.3808455, -71.0973324",1,"651 Somerville Ave, Somerville, MA 02143","4.3","258","0.8618818",174
+"175","22 MCGRATH HWY, Somerville, Massachusetts","42.3741506, -71.086183",2,"651 Somerville Ave, Somerville, MA 02143","8.35","501","1.6262038",175
+"176","220 WASHINGTON ST, Somerville, Massachusetts","42.3789618, -71.0923918",20,"651 Somerville Ave, Somerville, MA 02143","6","360","1.1384048",176
+"177","221 PEARL ST, Somerville, Massachusetts","42.3876601, -71.0935484",1,"651 Somerville Ave, Somerville, MA 02143","7.05","423","1.4671254",177
+"178","223 SOMERVILLE AVE, Somerville, Massachusetts","42.3783235, -71.0914647",1,"651 Somerville Ave, Somerville, MA 02143","5.81666666666667","349","1.1241126",178
+"179","23 BOLTON ST, Somerville, Massachusetts","42.3752714, -71.0981442",1,"651 Somerville Ave, Somerville, MA 02143","6.68333333333333","401","1.2359646",179
+"180","23 CLARK ST, Somerville, Massachusetts","42.378212, -71.097109",1,"651 Somerville Ave, Somerville, MA 02143","5.73333333333333","344","1.0700508",180
+"181","23 CONCORD AVE, Somerville, Massachusetts","42.3768476, -71.0970094",1,"651 Somerville Ave, Somerville, MA 02143","5.78333333333333","347","1.1178986",181
+"182","23 CUMMINGS ST, Somerville, Massachusetts","42.3943169, -71.0847449",2,"651 Somerville Ave, Somerville, MA 02143","11.4833333333333","689","2.5067276",182
+"183","23 ELM ST, Somerville, Massachusetts","42.3870337, -71.1140677",1,"651 Somerville Ave, Somerville, MA 02143","1.35","81","0.257881",183
+"184","236 HIGHLAND AVE, Somerville, Massachusetts","42.389964, -71.10955",1,"651 Somerville Ave, Somerville, MA 02143","2.68333333333333","161","0.4399512",184
+"185","236 SOMERVILLE AVE, Somerville, Massachusetts","42.3783635, -71.0923815",1,"651 Somerville Ave, Somerville, MA 02143","5.63333333333333","338","1.081236",185
+"186","24 HORACE ST, Somerville, Massachusetts","42.3751572, -71.0895193",1,"651 Somerville Ave, Somerville, MA 02143","7.88333333333333","473","1.5019238",186
+"187","24 LINCOLN PKWY, Somerville, Massachusetts","42.3777901, -71.098885",1,"651 Somerville Ave, Somerville, MA 02143","6.38333333333333","383","1.1719604",187
+"188","24 PARK ST, Somerville, Massachusetts","42.3818796, -71.106391",1,"651 Somerville Ave, Somerville, MA 02143","1.65","99","0.363519",188
+"189","24 STONE AVE, Somerville, Massachusetts","42.380604, -71.095457",1,"651 Somerville Ave, Somerville, MA 02143","7.21666666666667","433","1.2664132",189
+"190","240 PEARL ST, Somerville, Massachusetts","42.387618, -71.0950533",5,"651 Somerville Ave, Somerville, MA 02143","6.83333333333333","410","1.4348126",190
+"191","242 HIGHLAND AVE, Somerville, Massachusetts","42.3907359, -71.109677",1,"651 Somerville Ave, Somerville, MA 02143","3.21666666666667","193","0.5194904",191
+"192","25 BANKS ST, Somerville, Massachusetts","42.391538, -71.11735",1,"651 Somerville Ave, Somerville, MA 02143","3.18333333333333","191","0.8351616",192
+"193","25 BEACON ST, Somerville, Massachusetts","42.3754082, -71.1023419",1,"651 Somerville Ave, Somerville, MA 02143","4.95","297","1.0197174",193
+"194","25 BOW ST, Somerville, Massachusetts","42.3815421, -71.0972915",2,"651 Somerville Ave, Somerville, MA 02143","4.45","267","0.8991658",194
+"195","25 CANAL LN, Somerville, Massachusetts","42.3968982, -71.0941291",2,"651 Somerville Ave, Somerville, MA 02143","9.86666666666667","592","1.9275828",195
+"196","25 CENTURY ST, Somerville, Massachusetts","42.3969369, -71.0969819",1,"651 Somerville Ave, Somerville, MA 02143","7.23333333333333","434","1.4273558",196
+"197","25 FLORENCE ST, Somerville, Massachusetts","42.3828296, -71.0829097",1,"651 Somerville Ave, Somerville, MA 02143","9.9","594","2.0524842",197
+"198","25 HIGHLAND AVE, Somerville, Massachusetts","42.385268, -71.093642",19,"651 Somerville Ave, Somerville, MA 02143","6.33333333333333","380","1.3148824",198
+"199","25 LEWIS ST, Somerville, Massachusetts","42.3776212, -71.1025732",1,"651 Somerville Ave, Somerville, MA 02143","4.93333333333333","296","0.9308572",199
+"200","25 MAIN ST, Somerville, Massachusetts","42.3957049, -71.0983815",1,"651 Somerville Ave, Somerville, MA 02143","6.23333333333333","374","1.3223392",200
+"201","25 MEMORIAL RD, Somerville, Massachusetts","42.3961954, -71.0924087",1,"651 Somerville Ave, Somerville, MA 02143","8.46666666666667","508","1.8033028",201
+"202","25 SCHOOL ST, Somerville, Massachusetts","42.382829, -71.10119",1,"651 Somerville Ave, Somerville, MA 02143","3.53333333333333","212","0.9115938",202
+"203","25 WALNUT ST, Somerville, Massachusetts","42.3820469, -71.0961244",1,"651 Somerville Ave, Somerville, MA 02143","4.68333333333333","281","0.9613058",203
+"204","251 WASHINGTON ST, Somerville, Massachusetts","42.3796189, -71.0942978",2,"651 Somerville Ave, Somerville, MA 02143","5.76666666666667","346","1.0383594",204
+"205","252 MEDFORD ST, Somerville, Massachusetts","42.3837122, -71.0921561",7,"651 Somerville Ave, Somerville, MA 02143","6.21666666666667","373","1.3036972",205
+"206","253 WASHINGTON ST, Somerville, Massachusetts","42.379835, -71.0944208",2,"651 Somerville Ave, Somerville, MA 02143","6.25","375","1.0737792",206
+"207","255 BROADWAY, Somerville, Massachusetts","42.3908765, -71.0903835",1,"651 Somerville Ave, Somerville, MA 02143","9.15","549","1.9257186",207
+"208","255 SOMERVILLE AVE, Somerville, Massachusetts","42.378764, -71.0931493",2,"651 Somerville Ave, Somerville, MA 02143","5.4","324","1.0333882",208
+"209","257 BROADWAY, Somerville, Massachusetts","42.391291, -71.090208",1,"651 Somerville Ave, Somerville, MA 02143","8.2","492","1.6100474",209
+"210","257 MEDFORD ST, Somerville, Massachusetts","42.3840621, -71.0919779",1,"651 Somerville Ave, Somerville, MA 02143","6.13333333333333","368","1.289405",210
+"211","259 BEACON ST, Somerville, Massachusetts","42.3825075, -71.1114066",1,"651 Somerville Ave, Somerville, MA 02143","2.6","156","0.6947252",211
+"212","259 LOWELL ST, Somerville, Massachusetts","42.3920535, -71.1054315",2,"651 Somerville Ave, Somerville, MA 02143","2.98333333333333","179","0.674219",212
+"213","259 MCGRATH HWY, Somerville, Massachusetts","42.3784774, -71.0885717",1,"651 Somerville Ave, Somerville, MA 02143","7.8","468","1.3708084",213
+"214","26 BONNER AVE, Somerville, Massachusetts","42.380681, -71.0937311",1,"651 Somerville Ave, Somerville, MA 02143","5.41666666666667","325","1.0458162",214
+"215","26 HAWTHORNE ST, Somerville, Massachusetts","42.39386, -71.118329",1,"651 Somerville Ave, Somerville, MA 02143","5.16666666666667","310","0.9954828",215
+"216","26 NASHUA ST, Somerville, Massachusetts","42.39469, -71.1057468",1,"651 Somerville Ave, Somerville, MA 02143","5.11666666666667","307","1.0886928",216
+"217","26 PRESCOTT ST, Somerville, Massachusetts","42.384724, -71.099358",1,"651 Somerville Ave, Somerville, MA 02143","3.65","219","0.7978776",217
+"218","26 PUTNAM ST, Somerville, Massachusetts","42.384245, -71.098545",1,"651 Somerville Ave, Somerville, MA 02143","3.8","228","1.0029396",218
+"219","260 BEACON ST, Somerville, Massachusetts","42.3823116, -71.1119065",1,"651 Somerville Ave, Somerville, MA 02143","2.76666666666667","166","0.7226882",219
+"220","260 WASHINGTON ST, Somerville, Massachusetts","42.3795554, -71.0970526",4,"651 Somerville Ave, Somerville, MA 02143","4.51666666666667","271","0.8848736",220
+"221","266 BROADWAY, Somerville, Massachusetts","42.390861, -71.0911762",26,"651 Somerville Ave, Somerville, MA 02143","8.13333333333333","488","1.6647306",221
+"222","267 WILLOW AVE, Somerville, Massachusetts","42.3994836, -71.1128706",1,"651 Somerville Ave, Somerville, MA 02143","5.5","330","1.329796",222
+"223","268 WASHINGTON ST, Somerville, Massachusetts","42.37911, -71.097455",7,"651 Somerville Ave, Somerville, MA 02143","4.6","276","1.0638368",223
+"224","268R POWDER HOUSE BLVD, Somerville, Massachusetts","42.4080167, -71.1306713",1,"651 Somerville Ave, Somerville, MA 02143","9.58333333333333","575","2.5235054",224
+"225","27 ADRIAN ST, Somerville, Massachusetts","42.37747, -71.099069",1,"651 Somerville Ave, Somerville, MA 02143","6.35","381","1.1732032",225
+"226","27 FOUNTAIN AVE, Somerville, Massachusetts","42.3831618, -71.0880781",1,"651 Somerville Ave, Somerville, MA 02143","8.76666666666667","526","1.5839486",226
+"227","27 HIGHLAND AVE, Somerville, Massachusetts","42.3851542, -71.0941584",1,"651 Somerville Ave, Somerville, MA 02143","5.33333333333333","320","1.1533184",227
+"228","27 HOUGHTON ST, Somerville, Massachusetts","42.3749589, -71.0985601",1,"651 Somerville Ave, Somerville, MA 02143","6.68333333333333","401","1.360866",228
+"229","27 KNAPP ST, Somerville, Massachusetts","42.3830732, -71.1028702",1,"651 Somerville Ave, Somerville, MA 02143","2.65","159","0.487799",229
+"230","270 WASHINGTON ST, Somerville, Massachusetts","42.3792437, -71.0979821",8,"651 Somerville Ave, Somerville, MA 02143","4.35","261","1.0172318",230
+"231","275 BEACON ST, Somerville, Massachusetts","42.3835829, -71.111771",1,"651 Somerville Ave, Somerville, MA 02143","3.06666666666667","184","0.7158528",231
+"232","277 BROADWAY, Somerville, Massachusetts","42.391835, -71.0912176",1,"651 Somerville Ave, Somerville, MA 02143","8.16666666666667","490","1.6398746",232
+"233","28 BEACON ST, Somerville, Massachusetts","42.375024, -71.102897",1,"651 Somerville Ave, Somerville, MA 02143","4.96666666666667","298","1.0184746",233
+"234","28 FITCHBURG ST, Somerville, Massachusetts","42.3763774, -71.0844011",1,"651 Somerville Ave, Somerville, MA 02143","8.43333333333333","506","1.6802656",234
+"235","28 LINCOLN PKWY, Somerville, Massachusetts","42.3776895, -71.099069",1,"651 Somerville Ave, Somerville, MA 02143","6.46666666666667","388","1.18066",235
+"236","28 PINCKNEY ST, Somerville, Massachusetts","42.3831616, -71.0824957",1,"651 Somerville Ave, Somerville, MA 02143","10.2666666666667","616","2.0667764",236
+"237","28 PURITAN RD, Somerville, Massachusetts","42.3963158, -71.086495",1,"651 Somerville Ave, Somerville, MA 02143","9.93333333333333","596","2.0120932",237
+"238","28 ROSSMORE ST, Somerville, Massachusetts","42.3789695, -71.0913546",1,"651 Somerville Ave, Somerville, MA 02143","6.55","393","1.18066",238
+"239","282 SOMERVILLE AVE, Somerville, Massachusetts","42.3787795, -71.0946128",4,"651 Somerville Ave, Somerville, MA 02143","5.58333333333333","335","1.065701",239
+"240","286 BEACON ST, Somerville, Massachusetts","42.3832006, -71.1126846",1,"651 Somerville Ave, Somerville, MA 02143","2.35","141","0.6158074",240
+"241","286 BROADWAY, Somerville, Massachusetts","42.3917484, -71.0922988",1,"651 Somerville Ave, Somerville, MA 02143","7.83333333333333","470","1.5808416",241
+"242","29 ALLEN ST, Somerville, Massachusetts","42.3775874, -71.0932443",3,"651 Somerville Ave, Somerville, MA 02143","6.33333333333333","380","1.1172772",242
+"243","29 CLARK ST, Somerville, Massachusetts","42.378326, -71.097317",1,"651 Somerville Ave, Somerville, MA 02143","5.83333333333333","350","1.0831002",243
+"244","29 COLUMBUS AVE, Somerville, Massachusetts","42.380852, -71.093413",1,"651 Somerville Ave, Somerville, MA 02143","5.43333333333333","326","1.0483018",244
+"245","29 HARDING ST, Somerville, Massachusetts","42.3752069, -71.0902796",3,"651 Somerville Ave, Somerville, MA 02143","8.06666666666667","484","1.5329938",245
+"246","290 WASHINGTON ST, Somerville, Massachusetts","42.3792598, -71.0988921",7,"651 Somerville Ave, Somerville, MA 02143","4.2","252","0.9718696",246
+"247","294 MCGRATH HWY, Somerville, Massachusetts","42.378804, -71.0897591",1,"651 Somerville Ave, Somerville, MA 02143","7.03333333333333","422","1.2943762",247
+"248","299 BROADWAY, Somerville, Massachusetts","42.3930142, -71.0925858",2,"651 Somerville Ave, Somerville, MA 02143","7.75","465","1.5491502",248
+"249","3 BECKWITH CIR, Somerville, Massachusetts","42.382206, -71.1117778",1,"651 Somerville Ave, Somerville, MA 02143","2.76666666666667","166","0.7226882",249
+"250","3 HAWKINS ST, Somerville, Massachusetts","42.3802143, -71.0982372",1,"651 Somerville Ave, Somerville, MA 02143","4.46666666666667","268","0.8127912",250
+"251","3 KENT CT, Somerville, Massachusetts","42.3828887, -71.1104658",2,"651 Somerville Ave, Somerville, MA 02143","3.4","204","0.8103056",251
+"252","3 LINDEN ST, Somerville, Massachusetts","42.3782735, -71.0927151",1,"651 Somerville Ave, Somerville, MA 02143","6.01666666666667","361","1.084343",252
+"253","3 QUINCY ST, Somerville, Massachusetts","42.3819715, -71.1010606",1,"651 Somerville Ave, Somerville, MA 02143","2.75","165","0.5741736",253
+"254","3 SUMMIT AVE, Somerville, Massachusetts","42.3836443, -71.0953601",1,"651 Somerville Ave, Somerville, MA 02143","5.36666666666667","322","1.0831002",254
+"255","3 WASHINGTON ST, Somerville, Massachusetts","42.382317, -71.081218",1,"651 Somerville Ave, Somerville, MA 02143","8.53333333333333","512","1.7063644",255
+"256","30 CANAL LN, Somerville, Massachusetts","42.3969204, -71.0943487",1,"651 Somerville Ave, Somerville, MA 02143","9.93333333333333","596","1.9350396",256
+"257","30 CHESTER ST, Somerville, Massachusetts","42.3941219, -71.1234319",1,"651 Somerville Ave, Somerville, MA 02143","6.91666666666667","415","1.1328122",257
+"258","30 DANE ST, Somerville, Massachusetts","42.3810963, -71.1040996",3,"651 Somerville Ave, Somerville, MA 02143","2.48333333333333","149","0.5362682",258
+"259","30 INNER BELT RD, Somerville, Massachusetts","42.3794002, -71.0798146",3,"651 Somerville Ave, Somerville, MA 02143","9.33333333333333","560","1.8629572",259
+"260","30 MEMORIAL RD, Somerville, Massachusetts","42.3959697, -71.0924908",1,"651 Somerville Ave, Somerville, MA 02143","8.68333333333333","521","1.8188378",260
+"261","30 PROSPECT ST, Somerville, Massachusetts","42.3783779, -71.0942951",1,"651 Somerville Ave, Somerville, MA 02143","5.91666666666667","355","1.1613966",261
+"262","30 QUINCY ST, Somerville, Massachusetts","42.3830975, -71.1006169",1,"651 Somerville Ave, Somerville, MA 02143","3.06666666666667","184","0.6543342",262
+"263","30 RIVER RD, Somerville, Massachusetts","42.3976735, -71.0926364",1,"651 Somerville Ave, Somerville, MA 02143","10.3166666666667","619","1.9717022",263
+"264","30 WASHINGTON ST, Somerville, Massachusetts","42.3813271, -71.0820238",6,"651 Somerville Ave, Somerville, MA 02143","8.76666666666667","526","1.7392986",264
+"265","300 BROADWAY, Somerville, Massachusetts","42.3921177, -71.0929703",1,"651 Somerville Ave, Somerville, MA 02143","7.65","459","1.5361008",265
+"266","300 SOMERVILLE AVE, Somerville, Massachusetts","42.3800117, -71.0973703",2,"651 Somerville Ave, Somerville, MA 02143","3.73333333333333","224","0.7897994",266
+"267","301 HIGHLAND AVE, Somerville, Massachusetts","42.39281, -71.113141",1,"651 Somerville Ave, Somerville, MA 02143","3.43333333333333","206","0.7773714",267
+"268","309 HIGHLAND AVE, Somerville, Massachusetts","42.3928896, -71.1139313",1,"651 Somerville Ave, Somerville, MA 02143","3.55","213","0.8146554",268
+"269","31 BOLTON ST, Somerville, Massachusetts","42.3750618, -71.0983625",2,"651 Somerville Ave, Somerville, MA 02143","6.78333333333333","407","1.2539852",269
+"270","31 PRESCOTT ST, Somerville, Massachusetts","42.3847855, -71.0988467",1,"651 Somerville Ave, Somerville, MA 02143","3.7","222","0.8134126",270
+"271","31 WALNUT ST, Somerville, Massachusetts","42.382404, -71.095728",1,"651 Somerville Ave, Somerville, MA 02143","4.8","288","0.9923758",271
+"272","313 BROADWAY, Somerville, Massachusetts","42.3926791, -71.093142",1,"651 Somerville Ave, Somerville, MA 02143","7.58333333333333","455","1.5149732",272
+"273","318 SOMERVILLE AVE, Somerville, Massachusetts","42.380277, -71.0977345",1,"651 Somerville Ave, Somerville, MA 02143","4.76666666666667","286","0.8457254",273
+"274","32 BOW ST, Somerville, Massachusetts","42.3813097, -71.0974172",1,"651 Somerville Ave, Somerville, MA 02143","4.43333333333333","266","0.8929518",274
+"275","32 HANSON ST, Somerville, Massachusetts","42.379699, -71.105498",1,"651 Somerville Ave, Somerville, MA 02143","3.26666666666667","196","0.6394206",275
+"276","32 JAQUES ST, Somerville, Massachusetts","42.393178, -71.090883",2,"651 Somerville Ave, Somerville, MA 02143","8.21666666666667","493","1.7380558",276
+"277","32 KENT ST, Somerville, Massachusetts","42.382638, -71.11003",5,"651 Somerville Ave, Somerville, MA 02143","3.31666666666667","199","0.8034702",277
+"278","32 MUNROE ST, Somerville, Massachusetts","42.380479, -71.09225",1,"651 Somerville Ave, Somerville, MA 02143","5.98333333333333","359","1.1346764",278
+"279","32 SHORE DR, Somerville, Massachusetts","42.3980727, -71.0899515",3,"651 Somerville Ave, Somerville, MA 02143","8.88333333333333","533","2.0176858",279
+"280","320 SOMERVILLE AVE, Somerville, Massachusetts","42.380391, -71.0977039",1,"651 Somerville Ave, Somerville, MA 02143","3.56666666666667","214","0.7624578",280
+"281","322 BEACON ST, Somerville, Massachusetts","42.3845172, -71.1140854",1,"651 Somerville Ave, Somerville, MA 02143","2.05","123","0.500227",281
+"282","326 BROADWAY, Somerville, Massachusetts","42.3924025, -71.0941243",1,"651 Somerville Ave, Somerville, MA 02143","7.41666666666667","445","1.5460432",282
+"283","328 BROADWAY, Somerville, Massachusetts","42.3926403, -71.0939934",1,"651 Somerville Ave, Somerville, MA 02143","7.21666666666667","433","1.472718",283
+"284","33 MELVIN ST, Somerville, Massachusetts","42.389024, -71.0902349",1,"651 Somerville Ave, Somerville, MA 02143","8.61666666666667","517","1.5789774",284
+"285","33 PARK ST, Somerville, Massachusetts","42.3819781, -71.1071022",1,"651 Somerville Ave, Somerville, MA 02143","1.68333333333333","101","0.3722186",285
+"286","33 SOUTH ST, Somerville, Massachusetts","42.3743963, -71.0898038",1,"651 Somerville Ave, Somerville, MA 02143","8.01666666666667","481","1.5758704",286
+"287","330 SUMMER ST, Somerville, Massachusetts","42.3929272, -71.1181975",1,"651 Somerville Ave, Somerville, MA 02143","3.75","225","0.7810998",287
+"288","330 WASHINGTON ST, Somerville, Massachusetts","42.3792197, -71.1017067",1,"651 Somerville Ave, Somerville, MA 02143","3.75","225","0.8252192",288
+"289","333 BROADWAY, Somerville, Massachusetts","42.3932279, -71.0941495",2,"651 Somerville Ave, Somerville, MA 02143","8.11666666666667","487","1.7163068",289
+"290","335 SOMERVILLE AVE, Somerville, Massachusetts","42.3807802, -71.097997",1,"651 Somerville Ave, Somerville, MA 02143","3.38333333333333","203","0.736359",290
+"291","337 SOMERVILLE AVE, Somerville, Massachusetts","42.381071, -71.098044",3,"651 Somerville Ave, Somerville, MA 02143","3.76666666666667","226","0.7431944",291
+"292","338 SOMERVILLE AVE, Somerville, Massachusetts","42.380519, -71.098398",1,"651 Somerville Ave, Somerville, MA 02143","3.33333333333333","200","0.727038",292
+"293","34 CALVIN ST, Somerville, Massachusetts","42.3774691, -71.1041579",2,"651 Somerville Ave, Somerville, MA 02143","3.78333333333333","227","0.7935278",293
+"294","34 DAY ST, Somerville, Massachusetts","42.395078, -71.123945",1,"651 Somerville Ave, Somerville, MA 02143","6.45","387","1.1607752",294
+"295","34 HEATH ST, Somerville, Massachusetts","42.394093, -71.094095",1,"651 Somerville Ave, Somerville, MA 02143","6.8","408","1.4981954",295
+"296","34 HIGHLAND AVE, Somerville, Massachusetts","42.3852442, -71.0946989",1,"651 Somerville Ave, Somerville, MA 02143","5.16666666666667","310","1.1259768",296
+"297","34 LINE ST, Somerville, Massachusetts","42.3771953, -71.1061333",2,"651 Somerville Ave, Somerville, MA 02143","4.86666666666667","292","0.8718242",297
+"298","34 SUMMIT AVE, Somerville, Massachusetts","42.3841454, -71.0967745",1,"651 Somerville Ave, Somerville, MA 02143","5.33333333333333","320","1.1874954",298
+"299","34- HIGHLAND AVE, Somerville, Massachusetts","42.3852442, -71.0946989",1,"651 Somerville Ave, Somerville, MA 02143","5.16666666666667","310","1.1259768",299
+"300","343 BROADWAY, Somerville, Massachusetts","42.3936347, -71.0943702",1,"651 Somerville Ave, Somerville, MA 02143","7.73333333333333","464","1.5795988",300
+"301","344 SOMERVILLE AVE, Somerville, Massachusetts","42.3806646, -71.0984401",1,"651 Somerville Ave, Somerville, MA 02143","3.25","195","0.7164742",301
+"302","349 BROADWAY, Somerville, Massachusetts","42.3936152, -71.09511",1,"651 Somerville Ave, Somerville, MA 02143","7.83333333333333","470","1.609426",302
+"303","35 CHARLESTOWN ST, Somerville, Massachusetts","42.376527, -71.0920211",3,"651 Somerville Ave, Somerville, MA 02143","6.98333333333333","419","1.2316148",303
+"304","35 CHURCH ST, Somerville, Massachusetts","42.38179, -71.100026",1,"651 Somerville Ave, Somerville, MA 02143","3.83333333333333","230","0.9985898",304
+"305","35 HAROLD ST, Somerville, Massachusetts","42.3771845, -71.1020147",1,"651 Somerville Ave, Somerville, MA 02143","4.51666666666667","271","0.9035156",305
+"306","35 LINDEN ST, Somerville, Massachusetts","42.3771329, -71.0927682",1,"651 Somerville Ave, Somerville, MA 02143","6.36666666666667","382","1.1632608",306
+"307","35 MCGRATH HWY, Somerville, Massachusetts","42.374453, -71.082686",1,"651 Somerville Ave, Somerville, MA 02143","11.0166666666667","661","2.314715",307
+"308","35 MEDFORD ST, Somerville, Massachusetts","42.3744208, -71.0879085",3,"651 Somerville Ave, Somerville, MA 02143","7.61666666666667","457","1.4671254",308
+"309","35 MEMORIAL RD, Somerville, Massachusetts","42.3969363, -71.0928374",1,"651 Somerville Ave, Somerville, MA 02143","9.16666666666667","550","1.8834634",309
+"310","35 PUTNAM ST, Somerville, Massachusetts","42.384407, -71.097763",1,"651 Somerville Ave, Somerville, MA 02143","3.91666666666667","235","1.0352524",310
+"311","353 SOMERVILLE AVE, Somerville, Massachusetts","42.381077, -71.0986",1,"651 Somerville Ave, Somerville, MA 02143","4.16666666666667","250","1.078129",311
+"312","357 SOMERVILLE AVE, Somerville, Massachusetts","42.3811419, -71.098793",1,"651 Somerville Ave, Somerville, MA 02143","4.13333333333333","248","1.0725364",312
+"313","36 CEDAR ST, Somerville, Massachusetts","42.389544, -71.1145273",1,"651 Somerville Ave, Somerville, MA 02143","2.95","177","0.6456346",313
+"314","36 CENTRAL ST, Somerville, Massachusetts","42.385526, -71.1054603",1,"651 Somerville Ave, Somerville, MA 02143","1.95","117","0.4169594",314
+"315","36 OAK ST, Somerville, Massachusetts","42.3757242, -71.0986469",1,"651 Somerville Ave, Somerville, MA 02143","6.96666666666667","418","1.388829",315
+"316","36 PUTNAM ST, Somerville, Massachusetts","42.384617, -71.098291",1,"651 Somerville Ave, Somerville, MA 02143","3.91666666666667","235","1.0358738",316
+"317","36 STONE AVE, Somerville, Massachusetts","42.3808392, -71.095174",1,"651 Somerville Ave, Somerville, MA 02143","7.48333333333333","449","1.2912692",317
+"318","360 MYSTIC AVE, Somerville, Massachusetts","42.3936864, -71.0873528",1,"651 Somerville Ave, Somerville, MA 02143","9.53333333333333","572","1.9151548",318
+"319","360 SOMERVILLE AVE, Somerville, Massachusetts","42.3808806, -71.0991172",1,"651 Somerville Ave, Somerville, MA 02143","3.21666666666667","193","0.6847828",319
+"320","366 SOMERVILLE AVE, Somerville, Massachusetts","42.380767, -71.099419",1,"651 Somerville Ave, Somerville, MA 02143","3.31666666666667","199","0.6965894",320
+"321","37 CEDAR ST, Somerville, Massachusetts","42.3894035, -71.114186",1,"651 Somerville Ave, Somerville, MA 02143","2.65","159","0.6263712",321
+"322","37 QUINCY ST, Somerville, Massachusetts","42.3832305, -71.1000024",1,"651 Somerville Ave, Somerville, MA 02143","3.15","189","0.6767046",322
+"323","37 SYDNEY ST, Somerville, Massachusetts","42.3944489, -71.0893849",1,"651 Somerville Ave, Somerville, MA 02143","8.51666666666667","511","1.8318872",323
+"324","37 UNION SQ, Somerville, Massachusetts","42.3801755, -71.0969606",1,"651 Somerville Ave, Somerville, MA 02143","3.8","228","0.8028488",324
+"325","374 SOMERVILLE AVE, Somerville, Massachusetts","42.3810387, -71.0997946",1,"651 Somerville Ave, Somerville, MA 02143","3.13333333333333","188","0.6518486",325
+"326","378 WASHINGTON ST, Somerville, Massachusetts","42.3785715, -71.1044905",1,"651 Somerville Ave, Somerville, MA 02143","3.4","204","0.730145",326
+"327","379 BROADWAY, Somerville, Massachusetts","42.3946452, -71.096732",2,"651 Somerville Ave, Somerville, MA 02143","7.65","459","1.5242942",327
+"328","38 IBBETSON ST, Somerville, Massachusetts","42.3860813, -71.1116287",1,"651 Somerville Ave, Somerville, MA 02143","1.1","66","0.1454076",328
+"329","38 MEDFORD ST, Somerville, Massachusetts","42.3744741, -71.0883011",1,"651 Somerville Ave, Somerville, MA 02143","7.58333333333333","455","1.4578044",329
+"330","38 WYATT ST, Somerville, Massachusetts","42.3771537, -71.1012099",1,"651 Somerville Ave, Somerville, MA 02143","4.93333333333333","296","1.0085322",330
+"331","380 SOMERVILLE AVE, Somerville, Massachusetts","42.3811629, -71.1000225",1,"651 Somerville Ave, Somerville, MA 02143","3.13333333333333","188","0.6481202",331
+"332","383 BROADWAY, Somerville, Massachusetts","42.3947697, -71.0969157",1,"651 Somerville Ave, Somerville, MA 02143","6.7","402","1.4111994",332
+"333","388 SOMERVILLE AVE, Somerville, Massachusetts","42.381202, -71.100376",1,"651 Somerville Ave, Somerville, MA 02143","2.86666666666667","172","0.6145646",333
+"334","39 HOUGHTON ST, Somerville, Massachusetts","42.3750026, -71.0991998",1,"651 Somerville Ave, Somerville, MA 02143","6.43333333333333","386","1.3310388",334
+"335","39 MEDFORD ST, Somerville, Massachusetts","42.3741799, -71.0880529",3,"651 Somerville Ave, Somerville, MA 02143","7.66666666666667","460","1.4807962",335
+"336","390 WASHINGTON ST, Somerville, Massachusetts","42.378333, -71.1051899",1,"651 Somerville Ave, Somerville, MA 02143","3.9","234","0.7786142",336
+"337","391 SOMERVILLE AVE, Somerville, Massachusetts","42.381792, -71.1005519",1,"651 Somerville Ave, Somerville, MA 02143","3.88333333333333","233","1.0103964",337
+"338","397 WASHINGTON ST, Somerville, Massachusetts","42.378695, -71.105686",1,"651 Somerville Ave, Somerville, MA 02143","3.81666666666667","229","0.7854496",338
+"339","4 ALDERSEY ST, Somerville, Massachusetts","42.3828712, -71.0960802",2,"651 Somerville Ave, Somerville, MA 02143","5.28333333333333","317","1.0352524",339
+"340","4 BEACH AVE, Somerville, Massachusetts","42.3755224, -71.0940796",1,"651 Somerville Ave, Somerville, MA 02143","6.25","375","1.1906024",340
+"341","4 BEACON ST, Somerville, Massachusetts","42.3745083, -71.1019506",1,"651 Somerville Ave, Somerville, MA 02143","5.03333333333333","302","1.0495446",341
+"342","4 LAKE ST, Somerville, Massachusetts","42.3798796, -71.0984022",1,"651 Somerville Ave, Somerville, MA 02143","4.45","267","0.80782",342
+"343","4 WALDO AVE, Somerville, Massachusetts","42.3770832, -71.1033907",1,"651 Somerville Ave, Somerville, MA 02143","4.01666666666667","241","0.8395114",343
+"344","40 FLORENCE ST, Somerville, Massachusetts","42.383431, -71.083345",1,"651 Somerville Ave, Somerville, MA 02143","9.76666666666667","586","2.0170644",344
+"345","40 HIGHLAND AVE, Somerville, Massachusetts","42.385244, -71.095037",1,"651 Somerville Ave, Somerville, MA 02143","5.08333333333333","305","1.1104418",345
+"346","40 HOUGHTON ST, Somerville, Massachusetts","42.3748116, -71.0991709",1,"651 Somerville Ave, Somerville, MA 02143","7.6","456","1.49136",346
+"347","40 MEMORIAL RD, Somerville, Massachusetts","42.3962426, -71.0925721",2,"651 Somerville Ave, Somerville, MA 02143","8.63333333333333","518","1.811381",347
+"348","40 RIVER RD, Somerville, Massachusetts","42.3974024, -71.0930711",1,"651 Somerville Ave, Somerville, MA 02143","9.66666666666667","580","1.9163976",348
+"349","40 SUMMER ST, Somerville, Massachusetts","42.383047, -71.0993161",1,"651 Somerville Ave, Somerville, MA 02143","3.45","207","0.9047584",349
+"350","40 UNION SQ, Somerville, Massachusetts","42.3803084, -71.0964479",1,"651 Somerville Ave, Somerville, MA 02143","4.65","279","0.9178078",350
+"351","40 WIGGLESWORTH ST, Somerville, Massachusetts","42.3886858, -71.0912352",1,"651 Somerville Ave, Somerville, MA 02143","7.41666666666667","445","1.4907386",351
+"352","400 SOMERVILLE AVE, Somerville, Massachusetts","42.3807302, -71.1015967",2,"651 Somerville Ave, Somerville, MA 02143","3.31666666666667","199","0.6077292",352
+"353","402 WASHINGTON ST, Somerville, Massachusetts","42.3782256, -71.1056709",1,"651 Somerville Ave, Somerville, MA 02143","3.86666666666667","232","0.7941492",353
+"354","403 WASHINGTON ST, Somerville, Massachusetts","42.378626, -71.106009",1,"651 Somerville Ave, Somerville, MA 02143","3.75","225","0.7282808",354
+"355","405 ALEWIFE BROOK PKWY, Somerville, Massachusetts","42.4141402, -71.1298825",2,"651 Somerville Ave, Somerville, MA 02143","11.0666666666667","664","3.051074",355
+"356","407 WASHINGTON ST, Somerville, Massachusetts","42.378519, -71.1060981",1,"651 Somerville Ave, Somerville, MA 02143","3.73333333333333","224","0.7220668",356
+"357","408 HIGHLAND AVE, Somerville, Massachusetts","42.3959947, -71.1215769",1,"651 Somerville Ave, Somerville, MA 02143","4.86666666666667","292","1.1874954",357
+"358","41 BELMONT ST, Somerville, Massachusetts","42.386316, -71.109323",1,"651 Somerville Ave, Somerville, MA 02143","1.66666666666667","100","0.3896178",358
+"359","41 GREENVILLE ST, Somerville, Massachusetts","42.3822453, -71.0931142",1,"651 Somerville Ave, Somerville, MA 02143","6.16666666666667","370","1.2477712",359
+"360","41 JACKSON RD, Somerville, Massachusetts","42.3900593, -71.093398",2,"651 Somerville Ave, Somerville, MA 02143","7.98333333333333","479","1.5671708",360
+"361","41 MT PLEASANT ST, Somerville, Massachusetts","42.3847704, -71.0790945",1,"651 Somerville Ave, Somerville, MA 02143","11.5166666666667","691","2.7223534",361
+"362","41 WALNUT ST, Somerville, Massachusetts","42.382936, -71.095403",1,"651 Somerville Ave, Somerville, MA 02143","5.16666666666667","310","1.059487",362
+"363","411 NORFOLK ST, Somerville, Massachusetts","42.3750163, -71.0953274",2,"651 Somerville Ave, Somerville, MA 02143","6.15","369","1.1974378",363
+"364","414 WASHINGTON ST, Somerville, Massachusetts","42.3780903, -71.1065132",2,"651 Somerville Ave, Somerville, MA 02143","3.55","213","0.7139886",364
+"365","417 SOMERVILLE AVE, Somerville, Massachusetts","42.3819778, -71.1014176",1,"651 Somerville Ave, Somerville, MA 02143","2.58333333333333","155","0.540618",365
+"366","42 BELMONT ST, Somerville, Massachusetts","42.3864727, -71.1099253",1,"651 Somerville Ave, Somerville, MA 02143","1.68333333333333","101","0.3933462",366
+"367","42 PRESCOTT ST, Somerville, Massachusetts","42.3854176, -71.0989842",1,"651 Somerville Ave, Somerville, MA 02143","5.3","318","1.0110178",367
+"368","42 RICHDALE AVE, Somerville, Massachusetts","42.389558, -71.099536",1,"651 Somerville Ave, Somerville, MA 02143","6.38333333333333","383","1.2222938",368
+"369","420 MEDFORD ST, Somerville, Massachusetts","42.3916473, -71.0999993",1,"651 Somerville Ave, Somerville, MA 02143","4.63333333333333","278","0.9668984",369
+"370","422 MYSTIC AVE, Somerville, Massachusetts","42.395087, -71.0890077",1,"651 Somerville Ave, Somerville, MA 02143","9.13333333333333","548","1.8784922",370
+"371","423 MEDFORD ST, Somerville, Massachusetts","42.3921217, -71.1000318",1,"651 Somerville Ave, Somerville, MA 02143","4.7","282","0.9948614",371
+"372","425 BROADWAY, Somerville, Massachusetts","42.396189, -71.099856",1,"651 Somerville Ave, Somerville, MA 02143","6.48333333333333","389","1.3987714",372
+"373","425 WASHINGTON ST, Somerville, Massachusetts","42.3783145, -71.1069084",2,"651 Somerville Ave, Somerville, MA 02143","3.61666666666667","217","0.7289022",373
+"374","429 NORFOLK ST, Somerville, Massachusetts","42.3748793, -71.0953581",1,"651 Somerville Ave, Somerville, MA 02143","8.01666666666667","481","1.5479074",374
+"375","43 CHURCH ST, Somerville, Massachusetts","42.38202, -71.099901",1,"651 Somerville Ave, Somerville, MA 02143","3.76666666666667","226","0.9811906",375
+"376","43 VINAL AVE, Somerville, Massachusetts","42.3844347, -71.0968192",1,"651 Somerville Ave, Somerville, MA 02143","5.13333333333333","308","1.1514542",376
+"377","435 ARTISAN WAY, Somerville, Massachusetts","42.3952272, -71.0786283",1,"651 Somerville Ave, Somerville, MA 02143","12.85","771","2.7596374",377
+"378","435 WASHINGTON ST, Somerville, Massachusetts","42.3783524, -71.1072006",1,"651 Somerville Ave, Somerville, MA 02143","4.38333333333333","263","0.879281",378
+"379","438 SOMERVILLE AVE, Somerville, Massachusetts","42.381321, -71.1024381",2,"651 Somerville Ave, Somerville, MA 02143","3.35","201","0.5803876",379
+"380","44 ADRIAN ST, Somerville, Massachusetts","42.37708, -71.099926",1,"651 Somerville Ave, Somerville, MA 02143","5.18333333333333","311","1.0172318",380
+"381","44 DICKINSON ST, Somerville, Massachusetts","42.3748627, -71.1009646",1,"651 Somerville Ave, Somerville, MA 02143","5.53333333333333","332","1.0551372",381
+"382","44 PITMAN ST, Somerville, Massachusetts","42.3845748, -71.1096707",1,"651 Somerville Ave, Somerville, MA 02143","2.4","144","0.5977868",382
+"383","44 TEMPLE ST, Somerville, Massachusetts","42.39406, -71.0925759",1,"651 Somerville Ave, Somerville, MA 02143","7.41666666666667","445","1.6075618",383
+"384","443 SOMERVILLE AVE, Somerville, Massachusetts","42.382391, -71.102516",1,"651 Somerville Ave, Somerville, MA 02143","2.3","138","0.4803422",384
+"385","444 SOMERVILLE AVE, Somerville, Massachusetts","42.3817256, -71.1027754",1,"651 Somerville Ave, Somerville, MA 02143","3.15","189","0.5555316",385
+"386","45 BEACON ST, Somerville, Massachusetts","42.376014, -71.1029087",2,"651 Somerville Ave, Somerville, MA 02143","5.13333333333333","308","0.997347",386
+"387","45 CONCORD AVE, Somerville, Massachusetts","42.377153, -71.098245",1,"651 Somerville Ave, Somerville, MA 02143","6.06666666666667","364","1.1415118",387
+"388","45 GREENVILLE ST, Somerville, Massachusetts","42.38218, -71.093285",1,"651 Somerville Ave, Somerville, MA 02143","6.21666666666667","373","1.214837",388
+"389","45 KIDDER AVE, Somerville, Massachusetts","42.398524, -71.117126",1,"651 Somerville Ave, Somerville, MA 02143","5.4","324","1.3372528",389
+"390","45 MAIN ST, Somerville, Massachusetts","42.396266, -71.098978",1,"651 Somerville Ave, Somerville, MA 02143","6.41666666666667","385","1.373294",390
+"391","45 MEMORIAL RD, Somerville, Massachusetts","42.3969737, -71.092782",2,"651 Somerville Ave, Somerville, MA 02143","9.2","552","1.8871918",391
+"392","45 UNION SQ, Somerville, Massachusetts","42.3801859, -71.0963615",2,"651 Somerville Ave, Somerville, MA 02143","4.65","279","0.894816",392
+"393","45 WALNUT ST, Somerville, Massachusetts","42.3832009, -71.0952354",1,"651 Somerville Ave, Somerville, MA 02143","5.15","309","1.0545158",393
+"394","450 CANAL ST, Somerville, Massachusetts","42.3940229, -71.0804747",1,"651 Somerville Ave, Somerville, MA 02143","11.8166666666667","709","2.7148966",394
+"395","46 BELMONT ST, Somerville, Massachusetts","42.3866482, -71.1095618",2,"651 Somerville Ave, Somerville, MA 02143","1.6","96","0.3740828",395
+"396","46 MEDFORD ST, Somerville, Massachusetts","42.3747577, -71.0885136",1,"651 Somerville Ave, Somerville, MA 02143","7.56666666666667","454","1.4397838",396
+"397","46 SOUTH ST, Somerville, Massachusetts","42.3742639, -71.090403",3,"651 Somerville Ave, Somerville, MA 02143","8.1","486","1.6044548",397
+"398","46 WHEATLAND ST, Somerville, Massachusetts","42.3926067, -71.0894164",1,"651 Somerville Ave, Somerville, MA 02143","8.88333333333333","533","1.7697472",398
+"399","460 MYSTIC AVE, Somerville, Massachusetts","42.3958722, -71.0895435",1,"651 Somerville Ave, Somerville, MA 02143","9.05","543","2.056834",399
+"400","47 BEACON ST, Somerville, Massachusetts","42.376019, -71.102897",2,"651 Somerville Ave, Somerville, MA 02143","5.13333333333333","308","0.997347",400
+"401","47 BOW ST, Somerville, Massachusetts","42.3816434, -71.0984405",1,"651 Somerville Ave, Somerville, MA 02143","3.95","237","1.034631",401
+"402","47 CALVIN ST, Somerville, Massachusetts","42.3774565, -71.1047809",1,"651 Somerville Ave, Somerville, MA 02143","3.93333333333333","236","0.8196266",402
+"403","47 MARSHALL ST, Somerville, Massachusetts","42.390563, -71.094525",1,"651 Somerville Ave, Somerville, MA 02143","7.78333333333333","467","1.3695656",403
+"404","48 WALNUT ST, Somerville, Massachusetts","42.383475, -71.095608",1,"651 Somerville Ave, Somerville, MA 02143","5.03333333333333","302","1.0607298",404
+"405","480 COLUMBIA ST, Somerville, Massachusetts","42.3745203, -71.0936018",2,"651 Somerville Ave, Somerville, MA 02143","7.1","426","1.4049854",405
+"406","49 OAK ST, Somerville, Massachusetts","42.375772, -71.099089",1,"651 Somerville Ave, Somerville, MA 02143","6.93333333333333","416","1.3844792",406
+"407","49 PUTNAM ST, Somerville, Massachusetts","42.384935, -71.097409",1,"651 Somerville Ave, Somerville, MA 02143","4.05","243","1.0756434",407
+"408","49 SCHOOL ST, Somerville, Massachusetts","42.3837766, -71.1006623",1,"651 Somerville Ave, Somerville, MA 02143","3.26666666666667","196","0.8407542",408
+"409","495 COLUMBIA ST, Somerville, Massachusetts","42.375116, -71.0942707",1,"651 Somerville Ave, Somerville, MA 02143","6.65","399","1.2167012",409
+"410","499 FOLEY ST, Somerville, Massachusetts","42.3930349, -71.0803484",1,"651 Somerville Ave, Somerville, MA 02143","12.1333333333333","728","2.774551",410
+"411","5 DANTE TER, Somerville, Massachusetts","42.3860612, -71.1123125",2,"651 Somerville Ave, Somerville, MA 02143","0.9","54","0.158457",411
+"412","5 MAGNUS AVE, Somerville, Massachusetts","42.3788111, -71.1036324",1,"651 Somerville Ave, Somerville, MA 02143","3.4","204","0.7220668",412
+"413","5 MIDDLESEX AVE, Somerville, Massachusetts","42.3910487, -71.0822964",1,"651 Somerville Ave, Somerville, MA 02143","11.55","693","2.9274154",413
+"414","5 NEWTON PL, Somerville, Massachusetts","42.3785943, -71.0947075",1,"651 Somerville Ave, Somerville, MA 02143","5.4","324","1.0545158",414
+"415","5 SCHOOL ST, Somerville, Massachusetts","42.382229, -71.1017789",1,"651 Somerville Ave, Somerville, MA 02143","3.51666666666667","211","0.5816304",415
+"416","5 WALDO AVE, Somerville, Massachusetts","42.3767239, -71.1042466",1,"651 Somerville Ave, Somerville, MA 02143","4.35","261","0.866853",416
+"417","50 BEACON ST, Somerville, Massachusetts","42.3757201, -71.1032845",1,"651 Somerville Ave, Somerville, MA 02143","4.48333333333333","269","0.941421",417
+"418","50 CRAIGIE ST, Somerville, Massachusetts","42.387146, -71.111976",2,"651 Somerville Ave, Somerville, MA 02143","1.35","81","0.2336464",418
+"419","50 MEMORIAL RD, Somerville, Massachusetts","42.3965017, -71.0934783",1,"651 Somerville Ave, Somerville, MA 02143","9.16666666666667","550","1.885949",419
+"420","50 MUNROE ST, Somerville, Massachusetts","42.380951, -71.0925439",1,"651 Somerville Ave, Somerville, MA 02143","5.81666666666667","349","1.1104418",420
+"421","50 PERRY ST, Somerville, Massachusetts","42.3781152, -71.101494",1,"651 Somerville Ave, Somerville, MA 02143","4.41666666666667","265","0.9321",421
+"422","50 RIVER RD, Somerville, Massachusetts","42.3974983, -71.0930693",1,"651 Somerville Ave, Somerville, MA 02143","9.73333333333333","584","1.923233",422
+"423","50 SARGENT AVE, Somerville, Massachusetts","42.3900166, -71.0923361",1,"651 Somerville Ave, Somerville, MA 02143","7.63333333333333","458","1.5205658",423
+"424","50 WASHINGTON ST, Somerville, Massachusetts","42.3817027, -71.0835404",5,"651 Somerville Ave, Somerville, MA 02143","7.98333333333333","479","1.581463",424
+"425","50 WHITE ST, Somerville, Massachusetts","42.3893765, -71.1173247",1,"651 Somerville Ave, Somerville, MA 02143","2.3","138","0.4884204",425
+"426","504 BROADWAY, Somerville, Massachusetts","42.3971808, -71.1048969",1,"651 Somerville Ave, Somerville, MA 02143","5.31666666666667","319","1.0389808",426
+"427","51 BROADWAY, Somerville, Massachusetts","42.38683, -71.079835",1,"651 Somerville Ave, Somerville, MA 02143","10.95","657","2.6291434",427
+"428","51 FRANKLIN ST, Somerville, Massachusetts","42.383641, -71.085134",1,"651 Somerville Ave, Somerville, MA 02143","9.55","573","1.7349488",428
+"429","51 MCGRATH HWY, Somerville, Massachusetts","42.3746563, -71.0829829",1,"651 Somerville Ave, Somerville, MA 02143","11.05","663","2.3352212",429
+"430","51 OAK ST, Somerville, Massachusetts","42.3756119, -71.099198",1,"651 Somerville Ave, Somerville, MA 02143","6.7","402","1.3664586",430
+"431","51 PRESTON RD, Somerville, Massachusetts","42.3844842, -71.1024907",1,"651 Somerville Ave, Somerville, MA 02143","2.98333333333333","179","0.7450586",431
+"432","51 SPRINGFIELD ST, Somerville, Massachusetts","42.375689, -71.099549",1,"651 Somerville Ave, Somerville, MA 02143","5.95","357","1.2465284",432
+"433","51 TEMPLE ST, Somerville, Massachusetts","42.3942184, -71.0920997",1,"651 Somerville Ave, Somerville, MA 02143","7.51666666666667","451","1.6286894",433
+"434","52 ALSTON ST, Somerville, Massachusetts","42.3810477, -71.0890397",1,"651 Somerville Ave, Somerville, MA 02143","8.61666666666667","517","1.5298868",434
+"435","52 OAK ST, Somerville, Massachusetts","42.3753686, -71.0988002",1,"651 Somerville Ave, Somerville, MA 02143","6.76666666666667","406","1.376401",435
+"436","520 COLUMBIA ST, Somerville, Massachusetts","42.3761192, -71.0946232",2,"651 Somerville Ave, Somerville, MA 02143","5.9","354","1.14959",436
+"437","53 COLUMBUS AVE, Somerville, Massachusetts","42.3815475, -71.0944018",1,"651 Somerville Ave, Somerville, MA 02143","4.96666666666667","298","0.978705",437
+"438","53 UNION SQ, Somerville, Massachusetts","42.3799396, -71.0961933",1,"651 Somerville Ave, Somerville, MA 02143","6.9","414","1.2222938",438
+"439","530 MYSTIC AVE, Somerville, Massachusetts","42.3973598, -71.0919254",2,"651 Somerville Ave, Somerville, MA 02143","8.33333333333333","500","1.8927844",439
+"440","55 COLUMBUS AVE, Somerville, Massachusetts","42.381669, -71.094404",2,"651 Somerville Ave, Somerville, MA 02143","4.93333333333333","296","0.9731124",440
+"441","55 OAK ST, Somerville, Massachusetts","42.3754963, -71.0989671",1,"651 Somerville Ave, Somerville, MA 02143","6.7","402","1.3664586",441
+"442","56 FREMONT ST, Somerville, Massachusetts","42.3985489, -71.097925",1,"651 Somerville Ave, Somerville, MA 02143","7.65","459","1.5491502",442
+"443","56 MT VERNON ST, Somerville, Massachusetts","42.3839009, -71.0802799",1,"651 Somerville Ave, Somerville, MA 02143","9.93333333333333","596","2.0922538",443
+"444","560 SOMERVILLE AVE, Somerville, Massachusetts","42.3835197, -71.1078106",1,"651 Somerville Ave, Somerville, MA 02143","0.816666666666667","49","0.2000908",444
+"445","561 WINDSOR ST, Somerville, Massachusetts","42.375619, -71.093237",5,"651 Somerville Ave, Somerville, MA 02143","6.4","384","1.2247794",445
+"446","57 COLUMBUS AVE, Somerville, Massachusetts","42.381761, -71.094512",1,"651 Somerville Ave, Somerville, MA 02143","4.9","294","0.9644128",446
+"447","57 MERRIAM ST, Somerville, Massachusetts","42.3785284, -71.0918851",1,"651 Somerville Ave, Somerville, MA 02143","6.18333333333333","371","1.1707176",447
+"448","57 SPRINGFIELD ST, Somerville, Massachusetts","42.37601, -71.099405",1,"651 Somerville Ave, Somerville, MA 02143","5.85","351","1.2229152",448
+"449","57 WALNUT ST, Somerville, Massachusetts","42.383885, -71.094741",1,"651 Somerville Ave, Somerville, MA 02143","5.18333333333333","311","1.106092",449
+"450","57 WEBSTER AVE, Somerville, Massachusetts","42.3762618, -71.0955689",1,"651 Somerville Ave, Somerville, MA 02143","5.56666666666667","334","1.0893142",450
+"451","570 SOMERVILLE AVE, Somerville, Massachusetts","42.3829153, -71.1084771",3,"651 Somerville Ave, Somerville, MA 02143","0.9","54","0.1976052",451
+"452","571 SOMERVILLE AVE, Somerville, Massachusetts","42.383808, -71.1081559",1,"651 Somerville Ave, Somerville, MA 02143","0.683333333333333","41","0.173992",452
+"453","58 ALSTON ST, Somerville, Massachusetts","42.381, -71.0892157",1,"651 Somerville Ave, Somerville, MA 02143","8.68333333333333","521","1.5385864",453
+"454","58 BURNSIDE AVE, Somerville, Massachusetts","42.3920972, -71.1165746",1,"651 Somerville Ave, Somerville, MA 02143","2.78333333333333","167","0.7369804",454
+"455","59 GOVERNOR WINTHROP RD, Somerville, Massachusetts","42.3964216, -71.0874523",1,"651 Somerville Ave, Somerville, MA 02143","9.28333333333333","557","1.929447",455
+"456","59 VINAL AVE, Somerville, Massachusetts","42.3854202, -71.0961478",1,"651 Somerville Ave, Somerville, MA 02143","4.85","291","1.0737792",456
+"457","59 WASHINGTON ST, Somerville, Massachusetts","42.3819233, -71.0832481",1,"651 Somerville Ave, Somerville, MA 02143","10.25","615","2.118974",457
+"458","594 SOMERVILLE AVE, Somerville, Massachusetts","42.3836735, -71.1092722",2,"651 Somerville Ave, Somerville, MA 02143","0.566666666666667","34","0.1454076",458
+"459","6 ALDERSEY ST, Somerville, Massachusetts","42.38288, -71.096466",2,"651 Somerville Ave, Somerville, MA 02143","5.36666666666667","322","1.053273",459
+"460","6 CHERRY ST, Somerville, Massachusetts","42.3895764, -71.1165265",1,"651 Somerville Ave, Somerville, MA 02143","3.51666666666667","211","0.7929064",460
+"461","6 CONCORD AVE, Somerville, Massachusetts","42.3766532, -71.0962207",1,"651 Somerville Ave, Somerville, MA 02143","5.63333333333333","338","1.0793718",461
+"462","6 SUMMER ST, Somerville, Massachusetts","42.3820845, -71.098269",1,"651 Somerville Ave, Somerville, MA 02143","3.75","225","0.9898902",462
+"463","6 WALNUT RD, Somerville, Massachusetts","42.390035, -71.0919243",1,"651 Somerville Ave, Somerville, MA 02143","8.95","537","1.7436484",463
+"464","60 RIVER RD, Somerville, Massachusetts","42.3975822, -71.0930994",1,"651 Somerville Ave, Somerville, MA 02143","9.78333333333333","587","1.929447",464
+"465","60 WALNUT ST, Somerville, Massachusetts","42.384307, -71.095089",1,"651 Somerville Ave, Somerville, MA 02143","5.6","336","1.1303266",465
+"466","60 WASHINGTON ST, Somerville, Massachusetts","42.3816638, -71.083787",6,"651 Somerville Ave, Somerville, MA 02143","7.95","477","1.5671708",466
+"467","61 HIGHLAND AVE, Somerville, Massachusetts","42.3853801, -71.0947381",2,"651 Somerville Ave, Somerville, MA 02143","5.13333333333333","308","1.1197628",467
+"468","61 INNER BELT RD, Somerville, Massachusetts","42.3781843, -71.0825283",1,"651 Somerville Ave, Somerville, MA 02143","9.68333333333333","581","1.9704594",468
+"469","61 MEDFORD ST, Somerville, Massachusetts","42.3752635, -71.0875221",2,"651 Somerville Ave, Somerville, MA 02143","7.43333333333333","446","1.4174134",469
+"470","61 PUTNAM ST, Somerville, Massachusetts","42.3856067, -71.0972529",1,"651 Somerville Ave, Somerville, MA 02143","4.2","252","1.1210056",470
+"471","62 BRADLEY ST, Somerville, Massachusetts","42.3899029, -71.093748",1,"651 Somerville Ave, Somerville, MA 02143","8.06666666666667","484","1.5727634",471
+"472","62 HIGHLAND AVE, Somerville, Massachusetts","42.385621, -71.095986",2,"651 Somerville Ave, Somerville, MA 02143","4.78333333333333","287","1.0576228",472
+"473","62 SUMMER ST, Somerville, Massachusetts","42.3841039, -71.1003235",1,"651 Somerville Ave, Somerville, MA 02143","3.11666666666667","187","0.8152768",473
+"474","622 SOMERVILLE AVE, Somerville, Massachusetts","42.3836266, -71.1102457",3,"651 Somerville Ave, Somerville, MA 02143","0.55","33","0.1292512",474
+"475","629 SOMERVILLE AVE, Somerville, Massachusetts","42.3842623, -71.1105714",1,"651 Somerville Ave, Somerville, MA 02143","0.183333333333333","11","0.049712",475
+"476","63 OAK ST, Somerville, Massachusetts","42.375358, -71.0992099",1,"651 Somerville Ave, Somerville, MA 02143","6.63333333333333","398","1.3552734",476
+"477","63 UNION SQ, Somerville, Massachusetts","42.3798903, -71.0953619",1,"651 Somerville Ave, Somerville, MA 02143","7.15","429","1.2601992",477
+"478","630 SOMERVILLE AVE, Somerville, Massachusetts","42.3841269, -71.1112255",1,"651 Somerville Ave, Somerville, MA 02143","0.0666666666666667","4","0.0223704",478
+"479","64 BOW ST, Somerville, Massachusetts","42.3814634, -71.0993265",1,"651 Somerville Ave, Somerville, MA 02143","4.13333333333333","248","1.081236",479
+"480","64 UNION SQ, Somerville, Massachusetts","42.3799411, -71.0963621",2,"651 Somerville Ave, Somerville, MA 02143","4.56666666666667","274","0.8811452",480
+"481","65 BEACON ST, Somerville, Massachusetts","42.3762308, -71.1038545",2,"651 Somerville Ave, Somerville, MA 02143","4.31666666666667","259","0.8954374",481
+"482","65 CRAIGIE ST, Somerville, Massachusetts","42.387537, -71.110958",1,"651 Somerville Ave, Somerville, MA 02143","1.63333333333333","98","0.2814942",482
+"483","651 SOMERVILLE AVE, Somerville, Massachusetts","42.3846917, -71.1113134",2,"651 Somerville Ave, Somerville, MA 02143","0","0","0.0024856",483
+"484","66 UNION SQ, Somerville, Massachusetts","42.3798617, -71.0951016",1,"651 Somerville Ave, Somerville, MA 02143","6.16666666666667","370","1.0706722",484
+"485","663 SOMERVILLE AVE, Somerville, Massachusetts","42.3847496, -71.1121624",1,"651 Somerville Ave, Somerville, MA 02143","0.15","9","0.0391482",485
+"486","67 BOSTON ST, Somerville, Massachusetts","42.38302, -71.093462",1,"651 Somerville Ave, Somerville, MA 02143","5.56666666666667","334","1.177553",486
+"487","67 PEARL ST, Somerville, Massachusetts","42.384653, -71.083742",1,"651 Somerville Ave, Somerville, MA 02143","9.08333333333333","545","1.8965128",487
+"488","67 SUMMER ST, Somerville, Massachusetts","42.3842949, -71.1001719",1,"651 Somerville Ave, Somerville, MA 02143","3.1","186","0.8090628",488
+"489","68 CHURCH ST, Somerville, Massachusetts","42.3830629, -71.0997546",1,"651 Somerville Ave, Somerville, MA 02143","3.48333333333333","209","0.913458",489
+"490","68 CONCORD AVE, Somerville, Massachusetts","42.37628, -71.099925",1,"651 Somerville Ave, Somerville, MA 02143","5.43333333333333","326","1.0576228",490
+"491","68 FREMONT ST, Somerville, Massachusetts","42.398904, -71.097768",1,"651 Somerville Ave, Somerville, MA 02143","7.85","471","1.5740062",491
+"492","68 MT VERNON ST, Somerville, Massachusetts","42.383268, -71.080487",1,"651 Somerville Ave, Somerville, MA 02143","10.05","603","2.08169",492
+"493","69 MARSHALL ST, Somerville, Massachusetts","42.389457, -71.0951709",1,"651 Somerville Ave, Somerville, MA 02143","8.13333333333333","488","1.454076",493
+"494","690 SOMERVILLE AVE, Somerville, Massachusetts","42.3860532, -71.1146663",1,"651 Somerville Ave, Somerville, MA 02143","0.766666666666667","46","0.1938768",494
+"495","7 ALLEN ST, Somerville, Massachusetts","42.3784331, -71.0933258",1,"651 Somerville Ave, Somerville, MA 02143","5.86666666666667","352","1.059487",495
+"496","7 BOLTON ST, Somerville, Massachusetts","42.3758048, -71.0978717",1,"651 Somerville Ave, Somerville, MA 02143","7.45","447","1.4397838",496
+"497","7 HATHORN ST, Somerville, Massachusetts","42.3867631, -71.0821361",1,"651 Somerville Ave, Somerville, MA 02143","10.8166666666667","649","2.1767642",497
+"498","7 MELVIN ST, Somerville, Massachusetts","42.3898296, -71.0897172",1,"651 Somerville Ave, Somerville, MA 02143","9.06666666666667","544","1.6392532",498
+"499","7 WASHINGTON ST, Somerville, Massachusetts","42.382388, -71.08145",1,"651 Somerville Ave, Somerville, MA 02143","8.81666666666667","529","1.7076072",499
+"500","70 BOSTON ST, Somerville, Massachusetts","42.382754, -71.093898",1,"651 Somerville Ave, Somerville, MA 02143","5.46666666666667","328","1.1576682",500
+"501","70 FLINT ST, Somerville, Massachusetts","42.3850315, -71.0892983",1,"651 Somerville Ave, Somerville, MA 02143","8.53333333333333","512","1.6392532",501
+"502","70 INNER BELT RD, Somerville, Massachusetts","42.3767025, -71.0797634",2,"651 Somerville Ave, Somerville, MA 02143","10.1666666666667","610","2.0922538",502
+"503","70 PERKINS ST, Somerville, Massachusetts","42.3837385, -71.0794338",2,"651 Somerville Ave, Somerville, MA 02143","11.8666666666667","712","2.7720654",503
+"504","70 RIVER RD, Somerville, Massachusetts","42.3976521, -71.0931762",1,"651 Somerville Ave, Somerville, MA 02143","9.85","591","1.9362824",504
+"505","70 THIRD AVE, Somerville, Massachusetts","42.3774384, -71.0786336",1,"651 Somerville Ave, Somerville, MA 02143","9.86666666666667","592","2.0388134",505
+"506","70 UNION SQ, Somerville, Massachusetts","42.3799803, -71.095037",2,"651 Somerville Ave, Somerville, MA 02143","6.65","399","1.1036064",506
+"507","71 BEACON ST, Somerville, Massachusetts","42.3765334, -71.103989",2,"651 Somerville Ave, Somerville, MA 02143","4.23333333333333","254","0.8755526",507
+"508","71 MARION ST, Somerville, Massachusetts","42.3774205, -71.1020528",1,"651 Somerville Ave, Somerville, MA 02143","4.51666666666667","271","0.9035156",508
+"509","71 PROSPECT ST, Somerville, Massachusetts","42.3765251, -71.0961499",1,"651 Somerville Ave, Somerville, MA 02143","5.51666666666667","331","1.0818574",509
+"510","71 UNION SQ, Somerville, Massachusetts","42.3798496, -71.0949463",2,"651 Somerville Ave, Somerville, MA 02143","6.16666666666667","370","1.0706722",510
+"511","73 MERRIAM ST, Somerville, Massachusetts","42.3788823, -71.0918336",1,"651 Somerville Ave, Somerville, MA 02143","6.05","363","1.146483",511
+"512","73 PARTRIDGE AVE, Somerville, Massachusetts","42.395456, -71.1024102",1,"651 Somerville Ave, Somerville, MA 02143","5.1","306","1.1874954",512
+"513","74 PARK ST, Somerville, Massachusetts","42.3804841, -71.1082877",1,"651 Somerville Ave, Somerville, MA 02143","2.31666666666667","139","0.4958772",513
+"514","74 WALNUT ST, Somerville, Massachusetts","42.3847498, -71.0945456",1,"651 Somerville Ave, Somerville, MA 02143","5.48333333333333","329","1.1638822",514
+"515","74 WASHINGTON ST, Somerville, Massachusetts","42.3816056, -71.0842308",7,"651 Somerville Ave, Somerville, MA 02143","7.86666666666667","472","1.5454218",515
+"516","75 MYRTLE ST, Somerville, Massachusetts","42.3846193, -71.0828061",2,"651 Somerville Ave, Somerville, MA 02143","9.03333333333333","542","1.7852822",516
+"517","75 MYSTIC AVE, Somerville, Massachusetts","42.3901218, -71.0795319",1,"651 Somerville Ave, Somerville, MA 02143","12","720","2.8348268",517
+"518","77 BARTLETT ST, Somerville, Massachusetts","42.394321, -71.101367",1,"651 Somerville Ave, Somerville, MA 02143","5.75","345","1.3186108",518
+"519","77 MIDDLESEX AVE, Somerville, Massachusetts","42.3936921, -71.0822227",2,"651 Somerville Ave, Somerville, MA 02143","11.8166666666667","709","2.7043328",519
+"520","78 MORELAND ST, Somerville, Massachusetts","42.3986753, -71.0966567",1,"651 Somerville Ave, Somerville, MA 02143","7.23333333333333","434","1.5553642",520
+"521","8 BOLTON ST, Somerville, Massachusetts","42.375575, -71.097438",1,"651 Somerville Ave, Somerville, MA 02143","6.28333333333333","377","1.2011662",521
+"522","8 EVERGREEN AVE, Somerville, Massachusetts","42.3909878, -71.0947616",1,"651 Somerville Ave, Somerville, MA 02143","7.26666666666667","436","1.3043186",522
+"523","8 HOWE ST, Somerville, Massachusetts","42.3895976, -71.0953912",1,"651 Somerville Ave, Somerville, MA 02143","8.2","492","1.4683682",523
+"524","8 MUNROE ST, Somerville, Massachusetts","42.380657, -71.09123",1,"651 Somerville Ave, Somerville, MA 02143","6.28333333333333","377","1.177553",524
+"525","8 WALDO AVE, Somerville, Massachusetts","42.3770012, -71.1035201",2,"651 Somerville Ave, Somerville, MA 02143","4.1","246","0.8444826",525
+"526","8:00 AM HANCOCK ST, Somerville, Massachusetts","42.3919109, -71.1156927",1,"651 Somerville Ave, Somerville, MA 02143","2.63333333333333","158","0.6953466",526
+"527","80 HIGHLAND AVE, Somerville, Massachusetts","42.3863166, -71.0975396",2,"651 Somerville Ave, Somerville, MA 02143","4.33333333333333","260","0.9625486",527
+"528","80 MARSHALL ST, Somerville, Massachusetts","42.3890148, -71.094989",1,"651 Somerville Ave, Somerville, MA 02143","7.68333333333333","461","1.559714",528
+"529","80 WEBSTER AVE, Somerville, Massachusetts","42.3752034, -71.0947317",1,"651 Somerville Ave, Somerville, MA 02143","5.83333333333333","350","1.1700962",529
+"530","81 HIGHLAND AVE, Somerville, Massachusetts","42.3867617, -71.0974135",5,"651 Somerville Ave, Somerville, MA 02143","5.26666666666667","316","1.0228244",530
+"531","81 MT VERNON ST, Somerville, Massachusetts","42.3827076, -71.0816435",1,"651 Somerville Ave, Somerville, MA 02143","10.4166666666667","625","2.1488012",531
+"532","81 SUMMER ST, Somerville, Massachusetts","42.38487, -71.100768",1,"651 Somerville Ave, Somerville, MA 02143","3.2","192","0.7904208",532
+"533","83 BOSTON ST, Somerville, Massachusetts","42.383428, -71.094326",1,"651 Somerville Ave, Somerville, MA 02143","5.31666666666667","319","1.1166558",533
+"534","83 MARION ST, Somerville, Massachusetts","42.3774095, -71.1025634",1,"651 Somerville Ave, Somerville, MA 02143","4.26666666666667","256","0.876174",534
+"535","84 LINE ST, Somerville, Massachusetts","42.3758516, -71.1046595",1,"651 Somerville Ave, Somerville, MA 02143","4.58333333333333","275","0.9407996",535
+"536","84 MARSHALL ST, Somerville, Massachusetts","42.3887554, -71.0951168",1,"651 Somerville Ave, Somerville, MA 02143","7.81666666666667","469","1.581463",536
+"537","84 WASHINGTON ST, Somerville, Massachusetts","42.3808898, -71.0843021",13,"651 Somerville Ave, Somerville, MA 02143","8.51666666666667","511","1.6504384",537
+"538","85 BEACON ST, Somerville, Massachusetts","42.377076, -71.104506",1,"651 Somerville Ave, Somerville, MA 02143","4.05","243","0.8301904",538
+"539","86 JOY ST, Somerville, Massachusetts","42.3787758, -71.0866277",3,"651 Somerville Ave, Somerville, MA 02143","7.7","462","1.4720966",539
+"540","88 BEACON ST, Somerville, Massachusetts","42.3767348, -71.1048786",3,"651 Somerville Ave, Somerville, MA 02143","4.06666666666667","244","0.8351616",540
+"541","88 BOSTON ST, Somerville, Massachusetts","42.3833063, -71.094938",1,"651 Somerville Ave, Somerville, MA 02143","5.23333333333333","314","1.093664",541
+"542","88 HIGHLAND AVE, Somerville, Massachusetts","42.386463, -71.098305",1,"651 Somerville Ave, Somerville, MA 02143","4.55","273","0.9650342",542
+"543","88 PROPERZI WY, Somerville, Massachusetts","42.37995, -71.106869",1,"651 Somerville Ave, Somerville, MA 02143","2.51666666666667","151","0.5294328",543
+"544","88 PUTNAM RD, Somerville, Massachusetts","42.3983271, -71.0882073",1,"651 Somerville Ave, Somerville, MA 02143","9.35","561","2.1326448",544
+"545","9 ACADIA PK, Somerville, Massachusetts","42.3879099, -71.117199",1,"651 Somerville Ave, Somerville, MA 02143","1.98333333333333","119","0.425659",545
+"546","9 AUTUMN ST, Somerville, Massachusetts","42.388693, -71.0875332",1,"651 Somerville Ave, Somerville, MA 02143","8.68333333333333","521","1.8076526",546
+"547","9 MEDFORD ST, Somerville, Massachusetts","42.3742447, -71.0868474",1,"651 Somerville Ave, Somerville, MA 02143","8.31666666666667","499","1.6181256",547
+"548","9 NEW WASHINGTON ST, Somerville, Massachusetts","42.380406, -71.086419",1,"651 Somerville Ave, Somerville, MA 02143","7.65","459","1.4528332",548
+"549","9 PLEASANT AVE, Somerville, Massachusetts","42.3844517, -71.0953488",1,"651 Somerville Ave, Somerville, MA 02143","5.7","342","1.146483",549
+"550","9 THORPE ST, Somerville, Massachusetts","42.3844709, -71.0939871",1,"651 Somerville Ave, Somerville, MA 02143","6.01666666666667","361","1.2285078",550
+"551","9 TUFTS ST, Somerville, Massachusetts","42.3814117, -71.0876672",1,"651 Somerville Ave, Somerville, MA 02143","7.51666666666667","451","1.3975286",551
+"552","9 UPLAND PK, Somerville, Massachusetts","42.3966818, -71.0998208",1,"651 Somerville Ave, Somerville, MA 02143","6.96666666666667","418","1.447862",552
+"553","9-May SANBORN CT, Somerville, Massachusetts","42.3800459, -71.0945674",1,"651 Somerville Ave, Somerville, MA 02143","6.5","390","1.0868286",553
+"554","90 HIGHLAND AVE, Somerville, Massachusetts","42.3865481, -71.0984043",1,"651 Somerville Ave, Somerville, MA 02143","4.7","282","0.9731124",554
+"555","90 LOWELL ST, Somerville, Massachusetts","42.3874491, -71.1100173",1,"651 Somerville Ave, Somerville, MA 02143","0.85","51","0.2398604",555
+"556","90 RIVER RD, Somerville, Massachusetts","42.3977774, -71.093372",1,"651 Somerville Ave, Somerville, MA 02143","9.96666666666667","598","1.9493318",556
+"557","90 WASHINGTON ST, Somerville, Massachusetts","42.3810371, -71.0856346",1,"651 Somerville Ave, Somerville, MA 02143","7.81666666666667","469","1.4752036",557
+"558","92 HIGHLAND AVE, Somerville, Massachusetts","42.3866159, -71.0986241",1,"651 Somerville Ave, Somerville, MA 02143","4.88333333333333","293","0.9171864",558
+"559","94 BEACON ST, Somerville, Massachusetts","42.3769613, -71.1052425",3,"651 Somerville Ave, Somerville, MA 02143","4.18333333333333","251","0.8134126",559
+"560","95 SHORE DR, Somerville, Massachusetts","42.3990677, -71.0869717",1,"651 Somerville Ave, Somerville, MA 02143","9.56666666666667","574","2.1885708",560
+"561","95 SUMMER ST, Somerville, Massachusetts","42.385006, -71.101517",1,"651 Somerville Ave, Somerville, MA 02143","2.66666666666667","160","0.7276594",561
+"562","98 PROSPECT ST, Somerville, Massachusetts","42.3753699, -71.096376",1,"651 Somerville Ave, Somerville, MA 02143","5.73333333333333","344","1.1582896",562
+"563","ACADIA PK and SOMERVILLE AVE, Somerville, Massachusetts","42.3878184, -71.1178014",1,"651 Somerville Ave, Somerville, MA 02143","1.76666666666667","106","0.3970746",563
+"564","ALEWIFE MBTA, Somerville, Massachusetts","42.3875968, -71.0994968",1,"651 Somerville Ave, Somerville, MA 02143","4.85","291","0.9097296",564
+"565","AVON ST and CENTRAL ST, Somerville, Massachusetts","42.3866175, -71.104696",1,"651 Somerville Ave, Somerville, MA 02143","2.38333333333333","143","0.5014698",565
+"566","AVON ST and SCHOOL ST, Somerville, Massachusetts","42.3849205, -71.1000325",1,"651 Somerville Ave, Somerville, MA 02143","4.18333333333333","251","0.7668076",566
+"567","BARTLETT ST and BROADWAY, Somerville, Massachusetts","42.3959878, -71.1003238",1,"651 Somerville Ave, Somerville, MA 02143","4.91666666666667","295","1.1918452",567
+"568","BEACON ST and BUCKINGHAM ST, Somerville, Massachusetts","42.3761242, -71.1037452",1,"651 Somerville Ave, Somerville, MA 02143","4.35","261","0.9047584",568
+"569","BEACON ST and CONCORD AVE, Somerville, Massachusetts","42.375107, -71.1025083",1,"651 Somerville Ave, Somerville, MA 02143","4.73333333333333","284","0.9992112",569
+"570","BEACON ST and KENT ST, Somerville, Massachusetts","42.3819408, -71.110883",1,"651 Somerville Ave, Somerville, MA 02143","2.73333333333333","164","0.7419516",570
+"571","BEACON ST and PARK ST, Somerville, Massachusetts","42.38036, -71.108538",1,"651 Somerville Ave, Somerville, MA 02143","2.41666666666667","145","0.5114122",571
+"572","BEACON ST and WASHINGTON ST, Somerville, Massachusetts","42.3782892, -71.106382",3,"651 Somerville Ave, Somerville, MA 02143","3.48333333333333","209","0.7034248",572
+"573","BEECH ST and SOMERVILLE AVE, Somerville, Massachusetts","42.3835696, -71.1079791",1,"651 Somerville Ave, Somerville, MA 02143","0.766666666666667","46","0.1907698",573
+"574","BIGELOW ST and MUNROE ST, Somerville, Massachusetts","42.3822003, -71.0938994",1,"651 Somerville Ave, Somerville, MA 02143","5.65","339","1.1514542",574
+"575","BOW ST and WALNUT ST, Somerville, Massachusetts","42.3810447, -71.0972212",1,"651 Somerville Ave, Somerville, MA 02143","4.33333333333333","260","0.8718242",575
+"576","BOW ST and WESLEY PK, Somerville, Massachusetts","42.3816491, -71.0977567",1,"651 Somerville Ave, Somerville, MA 02143","4.55","273","0.922779",576
+"577","BROADWAY and CENTRAL ST, Somerville, Massachusetts","42.395264, -71.0986355",1,"651 Somerville Ave, Somerville, MA 02143","5.36666666666667","322","1.174446",577
+"578","BROADWAY and CROSS ST, Somerville, Massachusetts","42.3886405, -71.0859942",1,"651 Somerville Ave, Somerville, MA 02143","9.25","555","1.9064552",578
+"579","BROADWAY and DARTMOUTH ST, Somerville, Massachusetts","42.3935261, -71.0952881",1,"651 Somerville Ave, Somerville, MA 02143","6.35","381","1.3838578",579
+"580","BROADWAY and GRANT ST, Somerville, Massachusetts","42.3915907, -71.0917969",2,"651 Somerville Ave, Somerville, MA 02143","7.91666666666667","475","1.6069404",580
+"581","BROADWAY and MAIN ST, Somerville, Massachusetts","42.3947314, -71.0975984",1,"651 Somerville Ave, Somerville, MA 02143","5.78333333333333","347","1.2390716",581
+"582","BROADWAY and PENNSYLVANIA AVE, Somerville, Massachusetts","42.3870577, -71.0814047",1,"651 Somerville Ave, Somerville, MA 02143","11.2166666666667","673","2.709304",582
+"583","BROADWAY and SARGENT AVE, Somerville, Massachusetts","42.3916828, -71.0919251",1,"651 Somerville Ave, Somerville, MA 02143","7.88333333333333","473","1.5976194",583
+"584","BROADWAY and SCHOOL ST, Somerville, Massachusetts","42.3932298, -71.0944105",1,"651 Somerville Ave, Somerville, MA 02143","7.68333333333333","461","1.5653066",584
+"585","BROADWAY and TEMPLE ST, Somerville, Massachusetts","42.3925566, -71.0934064",1,"651 Somerville Ave, Somerville, MA 02143","7.41666666666667","445","1.500681",585
+"586","CALVIN ST and WASHINGTON ST, Somerville, Massachusetts","42.3788385, -71.1040464",1,"651 Somerville Ave, Somerville, MA 02143","3.13333333333333","188","0.7028034",586
+"587","CARLTON ST and SOMERVILLE AVE, Somerville, Massachusetts","42.3812478, -71.0998175",1,"651 Somerville Ave, Somerville, MA 02143","2.95","177","0.6387992",587
+"588","CEDAR ST and ELM ST, Somerville, Massachusetts","42.3879583, -71.115425",1,"651 Somerville Ave, Somerville, MA 02143","1.43333333333333","86","0.3237494",588
+"589","CEDAR ST and SUMMER ST, Somerville, Massachusetts","42.3904869, -71.1136266",1,"651 Somerville Ave, Somerville, MA 02143","2.08333333333333","125","0.546832",589
+"590","CHARNWOOD RD and WILLOW AVE, Somerville, Massachusetts","42.3932322, -71.1174159",1,"651 Somerville Ave, Somerville, MA 02143","3.2","192","0.8395114",590
+"591","CHERRY ST and ELM ST, Somerville, Massachusetts","42.3892348, -71.1166126",1,"651 Somerville Ave, Somerville, MA 02143","1.9","114","0.4306302",591
+"592","CHURCH ST and SUMMER ST, Somerville, Massachusetts","42.3832593, -71.0993429",1,"651 Somerville Ave, Somerville, MA 02143","3.4","204","0.8923304",592
+"593","CONCORD AVE and WYATT ST, Somerville, Massachusetts","42.3760694, -71.1010932",1,"651 Somerville Ave, Somerville, MA 02143","5.4","324","1.0831002",593
+"594","DANE ST, Somerville, Massachusetts","42.3808559, -71.1043636",1,"651 Somerville Ave, Somerville, MA 02143","2.53333333333333","152","0.5567744",594
+"595","FITCHBURG ST and LINWOOD ST, Somerville, Massachusetts","42.3756169, -71.0853171",1,"651 Somerville Ave, Somerville, MA 02143","7.78333333333333","467","1.5000596",595
+"596","FRANKLIN ST and WASHINGTON ST, Somerville, Massachusetts","42.3813262, -71.0862305",1,"651 Somerville Ave, Somerville, MA 02143","7.55","453","1.441648",596
+"597","GRANITE ST and SOMERVILLE AVE, Somerville, Massachusetts","42.3824407, -71.1034094",1,"651 Somerville Ave, Somerville, MA 02143","2.08333333333333","125","0.4368442",597
+"598","GRANT ST and MYSTIC AVE, Somerville, Massachusetts","42.3945603, -71.0877601",1,"651 Somerville Ave, Somerville, MA 02143","9.01666666666667","541","1.9226116",598
+"599","HARDING ST and SOUTH ST, Somerville, Massachusetts","42.3743491, -71.0902116",1,"651 Somerville Ave, Somerville, MA 02143","8.06666666666667","484","1.5963766",599
+"600","HAWKINS ST and LAKE ST, Somerville, Massachusetts","42.3800284, -71.0981009",1,"651 Somerville Ave, Somerville, MA 02143","4.5","270","0.8214908",600
+"601","HAWKINS ST and SOMERVILLE AVE, Somerville, Massachusetts","42.3805046, -71.097742",1,"651 Somerville Ave, Somerville, MA 02143","3.46666666666667","208","0.7568652",601
+"602","HAWKINS ST and WASHINGTON ST, Somerville, Massachusetts","42.3794877, -71.0979887",1,"651 Somerville Ave, Somerville, MA 02143","4.35","261","1.0197174",602
+"603","HAWTHORNE ST and WILLOW AVE, Somerville, Massachusetts","42.39359, -71.1171936",1,"651 Somerville Ave, Somerville, MA 02143","3.35","201","0.8662316",603
+"604","HIGHLAND AVE and WALNUT ST, Somerville, Massachusetts","42.3851419, -71.0941672",1,"651 Somerville Ave, Somerville, MA 02143","5.33333333333333","320","1.1533184",604
+"605","HOLLAND ST and GORHAM ST, Somerville, Massachusetts","42.3998502, -71.1252368",1,"651 Somerville Ave, Somerville, MA 02143","6.78333333333333","407","1.5149732",605
+"606","HOUGHTON ST and SPRINGFIELD ST, Somerville, Massachusetts","42.3751984, -71.1000285",1,"651 Somerville Ave, Somerville, MA 02143","6.1","366","1.286298",606
+"607","HYDRANT SHOVELING, Somerville, Massachusetts","42.3875968, -71.0994968",3,"651 Somerville Ave, Somerville, MA 02143","4.85","291","0.9097296",607
+"608","HYDRANT TESTING, Somerville, Massachusetts","42.3875968, -71.0994968",3,"651 Somerville Ave, Somerville, MA 02143","4.85","291","0.9097296",608
+"609","INNER BELT RD and WASHINGTON ST, Somerville, Massachusetts","42.3820437, -71.0815211",1,"651 Somerville Ave, Somerville, MA 02143","8.45","507","1.687101",609
+"610","INNER BELT RD, Somerville, Massachusetts","42.3785924, -71.0809392",5,"651 Somerville Ave, Somerville, MA 02143","8.98333333333333","539","1.842451",610
+"611","INNERBELT RD, Somerville, Massachusetts","42.3785924, -71.0809392",1,"651 Somerville Ave, Somerville, MA 02143","8.98333333333333","539","1.842451",611
+"612","JAQUES ST and WHEATLAND ST, Somerville, Massachusetts","42.3924197, -71.0894076",2,"651 Somerville Ave, Somerville, MA 02143","8.93333333333333","536","1.7790682",612
+"613","JOY ST and POPLAR ST, Somerville, Massachusetts","42.3778637, -71.0863493",1,"651 Somerville Ave, Somerville, MA 02143","7.9","474","1.5392078",613
+"614","JOY ST and WASHINGTON ST, Somerville, Massachusetts","42.3806671, -71.0885832",2,"651 Somerville Ave, Somerville, MA 02143","7.18333333333333","431","1.3130182",614
+"615","LAKE ST and HAWKINS ST, Somerville, Massachusetts","42.3800284, -71.0981009",1,"651 Somerville Ave, Somerville, MA 02143","4.5","270","0.8214908",615
+"616","LAUREL AVE and LAUREL ST, Somerville, Massachusetts","42.3839942, -71.1047294",1,"651 Somerville Ave, Somerville, MA 02143","2.8","168","0.733252",616
+"617","LINCOLN PKWY, Somerville, Massachusetts","42.3778856, -71.0988874",1,"651 Somerville Ave, Somerville, MA 02143","6.36666666666667","382","1.1700962",617
+"618","LINE ST and WASHINGTON ST, Somerville, Massachusetts","42.3780914, -71.1072776",1,"651 Somerville Ave, Somerville, MA 02143","3.71666666666667","223","0.7512726",618
+"619","LINWOOD ST and MCGRATH HWY, Somerville, Massachusetts","42.3793738, -71.0892739",1,"651 Somerville Ave, Somerville, MA 02143","7.05","423","1.2856766",619
+"620","LOMBARDI ST, Somerville, Massachusetts","42.3866409, -71.0783489",1,"651 Somerville Ave, Somerville, MA 02143","10.65","639","2.557061",620
+"621","MARION ST and WYATT ST, Somerville, Massachusetts","42.377301, -71.101126",1,"651 Somerville Ave, Somerville, MA 02143","4.75","285","0.9494992",621
+"622","MCGRATH HWY and MEDFORD ST, Somerville, Massachusetts","42.3772486, -71.0892219",2,"651 Somerville Ave, Somerville, MA 02143","6.85","411","1.2601992",622
+"623","MCGRATH HWY and MYSTIC AVE, Somerville, Massachusetts","42.3930777, -71.0858793",1,"651 Somerville Ave, Somerville, MA 02143","9.83333333333333","590","2.063048",623
+"624","MCGRATH HWY and PROSPECT HILL AVE, Somerville, Massachusetts","42.381973, -71.0906137",1,"651 Somerville Ave, Somerville, MA 02143","6.21666666666667","373","1.2167012",624
+"625","MCGRATH HWY and WASHINGTON ST, Somerville, Massachusetts","42.3804355, -71.0893942",1,"651 Somerville Ave, Somerville, MA 02143","6.8","408","1.2595778",625
+"626","MCGRATH HWY, Somerville, Massachusetts","42.3820569, -71.0902338",2,"651 Somerville Ave, Somerville, MA 02143","7.26666666666667","436","1.3801294",626
+"627","MEDFORD ST and SYCAMORE ST, Somerville, Massachusetts","42.3913289, -71.0994049",1,"651 Somerville Ave, Somerville, MA 02143","5.01666666666667","301","1.0576228",627
+"628","MT VERNON ST and WASHINGTON ST, Somerville, Massachusetts","42.3819834, -71.0819398",1,"651 Somerville Ave, Somerville, MA 02143","8.31666666666667","499","1.665352",628
+"629","MYSTIC AVE and SHORE DR, Somerville, Massachusetts","42.3972256, -71.0913706",1,"651 Somerville Ave, Somerville, MA 02143","8.45","507","1.9250972",629
+"630","MYSTIC AVE and TEMPLE ST, Somerville, Massachusetts","42.3955809, -71.0891458",3,"651 Somerville Ave, Somerville, MA 02143","8.53333333333333","512","1.8225662",630
+"631","MYSTIC AVE and WHEATLAND ST, Somerville, Massachusetts","42.3940947, -71.0871373",1,"651 Somerville Ave, Somerville, MA 02143","9.65","579","1.9431178",631
+"632","NEW WASHINGTON ST and WASHINGTON ST, Somerville, Massachusetts","42.381241, -71.086308",1,"651 Somerville Ave, Somerville, MA 02143","7.53333333333333","452","1.4360554",632
+"633","NEWTON ST and WEBSTER AVE, Somerville, Massachusetts","42.3778737, -71.095842",1,"651 Somerville Ave, Somerville, MA 02143","4.93333333333333","296","0.9780836",633
+"634","PARK ST and SOMERVILLE AVE, Somerville, Massachusetts","42.3831974, -71.1063139",1,"651 Somerville Ave, Somerville, MA 02143","1.3","78","0.27963",634
+"635","PERRY ST and WASHINGTON ST, Somerville, Massachusetts","42.3794158, -71.1014369",1,"651 Somerville Ave, Somerville, MA 02143","3.8","228","0.841997",635
+"636","PITMAN ST and SPRING ST, Somerville, Massachusetts","42.3844565, -71.1091466",1,"651 Somerville Ave, Somerville, MA 02143","2.28333333333333","137","0.5698238",636
+"637","PRESCOTT ST and SUMMER ST, Somerville, Massachusetts","42.3836825, -71.0997413",1,"651 Somerville Ave, Somerville, MA 02143","3.35","201","0.7245524",637
+"638","PROSPECT ST and SOMERVILLE AVE, Somerville, Massachusetts","42.3791063, -71.0941078",1,"651 Somerville Ave, Somerville, MA 02143","5.13333333333333","308","0.9793264",638
+"639","PROSPECT ST and WEBSTER AVE, Somerville, Massachusetts","42.376968, -71.0955943",1,"651 Somerville Ave, Somerville, MA 02143","5.3","318","1.0414664",639
+"640","PROSPECT ST, Somerville, Massachusetts","42.3769126, -71.0956385",1,"651 Somerville Ave, Somerville, MA 02143","5.38333333333333","323","1.0464376",640
+"641","ROSSMORE ST and SOMERVILLE AVE, Somerville, Massachusetts","42.377982, -71.0910049",1,"651 Somerville Ave, Somerville, MA 02143","5.93333333333333","356","1.155804",641
+"642","ROUTE 93 NORTH and EXIT 29, Somerville, Massachusetts","42.3875968, -71.0994968",1,"651 Somerville Ave, Somerville, MA 02143","4.85","291","0.9097296",642
+"643","ROUTE 93 SOUTH, Somerville, Massachusetts","42.3388871, -71.0636205",1,"651 Somerville Ave, Somerville, MA 02143","19.2833333333333","1157","7.4251086",643
+"644","SOMERVILLE AVE and GARDEN CT, Somerville, Massachusetts","42.3838107, -71.1090656",1,"651 Somerville Ave, Somerville, MA 02143","0.5","30","0.1329796",644
+"645","SOMERVILLE AVE and MEDFORD ST, Somerville, Massachusetts","42.3772486, -71.0892219",1,"651 Somerville Ave, Somerville, MA 02143","6.85","411","1.2601992",645
+"646","STONE AVE and UNION SQ, Somerville, Massachusetts","42.3796536, -71.0956018",1,"651 Somerville Ave, Somerville, MA 02143","4.61666666666667","277","0.8941946",646
+"647","SUMMER ST and PORTER ST, Somerville, Massachusetts","42.3891306, -71.1116791",1,"651 Somerville Ave, Somerville, MA 02143","1.53333333333333","92","0.410124",647
+"648","SUMMER ST and SCHOOL ST, Somerville, Massachusetts","42.3843689, -71.1003999",1,"651 Somerville Ave, Somerville, MA 02143","3.01666666666667","181","0.798499",648
+"649","SUMMER ST and VINAL AVE, Somerville, Massachusetts","42.3821972, -71.0983547",1,"651 Somerville Ave, Somerville, MA 02143","3.68333333333333","221","0.9811906",649
+"650","TAYLOR ST and SYDNEY ST, Somerville, Massachusetts","42.3944541, -71.089418",1,"651 Somerville Ave, Somerville, MA 02143","8.51666666666667","511","1.8318872",650
+"651","TUFTS ST and WASHINGTON ST, Somerville, Massachusetts","42.3809863, -71.0875544",1,"651 Somerville Ave, Somerville, MA 02143","7.35","441","1.370187",651
+"652","VINAL AVE and NEAR SUMMER ST, Somerville, Massachusetts","42.3821972, -71.0983547",1,"651 Somerville Ave, Somerville, MA 02143","3.68333333333333","221","0.9811906",652
+"653","VINAL AVE and SUMMIT AVE, Somerville, Massachusetts","42.3842948, -71.0971301",1,"651 Somerville Ave, Somerville, MA 02143","5.16666666666667","310","1.1663678",653
+"654","WARD ST, Somerville, Massachusetts","42.3749568, -71.0894424",1,"651 Somerville Ave, Somerville, MA 02143","7.78333333333333","467","1.4888744",654
+"655","WASHINGTON ST and WASHINGTON AVE, Somerville, Massachusetts","42.3815763, -71.084567",1,"651 Somerville Ave, Somerville, MA 02143","7.8","468","1.5280226",655
+"656","WEBSTER AVE, Somerville, Massachusetts","42.3749337, -71.0949377",1,"651 Somerville Ave, Somerville, MA 02143","5.9","354","1.1862526",656
+"657",NA,"NA, NA",3,"651 Somerville Ave, Somerville, MA 02143",NA,"","",657
