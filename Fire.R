@@ -580,8 +580,12 @@ for (n in 1:(length(neighborhoodList))) {
 
 
 
-#### Geo Analysis ####
-## This should hopefully get us a simple model of resonse times from various locations
+### Geo Analysis ####
+# This should hopefully get us a simple model of resonse times from various locations
+# TODO : take out non response times and bad geo BEFORE taking a sample
+
+
+
 
 # ### Make the data ####
 # ## First 515 Somerville
@@ -674,7 +678,7 @@ for (n in 1:(length(neighborhoodList))) {
 #   select(to, Full.Address) %>% 
 #   group_by(Full.Address) %>% 
 #   summarise(to = min(to), n = n()) %>% 
-#   mutate(from = "146 Washington St, Somerville, MA 02143",
+#   mutate(from = "146 Washington St, Somerville, MA",
 #          minutes = "",
 #          seconds = "",
 #          miles = "")
@@ -697,11 +701,17 @@ for (n in 1:(length(neighborhoodList))) {
 # write.csv(DF, "./data/From_Joy_and_Washington.csv")
 
 
+
+
 #### Now Analyze ####
 ## TODO: re-elongate the data based on the n column, or do a weighted average
 # (Although it's small enough that it will not likely make a difference)
 FiveFifteen <- read.csv("./data/From_515.csv")
 Lowell <- read.csv("./data/From_Lowell_Station.csv")
+Joy_and_Washington <- read.csv("./data/From_Joy_and_Washington.csv")
+
+
+
 
 set.seed(124)
 DF <- fd %>% 
@@ -771,10 +781,32 @@ hist(DF$Difference)
 
 
 
+# Finally let's try with just E3, comparing East side station to 515
+set.seed(124)
+DF <- fd %>% 
+  filter(Unit == "E1" | Unit == "E3" &
+           is.na(X) == FALSE) %>% 
+  sample_n(1000) %>% 
+  select(Full.Address, Unit) %>% 
+  group_by(Full.Address) %>% 
+  summarise(n = n(), Unit = Unit[1])
+
+DF$from.FiveFifteen <- FiveFifteen$minutes
+DF$from.Joy.Washington <- Joy_and_Washington$minutes
+
+DF <- DF %>% 
+  mutate(Difference = from.FiveFifteen - from.Joy.Washington) %>% 
+  filter(Unit == "E3")
+summary(DF$Difference)
+hist(DF$Difference)
+
+
+
 
 #### Map the difference ####
 FiveFifteen <- read.csv("./data/From_515.csv")
 Lowell <- read.csv("./data/From_Lowell_Station.csv")
+Joy_and_Washington <- read.csv("./data/From_Joy_and_Washington.csv")
 
 
 #All together
@@ -783,25 +815,28 @@ DF <- fd %>%
   filter(Unit == "E1" | Unit == "E3" &
            is.na(X) == FALSE) %>% 
   sample_n(1000) %>% 
-  select(Full.Address, X, Y) %>% 
+  select(Full.Address, X, Y, bad.geocode) %>% 
   group_by(Full.Address) %>% 
-  summarise(n = n(), Y = Y[1], X = X[1])
+  summarise(n = n(), Y = Y[1], X = X[1], bad.geocode = bad.geocode[1])
 
 DF$from.FiveFifteen <- FiveFifteen$minutes
 DF$from.Lowell <- Lowell$minutes
 
-DF <- mutate(DF, Difference = from.FiveFifteen - from.Lowell)
+DF <- mutate(DF, Difference = (from.Lowell - from.FiveFifteen) * .75) %>% #.75 is the scaler from above
+  filter(bad.geocode != 1, Full.Address != "266 BROADWAY, Somerville, Massachusetts") 
 
 
 map <- get_map(location = "Union Square, Somerville, MA", zoom=14, maptype="roadmap", color = "bw")
 ggmap(map) + 
   geom_point(data = DF,
              aes(x = X, y = Y, colour = Difference, size = n)) +
-  scale_colour_gradientn(name = "minutes", colours=(brewer.pal(9,"YlGnBu")), limits = c(-1.6, 0)) +
-  scale_size(name = "calls", range=c(1,20)) +
+  scale_colour_gradientn(name = "minutes", colours=(brewer.pal(9,"YlGnBu")), limits = c(-1.2, 1.2)) +
+  scale_size(name = "calls", range=c(1,15)) +
   labs(fill="") + 
   theme_nothing(legend=TRUE) +
   ggtitle("Theoretical Difference Between 515 and Lowell")
+
+ggsave("./plots/Difference_515_and_Lowell.png", dpi=250, width=6, height=5)
 
 
 
@@ -812,25 +847,57 @@ DF <- fd %>%
   filter(Unit == "E1" | Unit == "E3" &
            is.na(X) == FALSE) %>% 
   sample_n(1000) %>% 
-  select(Full.Address, X, Y, Unit) %>% 
+  select(Full.Address, X, Y, bad.geocode, Unit) %>% 
   group_by(Full.Address) %>% 
-  summarise(n = n(), Y = Y[1], X = X[1], Unit = Unit[1])
+  summarise(n = n(), Y = Y[1], X = X[1], bad.geocode = bad.geocode[1], Unit = Unit[1])
 
 DF$from.FiveFifteen <- FiveFifteen$minutes
 DF$from.Lowell <- Lowell$minutes
 
-DF <- DF %>% 
-  mutate(Difference = from.FiveFifteen - from.Lowell) %>% 
-  filter(Unit == "E1" &
-           Full.Address != "1 MUTUAL AID - CAMBRIDGE, Somerville, Massachusetts")
+DF <- mutate(DF, Difference = (from.Lowell - from.FiveFifteen) * .75) %>% #.75 is the scaler from above
+  filter(bad.geocode != 1, Unit == "E1", Full.Address != "266 BROADWAY, Somerville, Massachusetts") 
 
 
 map <- get_map(location = "Union Square, Somerville, MA", zoom=14, maptype="roadmap", color = "bw")
 ggmap(map) + 
   geom_point(data = DF,
-             aes(x = X, y = Y, colour = Difference, size = 2)) +
-  scale_colour_gradientn(name = "minutes", colours=(brewer.pal(9,"YlGnBu")), limits = c(-1.6, 0)) +
-  scale_size(name = "calls", range=c(1,5)) +
+             aes(x = X, y = Y, colour = Difference, size = n)) +
+  scale_colour_gradientn(name = "minutes", colours=(brewer.pal(9,"YlGnBu")), limits = c(-1.2, 1.2)) +
+  scale_size(name = "calls", range=c(1,15)) +
   labs(fill="") + 
   theme_nothing(legend=TRUE) +
   ggtitle("Theoretical Difference Between 515 and Lowell")
+
+ggsave("./plots/Difference_515_and_Lowell_E1.png", dpi=250, width=6, height=5)
+
+
+
+
+# 515 and Joy / Wash
+set.seed(124)
+DF <- fd %>% 
+  filter(Unit == "E1" | Unit == "E3" &
+           is.na(X) == FALSE) %>% 
+  sample_n(1000) %>% 
+  select(Full.Address, X, Y, bad.geocode, Unit) %>% 
+  group_by(Full.Address) %>% 
+  summarise(n = n(), Y = Y[1], X = X[1], bad.geocode = bad.geocode[1], Unit = Unit[1])
+
+DF$from.FiveFifteen <- FiveFifteen$minutes
+DF$from.Joy.Washington <- Joy_and_Washington$minutes
+
+DF <- mutate(DF, Difference = (from.Joy.Washington - from.FiveFifteen) * .75) %>% #.75 is the scaler from above
+  filter(bad.geocode != 1, Unit == "E3", Full.Address != "266 BROADWAY, Somerville, Massachusetts") 
+
+
+map <- get_map(location = "Union Square, Somerville, MA", zoom=14, maptype="roadmap", color = "bw")
+ggmap(map) + 
+  geom_point(data = DF,
+             aes(x = X, y = Y, colour = Difference, size = n)) +
+  scale_colour_gradientn(name = "minutes", colours=(brewer.pal(9,"YlGnBu"))) +
+  scale_size(name = "calls", range=c(1,15)) +
+  labs(fill="") + 
+  theme_nothing(legend=TRUE) +
+  ggtitle("Theoretical Difference Between 515 and Joy/Washington")
+
+ggsave("./plots/Difference_515_and_Joy_Wash.png", dpi=250, width=6, height=5)
