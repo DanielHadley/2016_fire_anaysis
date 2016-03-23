@@ -755,7 +755,26 @@ scale = .75
 
 
 fdg <- fdg %>% 
-  mutate(HQ.v.Lowell = (from.HQ - from.Lowell) * scale)
+  mutate(HQ.v.Lowell = (from.HQ - from.Lowell) * scale,
+         FiveFifteen.v.Lowell = (from.FiveFifteen - from.Lowell) * scale,
+         JW.v.FiveFifteen = (from.JoyWashington - from.FiveFifteen) * scale,
+         JW.v.Lowell = (from.JoyWashington - from.Lowell) * scale)
+
+
+## Some summary stats
+
+# 515 would help with Union Square calls
+summary(fdg$JW.v.515[fdg$Unit == "E3"])
+hist(fdg$JW.v.515[fdg$Unit == "E3"])
+
+# Lowell would not help with Union Square calls as much
+summary(fdg$JW.v.Lowell[fdg$Unit == "E3"])
+hist(fdg$JW.v.Lowell[fdg$Unit == "E3"])
+
+# 515 would be better than Lowell for E1 calls
+# But only slightly
+summary(fdg$FiveFifteen.v.Lowell[fdg$Unit == "E1"])
+hist(fdg$FiveFifteen.v.Lowell[fdg$Unit == "E1"])
 
 
 
