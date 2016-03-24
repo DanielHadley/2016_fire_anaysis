@@ -753,19 +753,23 @@ summary(scale$diff)
 # I'll just take something between the mean and median: .75
 scale = .75
 
+# Now scale them
+cols <- c("from.HQ", "from.Lowell", "from.JoyWashington", "from.FiveFifteen")
+fdg[cols] <- fdg[cols] * scale
+
 
 fdg <- fdg %>% 
-  mutate(HQ.v.Lowell = (from.HQ - from.Lowell) * scale,
-         FiveFifteen.v.Lowell = (from.FiveFifteen - from.Lowell) * scale,
-         JW.v.FiveFifteen = (from.JoyWashington - from.FiveFifteen) * scale,
-         JW.v.Lowell = (from.JoyWashington - from.Lowell) * scale)
+  mutate(HQ.v.Lowell = from.HQ - from.Lowell,
+         FiveFifteen.v.Lowell = from.FiveFifteen - from.Lowell,
+         JW.v.FiveFifteen = from.JoyWashington - from.FiveFifteen,
+         JW.v.Lowell = from.JoyWashington - from.Lowell)
 
 
 ## Some summary stats
 
 # 515 would help with Union Square calls
-summary(fdg$JW.v.515[fdg$Unit == "E3"])
-hist(fdg$JW.v.515[fdg$Unit == "E3"])
+summary(fdg$JW.v.FiveFifteen[fdg$Unit == "E3"])
+hist(fdg$JW.v.FiveFifteen[fdg$Unit == "E3"])
 
 # Lowell would not help with Union Square calls as much
 summary(fdg$JW.v.Lowell[fdg$Unit == "E3"])
@@ -775,6 +779,131 @@ hist(fdg$JW.v.Lowell[fdg$Unit == "E3"])
 # But only slightly
 summary(fdg$FiveFifteen.v.Lowell[fdg$Unit == "E1"])
 hist(fdg$FiveFifteen.v.Lowell[fdg$Unit == "E1"])
+
+
+
+
+### Maps ###
+
+
+#Theoretical Difference Between 515 and Joy/Washington
+fdg_map <- fdg %>% 
+  filter(Unit == "E3") %>% 
+  group_by(Full.Address) %>% 
+  summarise(n=n(), JW.v.FiveFifteen = mean(JW.v.FiveFifteen), X = X[1], Y = Y[1])
+
+map <- get_map(location = "Union Square, Somerville, MA", zoom=15, maptype="roadmap", color = "bw")
+ggmap(map) + 
+  geom_point(data = fdg_map,
+             aes(x = X, y = Y, colour = fdg_map$JW.v.FiveFifteen, size = n)) +
+  scale_colour_gradientn(name = "minutes", colours=(brewer.pal(9,"YlGnBu"))) +
+  scale_size(name = "calls", range=c(3,15)) +
+  labs(fill="") + 
+  theme_nothing(legend=TRUE) +
+  ggtitle("Model Difference Between Joy/Washington and 515")
+
+ggsave("./plots/Difference_Joy_Wash_and_515.png", dpi=250, width=6, height=5)
+
+
+
+#Theoretical Difference Between Lowell and Joy/Washington
+fdg_map <- fdg %>% 
+  filter(Unit == "E3") %>% 
+  group_by(Full.Address) %>% 
+  summarise(n=n(), JW.v.Lowell = mean(JW.v.Lowell), X = X[1], Y = Y[1])
+
+map <- get_map(location = "Union Square, Somerville, MA", zoom=15, maptype="roadmap", color = "bw")
+ggmap(map) + 
+  geom_point(data = fdg_map,
+             aes(x = X, y = Y, colour = fdg_map$JW.v.Lowell, size = n)) +
+  scale_colour_gradientn(name = "minutes", colours=(brewer.pal(9,"YlGnBu"))) +
+  scale_size(name = "calls", range=c(3,15)) +
+  labs(fill="") + 
+  theme_nothing(legend=TRUE) +
+  ggtitle("Model Difference Between Joy/Washington and Lowell")
+
+ggsave("./plots/Difference_Joy_Wash_and_Lowell.png", dpi=250, width=6, height=5)
+
+
+
+#Theoretical Difference Between Lowell and 515
+fdg_map <- fdg %>% 
+  # filter(Unit == "E1") %>% 
+  group_by(Full.Address) %>% 
+  summarise(n=n(), FiveFifteen.v.Lowell = mean(FiveFifteen.v.Lowell), X = X[1], Y = Y[1])
+
+map <- get_map(location = "651 Somerville Ave, Somerville, MA", zoom=15, maptype="roadmap", color = "bw")
+ggmap(map) + 
+  geom_point(data = fdg_map,
+             aes(x = X, y = Y, colour = FiveFifteen.v.Lowell, size = n)) +
+  scale_colour_gradientn(name = "minutes", colours=(brewer.pal(9,"YlGnBu"))) +
+  scale_size(name = "calls", range=c(3,15)) +
+  labs(fill="") + 
+  theme_nothing(legend=TRUE) +
+  ggtitle("Model Difference Between 515 and Lowell")
+
+ggsave("./plots/Difference_515_and_Lowell.png", dpi=250, width=6, height=5)
+
+
+
+#Theoretical Difference Between Lowell and 515
+fdg_map <- fdg %>% 
+  filter(Unit == "E1") %>% 
+  group_by(Full.Address) %>% 
+  summarise(n=n(), FiveFifteen.v.Lowell = mean(FiveFifteen.v.Lowell), X = X[1], Y = Y[1]) %>% 
+  mutate(is.515.Faster = ifelse(FiveFifteen.v.Lowell > 0, "No", "Yes"))
+
+map <- get_map(location = "651 Somerville Ave, Somerville, MA", zoom=15, maptype="roadmap", color = "bw")
+ggmap(map) + 
+  geom_point(data = fdg_map,
+             aes(x = X, y = Y, colour = is.515.Faster, size = n)) +
+  scale_size(name = "calls", range=c(3,15)) +
+  labs(fill="") + 
+  theme_nothing(legend=TRUE) +
+  ggtitle("Model Difference Between 515 and Lowell")
+
+ggsave("./plots/Difference_515_and_Lowell2.png", dpi=250, width=6, height=5)
+
+
+
+#Theoretical Difference Between HQ and Lowell
+fdg_map <- fdg %>% 
+  filter(Unit == "E1") %>% 
+  group_by(Full.Address) %>% 
+  summarise(n=n(), HQ.v.Lowell = mean(HQ.v.Lowell), X = X[1], Y = Y[1])
+
+map <- get_map(location = "651 Somerville Ave, Somerville, MA", zoom=15, maptype="roadmap", color = "bw")
+ggmap(map) + 
+  geom_point(data = fdg_map,
+             aes(x = X, y = Y, colour = HQ.v.Lowell, size = n)) +
+  scale_colour_gradientn(name = "minutes", colours=(brewer.pal(9,"YlGnBu"))) +
+  scale_size(name = "calls", range=c(3,15)) +
+  labs(fill="") + 
+  theme_nothing(legend=TRUE) +
+  ggtitle("Model Difference Between HQ and Lowell")
+
+ggsave("./plots/Difference_HQ_and_Lowell.png", dpi=250, width=6, height=5)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
