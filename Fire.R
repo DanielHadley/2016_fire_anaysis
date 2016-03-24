@@ -783,7 +783,7 @@ hist(fdg$FiveFifteen.v.Lowell[fdg$Unit == "E1"])
 
 
 
-### Maps ###
+#### Maps of Drive Time ####
 
 
 #Theoretical Difference Between 515 and Joy/Washington
@@ -886,339 +886,56 @@ ggsave("./plots/Difference_HQ_and_Lowell.png", dpi=250, width=6, height=5)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# ### Make the data ####
-# ## First 515 Somerville
-# # We will filter it down to E1 and E3 calls, which are mostly south east
-# # We don't just do ones where they are first responder
-# set.seed(124)
-# 
-# DF <- fd %>% 
-#   filter(Unit == "E1" | Unit == "E3" &
-#            is.na(X) == FALSE) %>% 
-#   sample_n(1000) %>% 
-#   mutate(to = paste(Y, X, sep = ", ")) %>% 
-#   select(to, Full.Address) %>% 
-#   group_by(Full.Address) %>% 
-#   summarise(to = min(to), n = n()) %>% 
-#   mutate(from = "515 Somerville Ave, Somerville, MA",
-#          minutes = "",
-#          seconds = "",
-#          miles = "")
-# 
-# DF$row.number <- 1:nrow(DF)      #create an index number for each row
-# 
-# # For loop modified from
-# # http://stackoverflow.com/questions/25797580/ggmap-mapdist-function-repeating-calculation-for-certain-o-d-pairs
-# for (i in DF$row.number){
-#   orig <- as.character(DF[i,c('from')]) # get origin from DF in the position line 'i', column 'from'
-#   dest <- as.character(DF[i,c('to')])   # get origin from DF in the position line 'i', column 'to'
-#   a <- mapdist(from = orig, to = dest, mode = "driving",output = "simple") # create temp. df 'a' with the output from mapdist
-#   a$row.number <- i # include in temp. df 'a' the index number of the row from DF
-#   DF$minutes[match(a$row.number, DF$row.number)] <- a$minutes # use the index number as a matching key to input/update the value of the variable 'minutes'
-#   DF$seconds[match(a$row.number, DF$row.number)] <- a$seconds # ibdem DF$km[match(a$row.number, DF$row.number)] <- a$km #ibdem
-#   DF$miles[match(a$row.number, DF$row.number)] <- a$miles # ibdem
-# }
-#   
-# 
-# write.csv(DF, "./data/From_515.csv")
-# 
-# 
-# 
-# 
-# ## Lowell St Station
-# # We will filter it down to E1 and E3 calls, which are mostly south east
-# # We don't just do ones where they are first responder
-# set.seed(124)
-# 
-# DF <- fd %>% 
-#   filter(Unit == "E1" | Unit == "E3" &
-#            is.na(X) == FALSE) %>% 
-#   sample_n(1000) %>% 
-#   mutate(to = paste(Y, X, sep = ", ")) %>% 
-#   select(to, Full.Address) %>% 
-#   group_by(Full.Address) %>% 
-#   summarise(to = min(to), n = n()) %>% 
-#   mutate(from = "651 Somerville Ave, Somerville, MA 02143",
-#          minutes = "",
-#          seconds = "",
-#          miles = "")
-# 
-# DF$row.number <- 1:nrow(DF)      #create an index number for each row
-# 
-# # For loop modified from
-# # http://stackoverflow.com/questions/25797580/ggmap-mapdist-function-repeating-calculation-for-certain-o-d-pairs
-# for (i in DF$row.number){
-#   orig <- as.character(DF[i,c('from')]) # get origin from DF in the position line 'i', column 'from'
-#   dest <- as.character(DF[i,c('to')])   # get origin from DF in the position line 'i', column 'to'
-#   a <- mapdist(from = orig, to = dest, mode = "driving",output = "simple") # create temp. df 'a' with the output from mapdist
-#   a$row.number <- i # include in temp. df 'a' the index number of the row from DF
-#   DF$minutes[match(a$row.number, DF$row.number)] <- a$minutes # use the index number as a matching key to input/update the value of the variable 'minutes'
-#   DF$seconds[match(a$row.number, DF$row.number)] <- a$seconds # ibdem DF$km[match(a$row.number, DF$row.number)] <- a$km #ibdem
-#   DF$miles[match(a$row.number, DF$row.number)] <- a$miles # ibdem
-# }
-# 
-# 
-# write.csv(DF, "./data/From_Lowell_Station.csv")
-# 
-# 
-# 
-# 
-# 
-# ## Joy and Washington
-# # We will filter it down to E1 and E3 calls, which are mostly south east
-# # We don't just do ones where they are first responder
-# set.seed(124)
-# 
-# DF <- fd %>% 
-#   filter(Unit == "E1" | Unit == "E3" &
-#            is.na(X) == FALSE) %>% 
-#   sample_n(1000) %>% 
-#   mutate(to = paste(Y, X, sep = ", ")) %>% 
-#   select(to, Full.Address) %>% 
-#   group_by(Full.Address) %>% 
-#   summarise(to = min(to), n = n()) %>% 
-#   mutate(from = "146 Washington St, Somerville, MA",
-#          minutes = "",
-#          seconds = "",
-#          miles = "")
-# 
-# DF$row.number <- 1:nrow(DF)      #create an index number for each row
-# 
-# # For loop modified from
-# # http://stackoverflow.com/questions/25797580/ggmap-mapdist-function-repeating-calculation-for-certain-o-d-pairs
-# for (i in DF$row.number){
-#   orig <- as.character(DF[i,c('from')]) # get origin from DF in the position line 'i', column 'from'
-#   dest <- as.character(DF[i,c('to')])   # get origin from DF in the position line 'i', column 'to'
-#   a <- mapdist(from = orig, to = dest, mode = "driving",output = "simple") # create temp. df 'a' with the output from mapdist
-#   a$row.number <- i # include in temp. df 'a' the index number of the row from DF
-#   DF$minutes[match(a$row.number, DF$row.number)] <- a$minutes # use the index number as a matching key to input/update the value of the variable 'minutes'
-#   DF$seconds[match(a$row.number, DF$row.number)] <- a$seconds # ibdem DF$km[match(a$row.number, DF$row.number)] <- a$km #ibdem
-#   DF$miles[match(a$row.number, DF$row.number)] <- a$miles # ibdem
-# }
-# 
-# 
-# write.csv(DF, "./data/From_Joy_and_Washington.csv")
-
-
-
-
-#### Now Analyze ####
-## TODO: re-elongate the data based on the n column, or do a weighted average
-# (Although it's small enough that it will not likely make a difference)
-FiveFifteen <- read.csv("./data/From_515.csv")
-Lowell <- read.csv("./data/From_Lowell_Station.csv")
-Joy_and_Washington <- read.csv("./data/From_Joy_and_Washington.csv")
-
-
-
-
-set.seed(124)
-DF <- fd %>% 
-  filter(Unit == "E1" | Unit == "E3" &
-           is.na(X) == FALSE) %>% 
-  sample_n(1000) %>% 
-  select(Full.Address) %>% 
+#From 515 to E3
+fdg_map <- fdg %>% 
+  filter(Unit == "E3") %>% 
   group_by(Full.Address) %>% 
-  summarise(n = n())
+  summarise(n=n(), from.Lowell = mean(from.Lowell), X = X[1], Y = Y[1])
 
-DF$from.FiveFifteen <- FiveFifteen$minutes
-DF$from.Lowell <- Lowell$minutes
-
-DF <- mutate(DF, Difference = from.FiveFifteen - from.Lowell)
-summary(DF$Difference)
-hist(DF$Difference)
-
-### Summary: 515 would be better in these instances
-# BUT !! I included E3's responses, so that was a given
-# Perhaps I should rerun with just E1
-
-
-# So let's try again with just E1
-set.seed(124)
-DF <- fd %>% 
-  filter(Unit == "E1" | Unit == "E3" &
-           is.na(X) == FALSE) %>% 
-  sample_n(1000) %>% 
-  select(Full.Address, Unit) %>% 
-  group_by(Full.Address) %>% 
-  summarise(n = n(), Unit = Unit[1])
-
-DF$from.FiveFifteen <- FiveFifteen$minutes
-DF$from.Lowell <- Lowell$minutes
-
-DF <- DF %>% 
-  mutate(Difference = from.FiveFifteen - from.Lowell) %>% 
-  filter(Unit == "E1")
-summary(DF$Difference)
-hist(DF$Difference)
-
-# Interesting: it's different, but remember these are cars that are going exactly the speed limit and stopping at all lights. the difference for firefighters is likely smaller!
-
-
-
-# So let's try to get a sense of the scale by comparing to actual response times
-set.seed(124)
-DF <- fd %>% 
-  filter(Unit == "E1" | Unit == "E3" &
-           is.na(X) == FALSE) %>% 
-  sample_n(1000) %>% 
-  select(Full.Address, Unit, first.responder.response.time) %>% 
-  group_by(Full.Address) %>% 
-  summarise(n = n(), Unit = Unit[1],
-            first.responder.response.time = mean(first.responder.response.time))
-
-DF$from.FiveFifteen <- FiveFifteen$minutes
-DF$from.Lowell <- Lowell$minutes
-
-DF <- DF %>% 
-  mutate(Difference = first.responder.response.time / from.Lowell) %>% 
-  filter(Unit == "E1")
-summary(DF$Difference)
-hist(DF$Difference)
-
-# so taking the median, it may be safe to assume that the difference between theoretical and actual = theoretical * .75, or so
-
-
-
-# Finally let's try with just E3, comparing East side station to 515
-set.seed(124)
-DF <- fd %>% 
-  filter(Unit == "E1" | Unit == "E3" &
-           is.na(X) == FALSE) %>% 
-  sample_n(1000) %>% 
-  select(Full.Address, Unit) %>% 
-  group_by(Full.Address) %>% 
-  summarise(n = n(), Unit = Unit[1])
-
-DF$from.FiveFifteen <- FiveFifteen$minutes
-DF$from.Joy.Washington <- Joy_and_Washington$minutes
-
-DF <- DF %>% 
-  mutate(Difference = from.FiveFifteen - from.Joy.Washington) %>% 
-  filter(Unit == "E3")
-summary(DF$Difference)
-hist(DF$Difference)
-
-
-
-
-#### Map the difference ####
-FiveFifteen <- read.csv("./data/From_515.csv")
-Lowell <- read.csv("./data/From_Lowell_Station.csv")
-Joy_and_Washington <- read.csv("./data/From_Joy_and_Washington.csv")
-
-
-#All together
-set.seed(124)
-DF <- fd %>% 
-  filter(Unit == "E1" | Unit == "E3" &
-           is.na(X) == FALSE) %>% 
-  sample_n(1000) %>% 
-  select(Full.Address, X, Y, bad.geocode) %>% 
-  group_by(Full.Address) %>% 
-  summarise(n = n(), Y = Y[1], X = X[1], bad.geocode = bad.geocode[1])
-
-DF$from.FiveFifteen <- FiveFifteen$minutes
-DF$from.Lowell <- Lowell$minutes
-
-DF <- mutate(DF, Difference = (from.Lowell - from.FiveFifteen) * .75) %>% #.75 is the scaler from above
-  filter(bad.geocode != 1, Full.Address != "266 BROADWAY, Somerville, Massachusetts") 
-
-
-map <- get_map(location = "Union Square, Somerville, MA", zoom=14, maptype="roadmap", color = "bw")
+map <- get_map(location = "Union Square, Somerville, MA", zoom=15, maptype="roadmap", color = "bw")
 ggmap(map) + 
-  geom_point(data = DF,
-             aes(x = X, y = Y, colour = Difference, size = n)) +
-  scale_colour_gradientn(name = "minutes", colours=(brewer.pal(9,"YlGnBu")), limits = c(-1.2, 1.2)) +
-  scale_size(name = "calls", range=c(1,15)) +
-  labs(fill="") + 
-  theme_nothing(legend=TRUE) +
-  ggtitle("Theoretical Difference Between 515 and Lowell")
-
-ggsave("./plots/Difference_515_and_Lowell.png", dpi=250, width=6, height=5)
-
-
-
-
-#Just E1 calls
-set.seed(124)
-DF <- fd %>% 
-  filter(Unit == "E1" | Unit == "E3" &
-           is.na(X) == FALSE) %>% 
-  sample_n(1000) %>% 
-  select(Full.Address, X, Y, bad.geocode, Unit) %>% 
-  group_by(Full.Address) %>% 
-  summarise(n = n(), Y = Y[1], X = X[1], bad.geocode = bad.geocode[1], Unit = Unit[1])
-
-DF$from.FiveFifteen <- FiveFifteen$minutes
-DF$from.Lowell <- Lowell$minutes
-
-DF <- mutate(DF, Difference = (from.Lowell - from.FiveFifteen) * .75) %>% #.75 is the scaler from above
-  filter(bad.geocode != 1, Unit == "E1", Full.Address != "266 BROADWAY, Somerville, Massachusetts") 
-
-
-map <- get_map(location = "Union Square, Somerville, MA", zoom=14, maptype="roadmap", color = "bw")
-ggmap(map) + 
-  geom_point(data = DF,
-             aes(x = X, y = Y, colour = Difference, size = n)) +
-  scale_colour_gradientn(name = "minutes", colours=(brewer.pal(9,"YlGnBu")), limits = c(-1.2, 1.2)) +
-  scale_size(name = "calls", range=c(1,15)) +
-  labs(fill="") + 
-  theme_nothing(legend=TRUE) +
-  ggtitle("Theoretical Difference Between 515 and Lowell")
-
-ggsave("./plots/Difference_515_and_Lowell_E1.png", dpi=250, width=6, height=5)
-
-
-
-
-# 515 and Joy / Wash
-set.seed(124)
-DF <- fd %>% 
-  filter(Unit == "E1" | Unit == "E3" &
-           is.na(X) == FALSE) %>% 
-  sample_n(1000) %>% 
-  select(Full.Address, X, Y, bad.geocode, Unit) %>% 
-  group_by(Full.Address) %>% 
-  summarise(n = n(), Y = Y[1], X = X[1], bad.geocode = bad.geocode[1], Unit = Unit[1])
-
-DF$from.FiveFifteen <- FiveFifteen$minutes
-DF$from.Joy.Washington <- Joy_and_Washington$minutes
-
-DF <- mutate(DF, Difference = (from.Joy.Washington - from.FiveFifteen) * .75) %>% #.75 is the scaler from above
-  filter(bad.geocode != 1, Unit == "E3", Full.Address != "266 BROADWAY, Somerville, Massachusetts") 
-
-
-map <- get_map(location = "Union Square, Somerville, MA", zoom=14, maptype="roadmap", color = "bw")
-ggmap(map) + 
-  geom_point(data = DF,
-             aes(x = X, y = Y, colour = Difference, size = n)) +
+  geom_point(data = fdg_map,
+             aes(x = X, y = Y, colour = from.Lowell, size = n)) +
   scale_colour_gradientn(name = "minutes", colours=(brewer.pal(9,"YlGnBu"))) +
-  scale_size(name = "calls", range=c(1,15)) +
+  scale_size(name = "calls", range=c(3,15)) +
   labs(fill="") + 
   theme_nothing(legend=TRUE) +
-  ggtitle("Theoretical Difference Between 515 and Joy/Washington")
+  ggtitle("Model Time from 515 to E3 Area")
 
-ggsave("./plots/Difference_515_and_Joy_Wash.png", dpi=250, width=6, height=5)
+ggsave("./plots/from_515_to_E3.png", dpi=250, width=6, height=5)
+
+
+
+# from HQ to E1
+fdg_map <- fdg %>% 
+  filter(Unit == "E1") %>% 
+  group_by(Full.Address) %>% 
+  summarise(n=n(), from.HQ = mean(from.HQ), X = X[1], Y = Y[1])
+
+map <- get_map(location = "651 Somerville Ave, Somerville, MA", zoom=15, maptype="roadmap", color = "bw")
+ggmap(map) + 
+  geom_point(data = fdg_map,
+             aes(x = X, y = Y, colour = from.HQ, size = n)) +
+  scale_colour_gradientn(name = "minutes", colours=(brewer.pal(9,"YlGnBu"))) +
+  scale_size(name = "calls", range=c(3,15)) +
+  labs(fill="") + 
+  theme_nothing(legend=TRUE) +
+  ggtitle("Model Time from HQ to E1 Area")
+
+ggsave("./plots/from_HQ_to_Lowell.png", dpi=250, width=6, height=5)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
