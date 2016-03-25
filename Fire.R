@@ -737,7 +737,7 @@ for (n in 1:(length(neighborhoodList))) {
 
 
 #### Geo Drive Time Analysis ####
-fdg <- read.csv("./data/Fire_sample_drive_times.csv") # fire data geo
+fdg <- read.csv("./data/Fire_drive_times.csv") # fire data geo
 
 
 # First let's get a sense of the scale: how quickly fire actually arrived vs. the model
@@ -763,8 +763,8 @@ fdg <- fdg %>%
          FiveFifteen.v.Lowell = from.FiveFifteen - from.Lowell,
          JW.v.FiveFifteen = from.JoyWashington - from.FiveFifteen,
          JW.v.Lowell = from.JoyWashington - from.Lowell,
-         JW.and.Lowell = pmin(from.JoyWashington, from.Lowell),
-         JW.and.FiveFifteen = pmin(from.JoyWashington, from.FiveFifteen))
+         JW.and.Lowell = pmin(from.JoyWashington, from.Lowell, from.HQ, from.Highland, from.Teele),
+         JW.and.FiveFifteen = pmin(from.JoyWashington, from.FiveFifteen, from.HQ, from.Highland, from.Teele))
 
 
 ## Some summary stats
