@@ -762,7 +762,9 @@ fdg <- fdg %>%
   mutate(HQ.v.Lowell = from.HQ - from.Lowell,
          FiveFifteen.v.Lowell = from.FiveFifteen - from.Lowell,
          JW.v.FiveFifteen = from.JoyWashington - from.FiveFifteen,
-         JW.v.Lowell = from.JoyWashington - from.Lowell)
+         JW.v.Lowell = from.JoyWashington - from.Lowell,
+         JW.and.Lowell = pmin(from.JoyWashington, from.Lowell),
+         JW.and.FiveFifteen = pmin(from.JoyWashington, from.FiveFifteen))
 
 
 ## Some summary stats
@@ -780,6 +782,13 @@ hist(fdg$JW.v.Lowell[fdg$Unit == "E3"])
 summary(fdg$FiveFifteen.v.Lowell[fdg$Unit == "E1"])
 hist(fdg$FiveFifteen.v.Lowell[fdg$Unit == "E1"])
 
+
+
+summary(fdg$JW.and.Lowell)
+hist(fdg$JW.and.Lowell)
+
+summary(fdg$JW.and.FiveFifteen)
+hist(fdg$JW.and.FiveFifteen)
 
 
 
@@ -926,16 +935,127 @@ ggsave("./plots/from_HQ_to_Lowell.png", dpi=250, width=6, height=5)
 
 
 
+# from JW to E3
+fdg_map <- fdg %>% 
+  filter(Unit == "E3") %>% 
+  group_by(Full.Address) %>% 
+  summarise(n=n(), from.JoyWashington = mean(from.JoyWashington), X = X[1], Y = Y[1])
+
+map <- get_map(location = "Union Square, Somerville, MA", zoom=15, maptype="roadmap", color = "bw")
+ggmap(map) + 
+  geom_point(data = fdg_map,
+             aes(x = X, y = Y, colour = from.JoyWashington, size = n)) +
+  scale_colour_gradientn(name = "minutes", colours=(brewer.pal(9,"YlGnBu"))) +
+  scale_size(name = "calls", range=c(3,15)) +
+  labs(fill="") + 
+  theme_nothing(legend=TRUE) +
+  ggtitle("Model Time from Joy/Wash to E3 Area")
+
+ggsave("./plots/from_JW_to_E3.png", dpi=250, width=6, height=5)
+
+
+
+#Theoretical Difference Between Lowell and 515
+fdg_map <- fdg %>% 
+  filter(Unit == "E3") %>% 
+  group_by(Full.Address) %>% 
+  summarise(n=n(), from.JoyWashington = mean(from.JoyWashington), X = X[1], Y = Y[1]) %>% 
+  mutate(under.five = ifelse(from.JoyWashington > 5, "No", "Yes"))
+
+map <- get_map(location = "Union Square, Somerville, MA", zoom=15, maptype="roadmap", color = "bw")
+ggmap(map) + 
+  geom_point(data = fdg_map,
+             aes(x = X, y = Y, colour = under.five, size = n)) +
+  scale_size(name = "calls", range=c(3,15)) +
+  labs(fill="") + 
+  theme_nothing(legend=TRUE) +
+  ggtitle("Model Time from Joy/Wash to E3 Area")
+
+ggsave("./plots/from_JW_to_E3_binary.png", dpi=250, width=6, height=5)
+
+
+
+#Theoretical Difference Between Lowell and 515
+fdg_map <- fdg %>% 
+  filter(Unit == "E3") %>% 
+  group_by(Full.Address) %>% 
+  summarise(n=n(), from.Lowell = mean(from.Lowell), X = X[1], Y = Y[1]) %>% 
+  mutate(under.five = ifelse(from.Lowell > 5, "No", "Yes"))
+
+map <- get_map(location = "Union Square, Somerville, MA", zoom=15, maptype="roadmap", color = "bw")
+ggmap(map) + 
+  geom_point(data = fdg_map,
+             aes(x = X, y = Y, colour = under.five, size = n)) +
+  scale_size(name = "calls", range=c(3,15)) +
+  labs(fill="") + 
+  theme_nothing(legend=TRUE) +
+  ggtitle("Model Time from Joy/Wash to E3 Area")
+
+ggsave("./plots/from_Lowell_to_E3_binary.png", dpi=250, width=6, height=5)
+
+
+
+#Theoretical Response of Lowell and Joy/Wash
+fdg_map <- fdg %>% 
+  group_by(Full.Address) %>% 
+  summarise(n=n(), from.Lowell = mean(from.Lowell), 
+            from.JoyWashington = mean(from.JoyWashington), 
+            X = X[1], Y = Y[1]) %>%
+  mutate(Quickest = pmin(from.JoyWashington, from.Lowell)) %>% 
+  mutate(under.five = ifelse(Quickest > 5, "No", "Yes"))
+
+map <- get_map(location = "Union Square, Somerville, MA", zoom=14, maptype="roadmap", color = "bw")
+ggmap(map) + 
+  geom_point(data = fdg_map,
+             aes(x = X, y = Y, colour = under.five, size = n)) +
+  scale_size(name = "calls", range=c(3,15)) +
+  labs(fill="") + 
+  theme_nothing(legend=TRUE) +
+  ggtitle("Model Time from Joy/Wash and Lowell")
+
+ggsave("./plots/from_Lowell_and_JW_binary.png", dpi=250, width=6, height=5)
+
+ggmap(map) + 
+  geom_point(data = fdg_map,
+             aes(x = X, y = Y, colour = Quickest, size = n)) +
+  scale_colour_gradientn(name = "minutes", colours=(brewer.pal(9,"YlGnBu")), limits = c(0,5)) +
+  scale_size(name = "calls", range=c(3,15)) +
+  labs(fill="") + 
+  theme_nothing(legend=TRUE) +
+  ggtitle("Model Time from Joy/Wash and Lowell")
+
+ggsave("./plots/from_Lowell_and_JW.png", dpi=250, width=6, height=5)
 
 
 
 
+#Theoretical Response of 515 and Joy/Wash
+fdg_map <- fdg %>% 
+  group_by(Full.Address) %>% 
+  summarise(n=n(), from.FiveFifteen = mean(from.FiveFifteen), 
+            from.JoyWashington = mean(from.JoyWashington), 
+            X = X[1], Y = Y[1]) %>%
+  mutate(Quickest = pmin(from.JoyWashington, from.FiveFifteen)) %>% 
+  mutate(under.five = ifelse(Quickest > 5, "No", "Yes"))
 
+map <- get_map(location = "Union Square, Somerville, MA", zoom=14, maptype="roadmap", color = "bw")
+ggmap(map) + 
+  geom_point(data = fdg_map,
+             aes(x = X, y = Y, colour = under.five, size = n)) +
+  scale_size(name = "calls", range=c(3,15)) +
+  labs(fill="") + 
+  theme_nothing(legend=TRUE) +
+  ggtitle("Model Time from Joy/Wash and 515")
 
+ggsave("./plots/from_FiveFifteen_and_JW_binary.png", dpi=250, width=6, height=5)
 
+ggmap(map) + 
+  geom_point(data = fdg_map,
+             aes(x = X, y = Y, colour = Quickest, size = n)) +
+  scale_colour_gradientn(name = "minutes", colours=(brewer.pal(9,"YlGnBu")), limits = c(0,5)) +
+  scale_size(name = "calls", range=c(3,15)) +
+  labs(fill="") + 
+  theme_nothing(legend=TRUE) +
+  ggtitle("Model Time from Joy/Wash and 515")
 
-
-
-
-
-
+ggsave("./plots/from_FiveFifteen_and_JW.png", dpi=250, width=6, height=5)
