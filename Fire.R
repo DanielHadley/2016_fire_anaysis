@@ -584,22 +584,17 @@ for (n in 1:(length(neighborhoodList))) {
 fdg <- read.csv("./data/Fire_drive_times.csv") # fire data geo
 
 
-# First let's get a sense of the scale: how quickly fire actually arrived vs. the model
-scale <- fdg %>% 
-  filter(Unit == "E1") %>% 
-  select(from.Lowell, first.responder.response.time) %>% 
-  mutate(diff = from.Lowell / first.responder.response.time) %>% 
-  filter(diff < 3)  #take out outliers based on a histogram
-
-summary(scale$diff)
-
-# it's similar to when I did it before
-# I'll just take something between the mean and median: .75
-scale = .75
+## SCALE
+# This is a conservative estimate of how much faster firefighters arrive than they are predicted to
+# Look at the last few lines of this section to see how I calculated this
+# It's a blunt scale. I see that E1 and E3 tend to have a smaller scaler, like .75
+# Meaning there are neighborhoods where firefighters tend to arrive much before expected
+scale = .9
 
 # Now scale them
 cols <- c("from.HQ", "from.Lowell", "from.JoyWashington", "from.FiveFifteen")
 fdg[cols] <- fdg[cols] * scale
+
 
 
 fdg <- fdg %>% 
@@ -658,6 +653,21 @@ rm(station_Union.and.Lowell, station_JW.and.Lowell, station_JW.and.FiveFifteen)
 
 
 
+## SCALE
+# This is what I used to get the scale of X above
+# If you want to see how it works first comment out the code where the scale is applied to the data:
+# this line: fdg[cols] <- fdg[cols] * scale
+# First let's get a sense of the scale: how quickly fire actually arrived vs. the model
+scale <- fdg %>% 
+  select(Union.and.Lowell, first.responder.response.time) %>% 
+  mutate(diff = Union.and.Lowell / first.responder.response.time) %>% 
+  filter(diff < 3)  #take out outliers based on a histogram
+
+summary(scale$diff)
+rm(scale)
+## / SCALE
+
+
 
 
 ### Some summary stats ###
@@ -691,6 +701,7 @@ summary(fdg$Union.and.Lowell)
 fdg <- fdg %>% mutate(actual.v.predicted = first.responder.response.time - Union.and.Lowell)
 summary(fdg$actual.v.predicted)
 hist(fdg$actual.v.predicted)
+
 
 
 
@@ -1084,68 +1095,3 @@ ggmap(map) +
 ggsave("./plots/from_Lowell_to_E3_binary.png", dpi=250, width=6, height=5)
 
 
-
-#Theoretical Response of Lowell and Joy/Wash
-fdg_map <- fdg %>% 
-  group_by(Full.Address) %>% 
-  summarise(n=n(), from.Lowell = mean(from.Lowell), 
-            from.JoyWashington = mean(from.JoyWashington), 
-            X = X[1], Y = Y[1]) %>%
-  mutate(Quickest = pmin(from.JoyWashington, from.Lowell)) %>% 
-  mutate(under.five = ifelse(Quickest > 5, "No", "Yes"))
-
-map <- get_map(location = "Union Square, Somerville, MA", zoom=14, maptype="roadmap", color = "bw")
-ggmap(map) + 
-  geom_point(data = fdg_map,
-             aes(x = X, y = Y, colour = under.five, size = n)) +
-  scale_size(name = "calls", range=c(3,15)) +
-  labs(fill="") + 
-  theme_nothing(legend=TRUE) +
-  ggtitle("Predicted Time from Joy/Wash and Lowell")
-
-ggsave("./plots/from_Lowell_and_JW_binary.png", dpi=250, width=6, height=5)
-
-ggmap(map) + 
-  geom_point(data = fdg_map,
-             aes(x = X, y = Y, colour = Quickest, size = n)) +
-  scale_colour_gradientn(name = "minutes", colours=(brewer.pal(9,"YlGnBu")), limits = c(0,5)) +
-  scale_size(name = "calls", range=c(3,15)) +
-  labs(fill="") + 
-  theme_nothing(legend=TRUE) +
-  ggtitle("Predicted Time from Joy/Wash and Lowell")
-
-ggsave("./plots/from_Lowell_and_JW.png", dpi=250, width=6, height=5)
-
-
-
-
-#Theoretical Response of 515 and Joy/Wash
-fdg_map <- fdg %>% 
-  group_by(Full.Address) %>% 
-  summarise(n=n(), from.FiveFifteen = mean(from.FiveFifteen), 
-            from.JoyWashington = mean(from.JoyWashington), 
-            X = X[1], Y = Y[1]) %>%
-  mutate(Quickest = pmin(from.JoyWashington, from.FiveFifteen)) %>% 
-  mutate(under.five = ifelse(Quickest > 5, "No", "Yes"))
-
-map <- get_map(location = "Union Square, Somerville, MA", zoom=14, maptype="roadmap", color = "bw")
-ggmap(map) + 
-  geom_point(data = fdg_map,
-             aes(x = X, y = Y, colour = under.five, size = n)) +
-  scale_size(name = "calls", range=c(3,15)) +
-  labs(fill="") + 
-  theme_nothing(legend=TRUE) +
-  ggtitle("Predicted Time from Joy/Wash and 515")
-
-ggsave("./plots/from_FiveFifteen_and_JW_binary.png", dpi=250, width=6, height=5)
-
-ggmap(map) + 
-  geom_point(data = fdg_map,
-             aes(x = X, y = Y, colour = Quickest, size = n)) +
-  scale_colour_gradientn(name = "minutes", colours=(brewer.pal(9,"YlGnBu")), limits = c(0,5)) +
-  scale_size(name = "calls", range=c(3,15)) +
-  labs(fill="") + 
-  theme_nothing(legend=TRUE) +
-  ggtitle("Predicted Time from Joy/Wash and 515")
-
-ggsave("./plots/from_FiveFifteen_and_JW.png", dpi=250, width=6, height=5)
