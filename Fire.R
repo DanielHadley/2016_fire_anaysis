@@ -622,7 +622,7 @@ scalerFunction <- function(x) {
   scale <- scale[1]
   scaled <- (x + .0001) * scale
   #large x the regression breakds down and the scaler becomes too small
-  scaled.final <- ifelse(x > 5.5, x * .72, scaled)
+  scaled.final <- ifelse(x > 4.5, x * .82, scaled)
   return(scaled.final)
 }
 
