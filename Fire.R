@@ -1095,3 +1095,25 @@ ggmap(map) +
 ggsave("./plots/from_Lowell_to_E3_binary.png", dpi=250, width=6, height=5)
 
 
+
+
+# Actual vs Predicted
+# Darker is where it took them longer than expected
+fdg_map <- fdg %>% 
+  group_by(Full.Address) %>% 
+  summarise(n=n(), actual.v.predicted = mean(actual.v.predicted), 
+            X = X[1], Y = Y[1])
+
+map <- get_map(location = "Somerville, MA", zoom=14, maptype="roadmap", color = "bw")
+ggmap(map) + 
+  geom_point(data = fdg_map,
+             aes(x = X, y = Y, colour = actual.v.predicted, size = n)) +
+  scale_colour_gradientn(name = "minutes", colours=(brewer.pal(9,"YlGnBu")), limits = c(-3,3)) +
+  scale_size(name = "calls", range=c(3,15)) +
+  labs(fill="") + 
+  theme_nothing(legend=TRUE) +
+  ggtitle("Actual vs Predicted Arrival Times")
+
+ggsave("./plots/actual_v_predicted.png", dpi=250, width=6, height=5)
+
+
