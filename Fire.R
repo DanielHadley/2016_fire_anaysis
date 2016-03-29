@@ -583,8 +583,61 @@ for (n in 1:(length(neighborhoodList))) {
 #### Geo Drive Time Analysis ####
 fdg <- read.csv("./data/Fire_drive_times.csv") # fire data geo
 
+# First make some variables to analyze the scale
+# We will change these laters based on the scale
+fdg <- fdg %>% 
+  mutate(HQ.v.Lowell = from.HQ - from.Lowell,
+         FiveFifteen.v.Lowell = from.FiveFifteen - from.Lowell,
+         JW.v.FiveFifteen = from.JoyWashington - from.FiveFifteen,
+         JW.v.Lowell = from.JoyWashington - from.Lowell,
+         JW.and.Lowell = pmin(from.JoyWashington, from.Lowell, from.HQ, from.Highland, from.Teele),
+         JW.and.FiveFifteen = pmin(from.JoyWashington, from.FiveFifteen, from.HQ, from.Highland, from.Teele),
+         Union.and.Lowell = pmin(from.Union, from.Lowell, from.HQ, from.Highland, from.Teele)) %>%
+  mutate(actual = first.responder.response.time + .001,
+         predicted = Union.and.Lowell + .001) %>% # deal with 0 response times
+  mutate(actual.v.predicted = actual - predicted,
+         actual.v.predicted.per = actual / predicted) 
+  
 
-## SCALE
+
+### SCALE ###
+# This is a conservative estimate of how much faster firefighters arrive than they are predicted to
+
+# First, here is the problem:
+summary(fdg$actual.v.predicted)
+# Actual takes about 15 seconds longer than predicted, on average
+# This is also true if you take out the outliers:
+avp_no_outliers <- fdg %>% 
+  filter(actual.v.predicted > -3 & actual.v.predicted < 3.5) %>% 
+  filter(actual.v.predicted.per > .5 & actual.v.predicted.per < 2)
+summary(avp_no_outliers$actual.v.predicted)
+
+# But that is not uniform
+fit <- lm(actual.v.predicted.per ~ predicted, data=avp_no_outliers)
+summary(fit) # show results
+plot(avp_no_outliers$predicted, avp_no_outliers$actual.v.predicted.per)
+# As the predicted time goes up, the amount you should scale it goes down
+# So, for instance, you might double a short trip, but cut in 1/2 a predicted long trip
+# Each additional minute that the trip is predicted to be, should lead to a 0.207 drop in the scaler, starting with 1 minute trip == 1.56 scaler 
+
+
+scalerFunction <- function(x) {
+  newdata <- data.frame(predicted=x)
+  scale <- predict(fit, newdata, interval="predict")
+  scale <- scale[1]
+  scaled <- x * scale
+  #large x the regression breakds down and the scaler becomes too small
+  answer <- ifelse(x > 5.5, x * .72, scaled)
+  return(answer)
+}
+
+
+  
+  
+fdg <- fdg %>% 
+  mutate(from.HQ.2 = scalerFunction(from.HQ))
+
+
 # This is a conservative estimate of how much faster firefighters arrive than they are predicted to
 # Look at the last few lines of this section to see how I calculated this
 # It's a blunt scale. I see that E1 and E3 tend to have a smaller scaler, like .75
