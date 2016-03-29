@@ -627,19 +627,30 @@ scalerFunction <- function(x) {
 }
 
 # Now scale and add in other variables
+for (i in 1:nrow(fdg)) {
+fdg$from.HQ.scaled[i] <- scalerFunction(fdg$from.HQ[i])
+fdg$from.Lowell.scaled[i] <- scalerFunction(fdg$from.Lowell[i])
+fdg$from.FiveFifteen.scaled[i] <- scalerFunction(fdg$from.FiveFifteen[i])
+fdg$from.Highland.scaled[i] <- scalerFunction(fdg$from.Highland[i])
+fdg$from.Teele.scaled[i] <- scalerFunction(fdg$from.Teele[i])
+fdg$from.JoyWashington.scaled[i] <- scalerFunction(fdg$from.JoyWashington[i])
+fdg$from.Union.scaled[i] <- scalerFunction(fdg$from.Union[i])
+}
+
+
+
+# Now add in other variables
 fdg <- fdg %>% 
-  mutate(from.HQ.2 = scalerFunction(from.HQ),
-         from.Lowell = scalerFunction(from.Lowell),
-         from.FiveFifteen = scalerFunction(from.FiveFifteen),
-         from.Highland = scalerFunction(from.Highland),
-         from.Teele = scalerFunction(from.Teele)) %>% 
-  mutate(HQ.v.Lowell = from.HQ - from.Lowell,
-         FiveFifteen.v.Lowell = from.FiveFifteen - from.Lowell,
-         JW.v.FiveFifteen = from.JoyWashington - from.FiveFifteen,
-         JW.v.Lowell = from.JoyWashington - from.Lowell,
-         JW.and.Lowell = pmin(from.JoyWashington, from.Lowell, from.HQ, from.Highland, from.Teele),
-         JW.and.FiveFifteen = pmin(from.JoyWashington, from.FiveFifteen, from.HQ, from.Highland, from.Teele),
-         Union.and.Lowell = pmin(from.Union, from.Lowell, from.HQ, from.Highland, from.Teele)) %>%
+  mutate(HQ.v.Lowell = from.HQ.scaled - from.Lowell.scaled,
+         FiveFifteen.v.Lowell = from.FiveFifteen.scaled - from.Lowell.scaled,
+         JW.v.FiveFifteen = from.JoyWashington.scaled - from.FiveFifteen.scaled,
+         JW.v.Lowell = from.JoyWashington.scaled - from.Lowell.scaled,
+         JW.and.Lowell = pmin(from.JoyWashington.scaled, from.Lowell.scaled, 
+                              from.HQ.scaled, from.Highland.scaled, from.Teele.scaled),
+         JW.and.FiveFifteen = pmin(from.JoyWashington.scaled, from.FiveFifteen.scaled, 
+                                   from.HQ.scaled, from.Highland.scaled, from.Teele.scaled),
+         Union.and.Lowell = pmin(from.Union.scaled, from.Lowell.scaled, from.HQ.scaled, 
+                                 from.Highland.scaled, from.Teele.scaled)) %>%
   mutate(actual = first.responder.response.time + .001,
          predicted = Union.and.Lowell + .001) %>% # deal with 0 response times
   mutate(actual.v.predicted = actual - predicted,
