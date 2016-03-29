@@ -586,13 +586,7 @@ fdg <- read.csv("./data/Fire_drive_times.csv") # fire data geo
 # First make some variables to analyze the scale
 # We will change these laters based on the scale
 fdg <- fdg %>% 
-  mutate(HQ.v.Lowell = from.HQ - from.Lowell,
-         FiveFifteen.v.Lowell = from.FiveFifteen - from.Lowell,
-         JW.v.FiveFifteen = from.JoyWashington - from.FiveFifteen,
-         JW.v.Lowell = from.JoyWashington - from.Lowell,
-         JW.and.Lowell = pmin(from.JoyWashington, from.Lowell, from.HQ, from.Highland, from.Teele),
-         JW.and.FiveFifteen = pmin(from.JoyWashington, from.FiveFifteen, from.HQ, from.Highland, from.Teele),
-         Union.and.Lowell = pmin(from.Union, from.Lowell, from.HQ, from.Highland, from.Teele)) %>%
+  mutate(Union.and.Lowell = pmin(from.Union, from.Lowell, from.HQ, from.Highland, from.Teele)) %>%
   mutate(actual = first.responder.response.time + .001,
          predicted = Union.and.Lowell + .001) %>% # deal with 0 response times
   mutate(actual.v.predicted = actual - predicted,
@@ -618,47 +612,38 @@ summary(fit) # show results
 plot(avp_no_outliers$predicted, avp_no_outliers$actual.v.predicted.per)
 # As the predicted time goes up, the amount you should scale it goes down
 # So, for instance, you might double a short trip, but cut in 1/2 a predicted long trip
-# Each additional minute that the trip is predicted to be, should lead to a 0.207 drop in the scaler, starting with 1 minute trip == 1.56 scaler 
+# Each additional minute that the trip is predicted to be, should lead to a 0.207 drop in the scaler, starting with 1 minute trip == 1.56 scaler
+# But there is a flattening of the regression line on very long trips
 
-
+# A function that uses the regression model above to scale down or up model response times based on google response times
 scalerFunction <- function(x) {
   newdata <- data.frame(predicted=x)
   scale <- predict(fit, newdata, interval="predict")
   scale <- scale[1]
-  scaled <- x * scale
+  scaled <- (x + .0001) * scale
   #large x the regression breakds down and the scaler becomes too small
-  answer <- ifelse(x > 5.5, x * .72, scaled)
-  return(answer)
+  scaled.final <- ifelse(x > 5.5, x * .72, scaled)
+  return(scaled.final)
 }
 
-
-  
-  
+# Now scale and add in other variables
 fdg <- fdg %>% 
-  mutate(from.HQ.2 = scalerFunction(from.HQ))
-
-
-# This is a conservative estimate of how much faster firefighters arrive than they are predicted to
-# Look at the last few lines of this section to see how I calculated this
-# It's a blunt scale. I see that E1 and E3 tend to have a smaller scaler, like .75
-# Meaning there are neighborhoods where firefighters tend to arrive much before expected
-scale = .9
-
-# Now scale them
-cols <- c("from.HQ", "from.Lowell", "from.JoyWashington", "from.FiveFifteen")
-fdg[cols] <- fdg[cols] * scale
-
-
-
-fdg <- fdg %>% 
+  mutate(from.HQ.2 = scalerFunction(from.HQ),
+         from.Lowell = scalerFunction(from.Lowell),
+         from.FiveFifteen = scalerFunction(from.FiveFifteen),
+         from.Highland = scalerFunction(from.Highland),
+         from.Teele = scalerFunction(from.Teele)) %>% 
   mutate(HQ.v.Lowell = from.HQ - from.Lowell,
          FiveFifteen.v.Lowell = from.FiveFifteen - from.Lowell,
          JW.v.FiveFifteen = from.JoyWashington - from.FiveFifteen,
          JW.v.Lowell = from.JoyWashington - from.Lowell,
          JW.and.Lowell = pmin(from.JoyWashington, from.Lowell, from.HQ, from.Highland, from.Teele),
          JW.and.FiveFifteen = pmin(from.JoyWashington, from.FiveFifteen, from.HQ, from.Highland, from.Teele),
-         Union.and.Lowell = pmin(from.Union, from.Lowell, from.HQ, from.Highland, from.Teele))
-
+         Union.and.Lowell = pmin(from.Union, from.Lowell, from.HQ, from.Highland, from.Teele)) %>%
+  mutate(actual = first.responder.response.time + .001,
+         predicted = Union.and.Lowell + .001) %>% # deal with 0 response times
+  mutate(actual.v.predicted = actual - predicted,
+         actual.v.predicted.per = actual / predicted)
 
 
 ### Get the fire station based on the minimum response time ###
