@@ -583,29 +583,78 @@ for (n in 1:(length(neighborhoodList))) {
 #### Geo Drive Time Analysis ####
 fdg <- read.csv("./data/Fire_drive_times.csv") # fire data geo
 
-
-## SCALE
-# This is a conservative estimate of how much faster firefighters arrive than they are predicted to
-# Look at the last few lines of this section to see how I calculated this
-# It's a blunt scale. I see that E1 and E3 tend to have a smaller scaler, like .75
-# Meaning there are neighborhoods where firefighters tend to arrive much before expected
-scale = .9
-
-# Now scale them
-cols <- c("from.HQ", "from.Lowell", "from.JoyWashington", "from.FiveFifteen")
-fdg[cols] <- fdg[cols] * scale
-
-
-
+# First make some variables to analyze the scale
+# We will change these laters based on the scale
 fdg <- fdg %>% 
-  mutate(HQ.v.Lowell = from.HQ - from.Lowell,
-         FiveFifteen.v.Lowell = from.FiveFifteen - from.Lowell,
-         JW.v.FiveFifteen = from.JoyWashington - from.FiveFifteen,
-         JW.v.Lowell = from.JoyWashington - from.Lowell,
-         JW.and.Lowell = pmin(from.JoyWashington, from.Lowell, from.HQ, from.Highland, from.Teele),
-         JW.and.FiveFifteen = pmin(from.JoyWashington, from.FiveFifteen, from.HQ, from.Highland, from.Teele),
-         Union.and.Lowell = pmin(from.Union, from.Lowell, from.HQ, from.Highland, from.Teele))
+  mutate(Union.and.Lowell = pmin(from.Union, from.Lowell, from.HQ, from.Highland, from.Teele)) %>%
+  mutate(actual = first.responder.response.time + .001,
+         predicted = Union.and.Lowell + .001) %>% # deal with 0 response times
+  mutate(actual.v.predicted = actual - predicted,
+         actual.v.predicted.per = actual / predicted) 
+  
 
+
+### SCALE ###
+# This is a conservative estimate of how much faster firefighters arrive than they are predicted to
+
+# First, here is the problem:
+summary(fdg$actual.v.predicted)
+# Actual takes about 15 seconds longer than predicted, on average
+# This is also true if you take out the outliers:
+avp_no_outliers <- fdg %>% 
+  filter(actual.v.predicted > -3 & actual.v.predicted < 3.5) %>% 
+  filter(actual.v.predicted.per > .5 & actual.v.predicted.per < 2)
+summary(avp_no_outliers$actual.v.predicted)
+
+# But that is not uniform
+fit <- lm(actual.v.predicted.per ~ predicted, data=avp_no_outliers)
+summary(fit) # show results
+plot(avp_no_outliers$predicted, avp_no_outliers$actual.v.predicted.per)
+# As the predicted time goes up, the amount you should scale it goes down
+# So, for instance, you might double a short trip, but cut in 1/2 a predicted long trip
+# Each additional minute that the trip is predicted to be, should lead to a 0.207 drop in the scaler, starting with 1 minute trip == 1.56 scaler
+# But there is a flattening of the regression line on very long trips
+
+# A function that uses the regression model above to scale down or up model response times based on google response times
+scalerFunction <- function(x) {
+  newdata <- data.frame(predicted=x)
+  scale <- predict(fit, newdata, interval="predict")
+  scale <- scale[1]
+  scaled <- (x + .0001) * scale
+  #large x the regression breakds down and the scaler becomes too small
+  scaled.final <- ifelse(x > 5.5, x * .72, scaled)
+  return(scaled.final)
+}
+
+# Now scale and add in other variables
+for (i in 1:nrow(fdg)) {
+fdg$from.HQ.scaled[i] <- scalerFunction(fdg$from.HQ[i])
+fdg$from.Lowell.scaled[i] <- scalerFunction(fdg$from.Lowell[i])
+fdg$from.FiveFifteen.scaled[i] <- scalerFunction(fdg$from.FiveFifteen[i])
+fdg$from.Highland.scaled[i] <- scalerFunction(fdg$from.Highland[i])
+fdg$from.Teele.scaled[i] <- scalerFunction(fdg$from.Teele[i])
+fdg$from.JoyWashington.scaled[i] <- scalerFunction(fdg$from.JoyWashington[i])
+fdg$from.Union.scaled[i] <- scalerFunction(fdg$from.Union[i])
+}
+
+
+
+# Now add in other variables
+fdg <- fdg %>% 
+  mutate(HQ.v.Lowell = from.HQ.scaled - from.Lowell.scaled,
+         FiveFifteen.v.Lowell = from.FiveFifteen.scaled - from.Lowell.scaled,
+         JW.v.FiveFifteen = from.JoyWashington.scaled - from.FiveFifteen.scaled,
+         JW.v.Lowell = from.JoyWashington.scaled - from.Lowell.scaled,
+         JW.and.Lowell = pmin(from.JoyWashington.scaled, from.Lowell.scaled, 
+                              from.HQ.scaled, from.Highland.scaled, from.Teele.scaled),
+         JW.and.FiveFifteen = pmin(from.JoyWashington.scaled, from.FiveFifteen.scaled, 
+                                   from.HQ.scaled, from.Highland.scaled, from.Teele.scaled),
+         Union.and.Lowell = pmin(from.Union.scaled, from.Lowell.scaled, from.HQ.scaled, 
+                                 from.Highland.scaled, from.Teele.scaled)) %>%
+  mutate(actual = first.responder.response.time + .001,
+         predicted = Union.and.Lowell + .001) %>% # deal with 0 response times
+  mutate(actual.v.predicted = actual - predicted,
+         actual.v.predicted.per = actual / predicted)
 
 
 ### Get the fire station based on the minimum response time ###
@@ -660,7 +709,7 @@ rm(station_Union.and.Lowell, station_JW.and.Lowell, station_JW.and.FiveFifteen)
 # First let's get a sense of the scale: how quickly fire actually arrived vs. the model
 scale <- fdg %>% 
   select(Union.and.Lowell, first.responder.response.time) %>% 
-  mutate(diff = first.responder.response.time / Union.and.Lowell ) %>% 
+  mutate(diff = Union.and.Lowell / first.responder.response.time) %>% 
   filter(diff < 3)  #take out outliers based on a histogram
 
 summary(scale$diff)
