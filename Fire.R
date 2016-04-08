@@ -216,11 +216,19 @@ ninetieth_rt_by_unit <- fd %>%
   data.frame() %>% 
   spread(Year, nine) %>% 
   mutate(Per.Change.2009.to.2015 = (`2015` - `2009`) / `2009`) %>%
-  write.csv("./plots/ninetieth_quantile_response_times_by_unit.csv")
+  # write.csv("./plots/ninetieth_quantile_response_times_by_unit.csv")
   View()
 
 
-
+ninetieth_rt_by_year <- fd %>%
+  filter(Nature.of.Call %in% response_time_incidents & is.first.responder == 1) %>% 
+  group_by(Year) %>% 
+  summarise(nine = quantile(first.responder.response.time, .9)) %>% 
+  data.frame() %>% 
+  spread(Year, nine) %>% 
+  mutate(Per.Change.2009.to.2015 = (`2015` - `2009`) / `2009`) %>%
+  # write.csv("./plots/ninetieth_quantile_response_times_by_unit.csv")
+  View()
 
 
 ## Histograms ##
@@ -853,7 +861,7 @@ ggmap(map) +
   geom_point(data = fdg_map,
              aes(x = X, y = Y, colour = Predicted, size = n), alpha = .6) +
   # scale_colour_gradientn(name = "minutes", colours=(brewer.pal(9,"YlGnBu")), limits = c(0,5)) +
-  scale_colour_manual(values=c("green", "#56B4E9", "#CC79A7","red")) +
+  scale_colour_manual(values=c("green", "#56B4E9", "#000080","red")) +
   scale_size(name = "calls", range=c(3,15)) +
   labs(fill="") + 
   theme_nothing(legend=TRUE) +
