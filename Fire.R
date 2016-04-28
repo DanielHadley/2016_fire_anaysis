@@ -690,7 +690,9 @@ fdg <- fdg %>%
          JW.and.FiveFifteen = pmin(from.JoyWashington.scaled, from.FiveFifteen.scaled, 
                                    from.HQ.scaled, from.Highland.scaled, from.Teele.scaled),
          Union.and.Lowell = pmin(from.Union.scaled, from.Lowell.scaled, from.HQ.scaled, 
-                                 from.Highland.scaled, from.Teele.scaled)) %>%
+                                 from.Highland.scaled, from.Teele.scaled),
+         FiveFifteen.alone = pmin(from.FiveFifteen.scaled, from.HQ.scaled, 
+                                  from.Highland.scaled, from.Teele.scaled)) %>%
   mutate(actual = first.responder.response.time + .001,
          predicted = Union.and.Lowell + .001) %>% # deal with 0 response times
   mutate(actual.v.predicted = actual - predicted,
@@ -823,7 +825,7 @@ ggmap(map) +
   scale_size(name = "calls", range=c(3,15)) +
   labs(fill="") + 
   theme_nothing(legend=TRUE) +
-  ggtitle("Predicted Time from Joy/Wash and Lowell")
+  ggtitle("Predicted Time from East of Union and Lowell")
 
 ggsave("./plots/all_from_Lowell_and_JW_1.png", dpi=250, width=6, height=5)
 
@@ -836,7 +838,7 @@ ggmap(map) +
   scale_size(name = "calls", range=c(3,15)) +
   labs(fill="") + 
   theme_nothing(legend=TRUE) +
-  ggtitle("Predicted Time from Joy/Wash and Lowell")
+  ggtitle("Predicted Time from East of Union and Lowell")
 
 ggsave("./plots/all_from_Lowell_and_JW_2.png", dpi=250, width=6, height=5)
 
@@ -846,12 +848,12 @@ ggmap(map) +
   geom_point(data = fdg_map,
              aes(x = X, y = Y, colour = Predicted, size = n), alpha = .6) +
   # scale_colour_gradientn(name = "minutes", colours=(brewer.pal(9,"YlGnBu")), limits = c(0,5)) +
-  scale_colour_manual(values=c("green", "#56B4E9", "#CC79A7","red")) +
+  scale_colour_manual(values=c("green", "#56B4E9", "#000080","red")) +
   scale_size(name = "calls", range=c(3,15)) +
   labs(fill="") + 
   theme_nothing(legend=TRUE) +
   # facet_wrap(~ Predicted) +
-  ggtitle("Predicted Time from Joy/Wash and Lowell")
+  ggtitle("Predicted Time from East of Union and Lowell")
 
 ggsave("./plots/all_from_Lowell_and_JW_3.png", dpi=250, width=6, height=5)
 
@@ -866,7 +868,7 @@ ggmap(map) +
   labs(fill="") + 
   theme_nothing(legend=TRUE) +
   # facet_wrap(~ Predicted) +
-  ggtitle("Predicted Time from Joy/Wash and Lowell")
+  ggtitle("Predicted Time from East of Union and Lowell")
 
 ggsave("./plots/all_from_Lowell_and_JW_4.png", dpi=250, width=6, height=5)
 
@@ -893,7 +895,7 @@ ggmap(map) +
   scale_size(name = "calls", range=c(3,15)) +
   labs(fill="") + 
   theme_nothing(legend=TRUE) +
-  ggtitle("Predicted Time from Joy/Wash and 515")
+  ggtitle("Predicted Time from East of Union and 515")
 
 ggsave("./plots/all_from_515_and_JW_1.png", dpi=250, width=6, height=5)
 
@@ -906,7 +908,7 @@ ggmap(map) +
   scale_size(name = "calls", range=c(3,15)) +
   labs(fill="") + 
   theme_nothing(legend=TRUE) +
-  ggtitle("Predicted Time from Joy/Wash and 515")
+  ggtitle("Predicted Time from East of Union and 515")
 
 ggsave("./plots/all_from_515_and_JW_2.png", dpi=250, width=6, height=5)
 
@@ -916,12 +918,12 @@ ggmap(map) +
   geom_point(data = fdg_map,
              aes(x = X, y = Y, colour = Predicted, size = n), alpha = .6) +
   # scale_colour_gradientn(name = "minutes", colours=(brewer.pal(9,"YlGnBu")), limits = c(0,5)) +
-  scale_colour_manual(values=c("green", "#56B4E9", "#CC79A7","red")) +
+  scale_colour_manual(values=c("green", "#56B4E9", "#000080","red")) +
   scale_size(name = "calls", range=c(3,15)) +
   labs(fill="") + 
   theme_nothing(legend=TRUE) +
   # facet_wrap(~ Predicted) +
-  ggtitle("Predicted Time from Joy/Wash and 515")
+  ggtitle("Predicted Time from East of Union and 515")
 
 ggsave("./plots/all_from_515_and_JW_3.png", dpi=250, width=6, height=5)
 
@@ -931,14 +933,85 @@ ggmap(map) +
   geom_point(data = fdg_map,
              aes(x = X, y = Y, colour = Predicted, size = n), alpha = .6) +
   # scale_colour_gradientn(name = "minutes", colours=(brewer.pal(9,"YlGnBu")), limits = c(0,5)) +
-  scale_colour_manual(values=c("green", "#56B4E9", "#CC79A7","red")) +
+  scale_colour_manual(values=c("green", "#56B4E9", "#000080","red")) +
   scale_size(name = "calls", range=c(3,15)) +
   labs(fill="") + 
   theme_nothing(legend=TRUE) +
   # facet_wrap(~ Predicted) +
-  ggtitle("Predicted Time from Joy/Wash and 515")
+  ggtitle("Predicted Time from East of Union and 515")
 
 ggsave("./plots/all_from_515_and_JW_4.png", dpi=250, width=6, height=5)
+
+
+
+
+# Model Response of 515 alone
+fdg_map <- fdg %>% 
+  group_by(Full.Address) %>% 
+  summarise(n=n(), FiveFifteen.alone = mean(FiveFifteen.alone), 
+            X = X[1], Y = Y[1]) %>%
+  mutate(under.five = ifelse(FiveFifteen.alone > 5, "No", "Yes"),
+         minutes = FiveFifteen.alone) %>% 
+  mutate(Predicted = ifelse(minutes > 0 & minutes <= 2, "0-2",
+                            ifelse(minutes > 2 & minutes <= 4, "2-4",
+                                   ifelse(minutes > 4 & minutes <= 5, "4-5",
+                                          "5 +"))))
+
+map <- get_map(location = "Somerville, MA", zoom=14, maptype="roadmap", color = "bw")
+ggmap(map) + 
+  geom_point(data = fdg_map,
+             aes(x = X, y = Y, colour = FiveFifteen.alone, size = n), alpha = .7) +
+  scale_colour_gradientn(name = "minutes", colours=(brewer.pal(9,"YlGnBu")), limits = c(0,5)) +
+  scale_size(name = "calls", range=c(3,15)) +
+  labs(fill="") + 
+  theme_nothing(legend=TRUE) +
+  ggtitle("Predicted Time from 515")
+
+ggsave("./plots/all_from_515_alone.png", dpi=250, width=6, height=5)
+
+
+map <- get_map(location = "Somerville, MA", zoom=13, maptype="roadmap", color = "bw")
+ggmap(map) + 
+  geom_point(data = fdg_map,
+             aes(x = X, y = Y, colour = FiveFifteen.alone, size = n), alpha = .7) +
+  scale_colour_gradientn(name = "minutes", colours=(brewer.pal(9,"YlGnBu")), limits = c(0,5)) +
+  scale_size(name = "calls", range=c(3,15)) +
+  labs(fill="") + 
+  theme_nothing(legend=TRUE) +
+  ggtitle("Predicted Time from 515")
+
+ggsave("./plots/all_from_515_alone_2.png", dpi=250, width=6, height=5)
+
+
+map <- get_map(location = "Somerville, MA", zoom=14, maptype="roadmap", color = "bw")
+ggmap(map) + 
+  geom_point(data = fdg_map,
+             aes(x = X, y = Y, colour = Predicted, size = n), alpha = .6) +
+  # scale_colour_gradientn(name = "minutes", colours=(brewer.pal(9,"YlGnBu")), limits = c(0,5)) +
+  scale_colour_manual(values=c("green", "#56B4E9", "#000080","red")) +
+  scale_size(name = "calls", range=c(3,15)) +
+  labs(fill="") + 
+  theme_nothing(legend=TRUE) +
+  # facet_wrap(~ Predicted) +
+  ggtitle("Predicted Time from 515")
+
+ggsave("./plots/all_from_515_alone_3.png", dpi=250, width=6, height=5)
+
+
+map <- get_map(location = "Somerville, MA", zoom=13, maptype="roadmap", color = "bw")
+ggmap(map) + 
+  geom_point(data = fdg_map,
+             aes(x = X, y = Y, colour = Predicted, size = n), alpha = .6) +
+  # scale_colour_gradientn(name = "minutes", colours=(brewer.pal(9,"YlGnBu")), limits = c(0,5)) +
+  scale_colour_manual(values=c("green", "#56B4E9", "#000080","red")) +
+  scale_size(name = "calls", range=c(3,15)) +
+  labs(fill="") + 
+  theme_nothing(legend=TRUE) +
+  # facet_wrap(~ Predicted) +
+  ggtitle("Predicted Time from 515")
+
+ggsave("./plots/all_from_515_alone_4.png", dpi=250, width=6, height=5)
+
 
 
 
@@ -1021,7 +1094,7 @@ ggmap(map) +
   geom_point(data = fdg_map,
              aes(x = X, y = Y, colour = Predicted, size = n), alpha = .6) +
   # scale_colour_gradientn(name = "minutes", colours=(brewer.pal(9,"YlGnBu")), limits = c(0,5)) +
-  scale_colour_manual(values=c("green", "#56B4E9", "#CC79A7","red")) +
+  scale_colour_manual(values=c("green", "#56B4E9", "#000080","red")) +
   scale_size(name = "calls", range=c(3,15)) +
   labs(fill="") + 
   theme_nothing(legend=TRUE) +
@@ -1036,7 +1109,7 @@ ggmap(map) +
   geom_point(data = fdg_map,
              aes(x = X, y = Y, colour = Predicted, size = n), alpha = .6) +
   # scale_colour_gradientn(name = "minutes", colours=(brewer.pal(9,"YlGnBu")), limits = c(0,5)) +
-  scale_colour_manual(values=c("green", "#56B4E9", "#CC79A7","red")) +
+  scale_colour_manual(values=c("green", "#56B4E9", "#000080","red")) +
   scale_size(name = "calls", range=c(3,15)) +
   labs(fill="") + 
   theme_nothing(legend=TRUE) +
@@ -1075,13 +1148,13 @@ ggmap(map) +
              size = 4, alpha = .3) +
   labs(fill="", colour = "Closest") + 
   theme_nothing(legend=TRUE) +
-  ggtitle("Predicted Closest Station: Joy/Wash & 515")
+  ggtitle("Predicted Closest Station: East of Union & 515")
 
 ggsave("./plots/closest_JW_FiveFifteen.png", dpi=250, width=6, height=5)
 
 
 
-# Optimal boundaries Joy/Wash & Lowell
+# Optimal boundaries East of Union & Lowell
 fdg_map <- fdg 
 
 map <- get_map(location = "Somerville, MA", zoom=14, maptype="roadmap", color = "bw")
@@ -1091,7 +1164,7 @@ ggmap(map) +
              size = 4, alpha = .3) +
   labs(fill="", colour = "Closest") + 
   theme_nothing(legend=TRUE) +
-  ggtitle("Predicted Closest Station: Joy/Wash & Lowell")
+  ggtitle("Predicted Closest Station: East of Union & Lowell")
 
 ggsave("./plots/closest_JW_Lowell.png", dpi=250, width=6, height=5)
 
@@ -1275,7 +1348,7 @@ ggmap(map) +
   scale_size(name = "calls", range=c(3,15)) +
   labs(fill="") + 
   theme_nothing(legend=TRUE) +
-  ggtitle("Predicted Time from Joy/Wash to E3 Area")
+  ggtitle("Predicted Time from East of Union to E3 Area")
 
 ggsave("./plots/from_JW_to_E3_binary.png", dpi=250, width=6, height=5)
 
@@ -1295,7 +1368,7 @@ ggmap(map) +
   scale_size(name = "calls", range=c(3,15)) +
   labs(fill="") + 
   theme_nothing(legend=TRUE) +
-  ggtitle("Predicted Time from Joy/Wash to E3 Area")
+  ggtitle("Predicted Time from East of Union to E3 Area")
 
 ggsave("./plots/from_Lowell_to_E3_binary.png", dpi=250, width=6, height=5)
 
